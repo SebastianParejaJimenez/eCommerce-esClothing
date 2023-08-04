@@ -50,6 +50,7 @@
                 <x-app.headerstore />
 
                 <main>
+                    @yield('content')
                 </main>
 
             </div>
@@ -57,5 +58,7 @@
         </div>
 
         @livewireScripts
+        <script type="text/javascript" src="../node_modules/tw-elements/dist/js/tw-elements.umd.min.js"></script>
+
     </body>
 </html>

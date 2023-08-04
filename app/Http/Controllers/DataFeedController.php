@@ -2,31 +2,23 @@
 
     namespace App\Http\Controllers;
 
-    use App\Models\DataFeed;
     use Illuminate\Http\Request;
+    use Illuminate\Support\Facades\Http;
+    use App\Models\DataFeed;
+    use Carbon\Carbon;
 
-    class DataFeedController extends ApiController
+    class DashboardController extends Controller
     {
 
         /**
-         * @param Request $request
-         * @return mixed
+         * Displays the dashboard screen
+         *
+         * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
          */
-        public function getDataFeed(Request $request)
+        public function index()
         {
-            $df = new DataFeed();
+            $dataFeed = new DataFeed();
 
-            return (object)[
-                'labels' => $df->getDataFeed(
-                    $request->datatype,
-                    'label',
-                    $request->limit
-                ),
-                'data' => $df->getDataFeed(
-                    $request->datatype,
-                    'data',
-                    $request->limit
-                ),
-            ];
+            return view('pages/dashboard/dashboard', compact('dataFeed'));
         }
     }

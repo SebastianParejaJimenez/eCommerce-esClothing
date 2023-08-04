@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\DataFeed;
 use App\Models\Producto;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ProductosController extends Controller
 {
@@ -19,7 +20,6 @@ class ProductosController extends Controller
     {
         $dataFeed = new DataFeed();
         $productos = Producto::paginate(5);
-
         return view('pages/productos/productos', compact('dataFeed', 'productos'));
 
 
@@ -51,9 +51,13 @@ class ProductosController extends Controller
 
         if ($request->hasFile('imagen')) {
             $imagen = $request->file('imagen');
-            $rutaImagen = $imagen->storePublicly('public/images'); // Use storePublicly() instead of store()
-            $producto->imagen = str_replace('public/', '', $rutaImagen); // Remove the 'public/' prefix to store the correct path in the database.
-                }
+            $rutaGuardarImagen = "productos_subidos/";
+            $imgGuardado = date('YmdHis'). "." . $imagen->getClientOriginalExtension();
+            $imagen->move($rutaGuardarImagen, $imgGuardado);
+
+            $producto['imagen'] = $imgGuardado;
+
+        }
 
         $producto->save();
         return redirect()->route('productos');
@@ -109,6 +113,7 @@ class ProductosController extends Controller
         ]);
 
         $user_edit = Auth::user()->id;
+        $imagenAnterior = $producto->imagen;
 
         $producto->nombre = $request->input('nombre');
         $producto->precio = $request->input('precio');
@@ -118,12 +123,19 @@ class ProductosController extends Controller
 
         if ($request->hasFile('imagen')) {
 
+            if ($imagenAnterior) {
+                Storage::delete('productos_subidos/' . $imagenAnterior);
+            }
+
             $request->validate([
                 'imagen' => 'image|mimes:jpg,png,gif',
             ]);
-
             $imagen = $request->file('imagen');
-            $producto->imagen = str_replace('public/', '', $rutaImagen); // Remove the 'public/' prefix to store the correct path in the database.
+            $rutaGuardarImagen = "productos_subidos/";
+            $imgGuardado = date('YmdHis'). "." . $imagen->getClientOriginalExtension();
+            $imagen->move($rutaGuardarImagen, $imgGuardado);
+
+            $producto['imagen'] = $imgGuardado;
         }
 
         $producto->save();

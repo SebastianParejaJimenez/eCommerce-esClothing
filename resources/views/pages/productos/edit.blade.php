@@ -42,7 +42,7 @@
 
                 <label for="image"class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cambiar Imagen
                     del Producto</label>
-                <img src="{{ asset('storage/' . $producto->imagen) }}" alt="Foto actual" width="100" class="py-2 px-2">
+                <img src="{{ url('productos_subidos') }}/{{$producto->imagen}}" alt="Foto actual" width="100" class="py-2 px-2">
 
                 <div class="flex items-center justify-center w-full mb-6">
                     <input
