@@ -39,11 +39,10 @@
                 <a class="font-medium text-sm text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center py-1 px-3" href="{{ route('profile.show') }}" @click="open = false" @focus="open = true" @focusout="open = false">Configuraciones de Perfil</a>
             </li>
             <li>
-                <form method="POST" action="{{ route('logout') }}" x-data>
+                <form method="POST" action="{{ route('cierre_sesion') }}" x-data>
                     @csrf
 
                     <a class="font-medium text-sm text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center py-1 px-3"
-                        href="{{ route('logout') }}"
                         @click.prevent="$root.submit();"
                         @focus="open = true"
                         @focusout="open = false"

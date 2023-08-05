@@ -14,7 +14,6 @@
         @livewireStyles
 
         <!-- Scripts -->
-        <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         <script>
             if (localStorage.getItem('dark-mode') === 'false' || !('dark-mode' in localStorage)) {

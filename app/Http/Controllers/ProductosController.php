@@ -18,8 +18,10 @@ class ProductosController extends Controller
      */
     public function index(Request $request)
     {
+
+
         $dataFeed = new DataFeed();
-        $productos = Producto::paginate(5);
+        $productos = Producto::paginate(3);
         return view('pages/productos/productos', compact('dataFeed', 'productos'));
 
 
@@ -63,6 +65,15 @@ class ProductosController extends Controller
         return redirect()->route('productos');
 
     }
+
+    public function show($id){
+        $dataFeed = new DataFeed();
+        $producto = Producto::findOrFail($id);
+
+        return view('pages.productos.show', compact('dataFeed', 'producto'));
+
+    }
+
     public function sumar(Request $request, $id)
     {
         $producto = Producto::findOrFail($id);

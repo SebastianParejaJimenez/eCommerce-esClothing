@@ -6,6 +6,7 @@
     use Illuminate\Support\Facades\Http;
     use App\Models\DataFeed;
     use Carbon\Carbon;
+    use App\Models\Producto;
 
     class DashboardController extends Controller
     {
@@ -18,7 +19,9 @@
         public function index()
         {
             $dataFeed = new DataFeed();
+            $producto_top_mes = Producto::take(4)->get();
 
-            return view('pages/dashboard/dashboard', compact('dataFeed'));
+
+            return view('pages/dashboard/dashboard', compact('dataFeed', 'producto_top_mes'));
         }
     }
