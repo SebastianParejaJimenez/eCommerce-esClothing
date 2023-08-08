@@ -24,8 +24,13 @@ class StoreController extends Controller
 
     }
 
-    public function carrito(Request $request){
-        return view('pages/store/carrito');
+    public function catalogoVista(Request $request){
+        $productos_orden = Producto::all();
+        $productoReciente = Producto::latest('created_at')->first();
+
+        return view('pages/store/catalogo', compact('productos_orden', 'productoReciente'));
 
     }
+
+
 }
