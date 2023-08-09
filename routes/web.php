@@ -8,7 +8,8 @@ use App\Http\Controllers\CarritoController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\PedidosController;
-
+use App\Http\Controllers\StripeController;
+use App\Http\Controllers\UsuariosController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,6 +23,10 @@ use App\Http\Controllers\PedidosController;
 
 
 Route::redirect('/', 'tienda');
+
+Route::post('/session', [CarritoController::class, 'session'])->name('session');
+Route::get('/success', [CarritoController::class, 'confirmarCarrito'])->name('success');
+Route::get('/cancel', [CarritoController::class, 'cancel'])->name('cancel');
 
 Route::post('logout', [LoginController::class, 'logout'])->name('cierre_sesion');
 Route::get('/json-data-feed', [DataFeedController::class, 'getDataFeed'])->name('json_data_feed');
@@ -40,6 +45,8 @@ Route::get('/confirmarcarrito', [App\Http\Controllers\CarritoController::class, 
 Route::controller(StoreController::class)->group(function(){
     Route::get('/tienda', 'index')->name('tienda');
     Route::get('/catalogo', 'catalogoVista')->name('catalogo');
+    Route::get('/catalogo/{categoria}', 'catalogoVista')->name('catalogo_categoria');
+
 });
 
 
@@ -62,14 +69,16 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('/productos/{id}/editar', [ProductosController::class, 'edit'])->name('productos.edit');
         Route::post('/productos/{id}', [ProductosController::class, 'update'])->name('productos.update');
         Route::post('/productos/{id}', [ProductosController::class, 'destroy'])->name('productos.destroy');
-        Route::get('/productos/{id}', [ProductosController::class, 'show'])->name('productos.show');
+        Route::get('/productos/{id}/{slug}', [ProductosController::class, 'show'])->name('productos.show');
 
 
         Route::put('/productos/{id}/sumar', [ProductosController::class, 'sumar'])->name('productos.sumar');
         Route::put('/productos/{id}/restar', [ProductosController::class, 'restar'])->name('productos.restar');
 
     });
+
     Route::get('/pedidos', [PedidosController::class, 'index'])->name('pedidos');
+    Route::get('/usuarios/{usuario}', [UsuariosController::class, 'index'])->name('usuarios');
 
 
 });

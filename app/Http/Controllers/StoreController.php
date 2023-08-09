@@ -25,10 +25,16 @@ class StoreController extends Controller
     }
 
     public function catalogoVista(Request $request){
-        $productos_orden = Producto::all();
-        $productoReciente = Producto::latest('created_at')->first();
 
-        return view('pages/store/catalogo', compact('productos_orden', 'productoReciente'));
+        $categoria = $request->categoria;
+        $productos_categoria = Producto::where('categoria', $categoria)->paginate(12);
+
+        if (!$request->categoria) {
+        $productos_categoria = Producto::paginate(12);
+        }
+
+        $productoReciente = Producto::latest('created_at')->first();
+        return view('pages/store/catalogo', compact('productos_categoria', 'productoReciente'));
 
     }
 

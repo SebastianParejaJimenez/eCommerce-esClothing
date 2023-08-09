@@ -1,11 +1,10 @@
 @extends('layouts.appstore')
 
 @section('title', 'Página de inicio')
-@section('content')
+<div x-data="{ cartOpen: false , isOpen: false }" class="bg-white">
+    @section('content')
+    <x-productos.carrito-header />
 
-<div x-data="{ cartOpen: false , isOpen: false }">
-
-    <div x-data="{ cartOpen: false , isOpen: false }" class="bg-gray-100">
         <div class="mx-auto max-w-2xl px-2 py-12 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
 
                     <x-productos.contexto-empresa :productos='$producto_randoms' />

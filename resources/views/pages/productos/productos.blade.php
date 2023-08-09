@@ -3,8 +3,8 @@
         <x-dashboard.banners.products-banner />
 
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-{{--             <div class="my-2 flex sm:flex-row flex-col">
-                <div class="block relative px-3 ">
+           <div class="my-2 flex sm:flex-row flex-col">
+                <div class="block relative">
                     <span class="h-full absolute inset-y-0 left-0 flex items-center pl-2">
                         <svg viewBox="0 0 24 24" class="h-4 w-4 fill-current text-gray-500">
                             <path
@@ -12,14 +12,11 @@
                             </path>
                         </svg>
                     </span>
-                    <form action="GET">
-                        <input placeholder="Search" name="buscar"
-                            class=" filter appearance-none rounded-r rounded-l sm:rounded-l-none border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none" />
+                        <input placeholder="Buscar" id="buscar" class="appearance-none rounded-r rounded-l sm:rounded-l-none border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none" />
                 </div>
                 <button class=" px-3 btn bg-indigo-500 hover:bg-indigo-600 text-white" type="submit">Buscar</button>
-                    </form>
-            </div> --}}
-            <table id="myTable" class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+            </div>
+            <table id="productos_lista" class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                         <th scope="col" class="px-6 py-3">
@@ -49,9 +46,8 @@
                             <td class="w-32 p-4">
                                 <img src="{{ url('productos_subidos') }}/{{ $producto->imagen }}" alt="Image">
                             </td>
-                            <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+                            <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white producto_nombre">
                                 {{ $producto->nombre }}
-
                             </td>
                             <td class="px-6 py-4">
                                 <div class="flex items-center space-x-3">
@@ -95,11 +91,11 @@
 
                                 </div>
                             </td>
-                            <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+                            <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white producto_categoria">
                                 {{ $producto->categoria }}
 
                             </td>
-                            <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+                            <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white producto_precio">
                                 {{ $producto->precio }}
                             </td>
                             <td class="px-6 py-4">
@@ -132,7 +128,7 @@
                                         </svg>
                                         <span class="text-white text-md">Editar</span>
                                     </a>
-                                    <a href="{{ route('productos.show', ['id' => $producto->id]) }}"
+                                    <a href="{{ route('productos.show', ['id' => $producto->id, 'slug' => $producto->slug]) }}"
                                         class=" btn bg-indigo-500 hover:bg-indigo-600 text-white">
                                         <span class="hidden xs:block">Ver Producto</span>
                                     </a>
@@ -148,9 +144,5 @@
         </div>
     </div>
 
-    <script>
-        $(document).ready(function() {
-            $('#myTable').DataTable();
-        });
-    </script>
+
 </x-app-layout>

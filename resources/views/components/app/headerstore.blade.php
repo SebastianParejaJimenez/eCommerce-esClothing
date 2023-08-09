@@ -35,9 +35,12 @@
                     <li>
                         <a href="{{url('/tienda')}}" class="block py-2 pr-4 pl-3 text-gray-700 rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white" aria-current="page">Inicio</a>
                     </li>
+                    @if (Auth::user() && Auth::user()->rol_id == 1)
                     <li>
                         <a href="{{url('/dashboard')}}" class="block py-2 pr-4 pl-3 text-gray-700 rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white" aria-current="page">Dashboard</a>
                     </li>
+                    @endif
+
                     <li>
                         <a href="{{route('catalogo')}}" class="block py-2 pr-4 pl-3 text-gray-700 rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white" aria-current="page">Catálogo</a>
                     </li>

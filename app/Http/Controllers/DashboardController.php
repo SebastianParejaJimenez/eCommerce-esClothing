@@ -7,6 +7,7 @@
     use App\Models\DataFeed;
     use Carbon\Carbon;
     use App\Models\Producto;
+    use Illuminate\Support\Facades\Auth;
 
     class DashboardController extends Controller
     {
@@ -21,7 +22,12 @@
             $dataFeed = new DataFeed();
             $producto_top_mes = Producto::take(4)->get();
 
-
+            $rol = Auth::user()->rol_id;
+            if ($rol == 1) {
             return view('pages/dashboard/dashboard', compact('dataFeed', 'producto_top_mes'));
+            }
+            return redirect()->route('tienda');
+
+
         }
     }

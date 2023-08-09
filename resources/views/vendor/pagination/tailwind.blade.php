@@ -16,7 +16,7 @@
                         <svg class="h-4 w-4 fill-current" viewBox="0 0 16 16">
                             <path d="M9.4 13.4l1.4-1.4-4-4 4-4-1.4-1.4L4 8z" />
                         </svg>
-                    </a>                
+                    </a>
                 @endif
             </div>
 
@@ -55,30 +55,30 @@
                         <svg class="h-4 w-4 fill-current" viewBox="0 0 16 16">
                             <path d="M6.6 13.4L5.2 12l4-4-4-4 1.4-1.4L12 8z" />
                         </svg>
-                    </a>                
+                    </a>
                 @else
                     <span class="inline-flex items-center justify-center rounded leading-5 px-2.5 py-2 bg-white border border-slate-200 text-slate-300">
                         <span class="sr-only">{!! __('pagination.next') !!}</span><wbr />
                         <svg class="h-4 w-4 fill-current" viewBox="0 0 16 16">
                             <path d="M6.6 13.4L5.2 12l4-4-4-4 1.4-1.4L12 8z" />
                         </svg>
-                    </span>                
+                    </span>
                 @endif
-            </div>        
+            </div>
         </nav>
-        
+
         <div class="text-sm text-slate-500 text-center sm:text-left">
-            {!! __('Showing') !!}
+            {!! __('Mostrando') !!}
             @if ($paginator->firstItem())
                 <span class="font-medium text-slate-600">{{ $paginator->firstItem() }}</span>
-                {!! __('to') !!}
+                {!! __('de') !!}
                 <span class="font-medium text-slate-600">{{ $paginator->lastItem() }}</span>
             @else
                 {{ $paginator->count() }}
             @endif
-            {!! __('of') !!}
+            {!! __('de un total de') !!}
             <span class="font-medium text-slate-600">{{ $paginator->total() }}</span>
-            {!! __('results') !!}            
-        </div>    
+            {!! __('resultados') !!}
+        </div>
     </div>
 @endif

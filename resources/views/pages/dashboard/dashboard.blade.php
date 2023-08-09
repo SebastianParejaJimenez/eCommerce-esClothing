@@ -16,7 +16,6 @@
 
             <!-- Line chart (Acme Plus) -->
             <x-dashboard.dashboard-card-01 :dataFeed="$dataFeed" />
-
             <!-- Table (Top Channels) -->
             <x-dashboard.dashboard-card-07 :productoTopMes="$producto_top_mes" />
 

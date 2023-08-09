@@ -55,7 +55,7 @@
                                 </div>
                             </td>
                             <td class="container py-4 px-3 mx-0 min-w-full flex flex-col items-center">
-                                <a href="{{ route('productos.show', ['id' => $productoTopMes->id]) }}"
+                                <a href="{{ route('productos.show', ['id' => $productoTopMes->id, 'slug' => $productoTopMes->slug]) }}"
                                     class=" btn bg-indigo-500 hover:bg-indigo-600 text-white">
                                     <span class="hidden xs:block">Ver Producto</span>
                                 </a>

@@ -6,8 +6,7 @@
 
     <div class="bg-gray-100 dark:bg-slate-700">
         <div class="mx-auto max-w-2xl px-3 py-0.5 sm:px-6 sm:py-0.5 lg:max-w-7xl lg:px-5">
-            <!-- component -->
-            <!-- Create By Joker Banny -->
+
             <style>
                 @layer utilities {
 
@@ -20,7 +19,18 @@
             </style>
 
             <body>
-                <div class="h-screen bg-gray-100 pt-10">
+                @if (session('success'))
+                <div class="mt-5 px-4 py-3 leading-normal text-green-700 bg-green-100 rounded-lg" role="alert">
+                    <p class="font-bold">Se ha procesado el pago con exito!</p>
+                  </div>
+                @endif
+                @if (session('canceled'))
+                <div class=" mt-5 px-4 py-3 leading-normal text-red-100 bg-red-700 rounded-lg" role="alert">
+                    <p>El Pago ha sido cancelado o ha ocurrido algun error!</p>
+                  </div>
+                @endif
+
+            <div class="h-screen bg-gray-100 pt-10">
                     <h1 class="mb-10 text-center text-2xl font-bold">Carrito de Compras</h1>
                     <div class="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
                         <div class="rounded-lg md:w-2/3">
@@ -39,7 +49,7 @@
                                                 <a href="{{ route('decrementarcantidad', ['id' => $item->rowId]) }}"
                                                     class="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50">
                                                     - </a>
-                                                <input class="h-8 w-10 border bg-white text-center text-xs outline-none"
+                                                <input disabled   class="h-8 w-10 border bg-white text-center text-xs outline-none"
                                                     type="number" value="{{ $item->qty }}" min="1" />
                                                 <a href="{{ route('incrementarcantidad', ['id' => $item->rowId]) }}"
                                                     class="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50">
@@ -103,10 +113,10 @@
                                 </div>
 
                                 @auth
-                                <form action="{{ route('confirmarcarrito') }}">
+                                <form action="{{ url('/session') }}" method="POST">
                                     @csrf
                                     <button
-                                        class="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">Ordenar
+                                        class="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">Continuar Compra
                                     </button>
                                 </form>
 
@@ -130,8 +140,13 @@
                             </div>
                         @endif
                     </div>
+
                 </div>
             </body>
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"
+            integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous">
+            </script>
 
 
         </div>

@@ -35,9 +35,17 @@
                 <div class="mb-6">
                     <label
                         for="text"class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Categoria</label>
-                    <input value="{{$producto->categoria}}"  type="text" id="categoria" name="categoria" placeholder="Ingrese La categoria que tendra este Producto"
+                    <select type="text" id="categoria" name="categoria" placeholder="Ingrese La categoria que tendra este Producto"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         >
+                        <option value="" selected disabled>Seleccione una Opcion</option>
+                        <option value="Camisas">Camisas</option>
+                        <option value="Chaquetas-Buzos">Chaquetas y Buzos</option>
+                        <option value="Pantalones">Pantalones</option>
+                        <option value="Vestidos">Vestidos</option>
+                        <option value="Conjuntos">Conjuntos</option>
+                        <option value="Shorts">Shorts</option>
+                    </select>
                 </div>
 
                 <label for="image"class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cambiar Imagen

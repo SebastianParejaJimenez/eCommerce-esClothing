@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('productos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('deleted_by')->nullable();;
-            $table->unsignedBigInteger('updated_by')->nullable();;
-            $table->unsignedBigInteger('created_by')->nullable();;
+            $table->unsignedBigInteger('deleted_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
+            $table->unsignedBigInteger('created_by')->nullable();
             $table->string('nombre', 2000);
             $table->string('categoria', 2000);
             $table->decimal('precio');
