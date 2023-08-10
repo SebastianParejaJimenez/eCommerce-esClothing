@@ -19,6 +19,11 @@ return new class extends Migration
             $table->foreign('rol_id')->references('id')->on('rols');
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('ciudad')->nullable();
+            $table->string('pais')->nullable();
+            $table->string('direccion')->nullable();
+            $table->string('codigo_postal')->nullable();
+            $table->string('numero_telefono')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

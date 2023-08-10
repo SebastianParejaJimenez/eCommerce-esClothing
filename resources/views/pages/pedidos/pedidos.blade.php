@@ -1,5 +1,6 @@
 <x-app-layout>
     <div class="px-4 sm:px-6 lg:px-8 py-4 w-full max-w-9xl mx-auto">
+        <x-dashboard.spinner-loading />
 
         <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
             <thead class="bg-gray-50 dark:bg-gray-800">
@@ -78,9 +79,13 @@
                     <td class="px-4 py-4 text-sm whitespace-nowrap">
 
                         <div class="flex items-center gap-x-6">
+                        <form action="{{route('detalles.pedidos', ['id' => $orden->id, ])}}">
+                            <input type="hidden" value="{{$orden->id}}">
                             <button class="text-blue-500 transition-colors duration-200 hover:text-indigo-500 focus:outline-none">
                                 Ver Detalles
                             </button>
+                        </form>
+
                         </div>
 
                     </td>
@@ -89,6 +94,8 @@
 
             </tbody>
         </table>
+        {{ $ordenes->links() }}
+
     </div>
 
 

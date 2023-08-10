@@ -75,9 +75,18 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::put('/productos/{id}/restar', [ProductosController::class, 'restar'])->name('productos.restar');
 
     });
-
     Route::get('/pedidos', [PedidosController::class, 'index'])->name('pedidos');
+    Route::get('/pedidos/detalles/{id}', [PedidosController::class, 'show'])->name('detalles.pedidos');
+
+
+
+    Route::get('/usuarios/{id}/editar', [UsuariosController::class, 'edit'])->name('edit');
+    Route::put('/usuarios/{id}', [UsuariosController::class, 'update'])->name('user.update');
+
     Route::get('/usuarios/{usuario}', [UsuariosController::class, 'index'])->name('usuarios');
+    Route::get('/usuarios', [UsuariosController::class, 'index'])->name('usuarios');
+
+
 
 
 });

@@ -111,12 +111,12 @@
                         <div class="lg:hidden lg:sidebar-expanded:block 2xl:block">
                             <ul class="pl-9 mt-1 @if(!in_array(Request::segment(1), ['ecommerce'])){{ 'hidden' }}@endif" :class="open ? '!block' : 'hidden'">
                                 <li class="mb-1 last:mb-0">
-                                    <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate @if(Route::is('productos')){{ '!text-indigo-500' }}@endif" href="{{ route('productos') }}">
+                                    <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate @if(in_array(Request::segment(1), ['productos'])){{ '!text-indigo-500' }}@endif" href="{{ route('productos') }}">
                                         <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Productos</span>
                                     </a>
                                 </li>
                                 <li class="mb-1 last:mb-0">
-                                    <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate @if(Route::is('pedidos')){{ '!text-indigo-500' }}@endif" href="{{ route('pedidos') }}">
+                                    <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate @if(in_array(Request::segment(1), ['pedidos'])){{ '!text-indigo-500' }}@endif" href="{{ route('pedidos') }}">
                                         <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Pedidos</span>
                                     </a>
                                 </li>
@@ -147,12 +147,12 @@
                         <div class="lg:hidden lg:sidebar-expanded:block 2xl:block">
                             <ul class="pl-9 mt-1 @if(!in_array(Request::segment(1), ['usuarios'])){{ 'hidden' }}@endif" :class="open ? '!block' : 'hidden'">
                                 <li class="mb-1 last:mb-0">
-                                    <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate @if(Request::segment(2) === 'cliente'){{ '!text-indigo-500' }}@endif" href="{{route('usuarios', ['usuario' => 'cliente'])}}">
+                                    <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate @if(Request::segment(1) === 'usuarios' && request('usuario') === 'cliente'){{ '!text-indigo-500' }}@endif" href="{{route('usuarios', ['usuario' => 'cliente'])}}">
                                         <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Clientes</span>
                                     </a>
                                 </li>
                                 <li class="mb-1 last:mb-0">
-                                    <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate @if(Request::segment(2) === 'staff'){{ '!text-indigo-500' }}@endif" href="{{route('usuarios', ['usuario' => 'staff'])}}">
+                                    <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate  @if(Request::segment(1) === 'usuarios' && request('usuario') === 'staff'){{ '!text-indigo-500' }}@endif" href="{{route('usuarios', ['usuario' => 'staff'])}}">
                                         <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Staff</span>
                                     </a>
                                 </li>

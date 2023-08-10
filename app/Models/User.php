@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Rol;
 
 class User extends Authenticatable
 {
@@ -26,9 +27,19 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'rol_id',
         'password',
+        'ciudad',
+        'pais',
+        'direccion',
+        'codigo_postal',
+        'numero_telefono',
     ];
 
+    public function rol()
+    {
+        return $this->belongsTo(Rol::class);
+    }
     /**
      * The attributes that should be hidden for serialization.
      *

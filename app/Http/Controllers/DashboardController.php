@@ -22,7 +22,8 @@
         public function index()
         {
             $dataFeed = new DataFeed();
-            $productosConVentas = Producto::withCount('ordenProductos')->take(5)->get();
+            $productosConVentas = Producto::withCount('ordenProductos')->orderBy('orden_productos_count', 'desc')->take(5)->get();
+
             $ordenes_recientes = Orden::with('user')
             ->orderBy('created_at', 'desc')
             ->take(5)

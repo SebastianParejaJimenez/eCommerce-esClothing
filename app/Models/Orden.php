@@ -18,7 +18,7 @@ class Orden extends Model
     public function productos()
     {
         return $this->belongsToMany(Producto::class, 'orden_productos')
-            ->withPivot(['cantidad']);
+            ->withPivot(['cantidad', 'precio']);
     }
 
     public function user()

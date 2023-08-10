@@ -4,6 +4,8 @@
             <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
                     <div class="overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg">
+                        <x-dashboard.spinner-loading />
+
                         <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                             <thead class="bg-gray-50 dark:bg-gray-800">
                                 <tr>
@@ -19,7 +21,9 @@
                                     <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                         Usuario
                                     </th>
-
+                                    <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                        Datos
+                                    </th>
 
                                     <th scope="col" class="relative py-3.5 px-4">
                                         <span class="sr-only">Actions</span>
@@ -48,20 +52,34 @@
                                             <div>
                                                 <h2 class="text-sm font-medium text-gray-800 dark:text-white ">{{$usuario->name}}</h2>
                                                 <p class="text-xs font-normal text-gray-600 dark:text-gray-400">{{$usuario->email}}</p>
-                                                <p class="text-xs font-normal text-gray-600 dark:text-gray-400">{{$usuario->rol_id}}</p>
+                                                <p class="text-xs font-normal text-gray-600 dark:text-gray-400">{{$usuario->numero_telefono}}</p>
+                                                <p class="text-xs font-normal text-gray-600 dark:text-gray-400">{{$usuario->rol->rol}}</p>
+
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
+                                        <div class="flex items-center gap-x-2">
+
+                                            <div>
+                                                <h2 class="text-sm font-medium text-gray-800 dark:text-white ">{{$usuario->pais}}</h2>
+                                                <p class="text-xs font-normal text-gray-600 dark:text-gray-400">{{$usuario->ciudad}}</p>
+                                                <p class="text-xs font-normal text-gray-600 dark:text-gray-400">{{$usuario->codigo_postal}}</p>
+                                                <p class="text-xs font-normal text-gray-600 dark:text-gray-400">{{$usuario->direccion}}</p>
 
                                             </div>
                                         </div>
                                     </td>
                                     <td class="px-4 py-4 text-sm whitespace-nowrap">
                                         <div class="flex items-center gap-x-6">
-                                            <button class="text-gray-500 transition-colors duration-200 dark:hover:text-indigo-500 dark:text-gray-300 hover:text-indigo-500 focus:outline-none">
-                                                Archive
+                                            <input type="hidden" value="{{$usuario->id}}">
+                                            <a href="{{route('edit', [ 'id'=> $usuario->id ])}}" type="submit" class="text-blue-500 transition-colors duration-200 dark:hover:text-indigo-500 dark:text-gray-300 hover:text-indigo-500 focus:outline-none">
+                                                Editar
+                                            </a>
+                                            <button class="text-red-500 transition-colors duration-200 hover:text-indigo-500 focus:outline-none dark:hover:text-red-500 dark:text-red-300">
+                                                Eliminar
                                             </button>
 
-                                            <button class="text-blue-500 transition-colors duration-200 hover:text-indigo-500 focus:outline-none">
-                                                Download
-                                            </button>
                                         </div>
                                     </td>
                                 </tr>
