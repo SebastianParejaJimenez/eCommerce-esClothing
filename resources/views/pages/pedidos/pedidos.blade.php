@@ -73,7 +73,7 @@
 
                     </td>
                     <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
-                        ${{number_format($orden->total, 0, ',', '.')}}
+                        ${{number_format($orden->subtotal, 0, ',', '.')}}
                     </td>
                     <td class="px-4 py-4 text-sm whitespace-nowrap">
 

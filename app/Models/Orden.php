@@ -14,8 +14,6 @@ class Orden extends Model
     protected $fillable = [
         'user_id',
         'subtotal',
-        'iva',
-        'total',
     ];
     public function productos()
     {

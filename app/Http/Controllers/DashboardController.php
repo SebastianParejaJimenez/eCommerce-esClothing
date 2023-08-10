@@ -8,6 +8,8 @@
     use Carbon\Carbon;
     use App\Models\Producto;
     use Illuminate\Support\Facades\Auth;
+    use App\Models\Orden;
+    use App\Models\User;
 
     class DashboardController extends Controller
     {
@@ -20,11 +22,28 @@
         public function index()
         {
             $dataFeed = new DataFeed();
-            $producto_top_mes = Producto::take(4)->get();
+            $productosConVentas = Producto::withCount('ordenProductos')->take(5)->get();
+            $ordenes_recientes = Orden::with('user')
+            ->orderBy('created_at', 'desc')
+            ->take(5)
+            ->get();
+
+            $total_ventas = Orden::sum('subtotal');
+
+            $ventas = Orden::all();
+
+            $data = [];
+            foreach ($ventas as $venta) {
+                $data['label'][] = $venta->created_at->format('F');
+                $data['data'][] = $venta->subtotal;
+            }
+
+            $data['data'] = json_encode($data);
+
 
             $rol = Auth::user()->rol_id;
             if ($rol == 1) {
-            return view('pages/dashboard/dashboard', compact('dataFeed', 'producto_top_mes'));
+            return view('pages/dashboard/dashboard', $data, compact('dataFeed' , 'total_ventas' , 'productosConVentas', 'ordenes_recientes'));
             }
             return redirect()->route('tienda');
 

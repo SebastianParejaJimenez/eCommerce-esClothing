@@ -16,8 +16,6 @@ return new class extends Migration
         Schema::create('ordenes', function (Blueprint $table) {
             $table->id();
             $table->decimal('subtotal', 10, 2);
-            $table->decimal('iva', 10, 2);
-            $table->decimal('total', 10, 2);
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();

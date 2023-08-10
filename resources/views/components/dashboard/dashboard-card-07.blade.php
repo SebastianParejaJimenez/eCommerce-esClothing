@@ -25,9 +25,6 @@
                         <th class="p-2">
                             <div class="font-semibold text-center">Precio</div>
                         </th>
-                        <th class="p-2">
-                            <div class="font-semibold text-center">Ver</div>
-                        </th>
                     </tr>
                 </thead>
 
@@ -47,16 +44,16 @@
 
                             </td>
                             <td class="p-2">
-                                <div class="text-center text-emerald-500">$ ventas ej
+                                <div class="text-center text-base text-blue-500">{{ $productoTopMes->orden_productos_count }}
                                 </div>
                             </td>
                             <td class="p-2">
                                 <div class="text-center text-emerald-500">$ {{ $productoTopMes->precio }}
                                 </div>
                             </td>
-                            <td class="container py-4 px-3 mx-0 min-w-full flex flex-col items-center">
+                            <td class="p-2">
                                 <a href="{{ route('productos.show', ['id' => $productoTopMes->id, 'slug' => $productoTopMes->slug]) }}"
-                                    class=" btn bg-indigo-500 hover:bg-indigo-600 text-white">
+                                    class="btn bg-indigo-500 hover:bg-indigo-600 text-white">
                                     <span class="hidden xs:block">Ver Producto</span>
                                 </a>
                             </td>

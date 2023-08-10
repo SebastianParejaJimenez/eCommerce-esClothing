@@ -13,7 +13,6 @@ import { tailwindConfig } from './utils';
 
 // import component from './components/component';
 import dashboardCard01 from './components/dashboard-card-01';
-import dashboardCard02 from './components/dashboard-card-02';
 import dashboardCard03 from './components/dashboard-card-03';
 import dashboardCard04 from './components/dashboard-card-04';
 import dashboardCard05 from './components/dashboard-card-05';
@@ -112,7 +111,6 @@ document.addEventListener('DOMContentLoaded', () => {
     },
   });
   dashboardCard01();
-  dashboardCard02();
   dashboardCard03();
   dashboardCard04();
   dashboardCard05();

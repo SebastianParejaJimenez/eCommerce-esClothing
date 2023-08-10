@@ -2,8 +2,17 @@
     <div class="px-4 sm:px-6 lg:px-8 py-4 w-full max-w-9xl mx-auto">
         <x-dashboard.banners.products-banner />
 
-        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-           <div class="my-2 flex sm:flex-row flex-col">
+        <div id="spinner-loading" class='flex items-center justify-center min-h-screen'>
+            <button type="button" class="bg-indigo-400 h-max w-max rounded-lg text-white font-bold hover:bg-indigo-300 hover:cursor-not-allowed duration-[500ms,800ms]" disabled>
+                <div class="flex items-center justify-center m-[10px]">
+                    <div class="h-5 w-5 border-t-transparent border-solid animate-spin rounded-full border-white border-4"></div>
+                    <div class="ml-2"> Procesando... <div>
+                </div>
+            </button>
+        </div>
+
+        <div id="content-table" class=" relative overflow-x-auto shadow-md sm:rounded-lg">
+          <div class="my-2 flex sm:flex-row flex-col">
                 <div class="block relative">
                     <span class="h-full absolute inset-y-0 left-0 flex items-center pl-2">
                         <svg viewBox="0 0 24 24" class="h-4 w-4 fill-current text-gray-500">
@@ -144,5 +153,12 @@
         </div>
     </div>
 
-
+    <script>
+        window.onload = function () {
+            // Ocultar el spinner
+            document.getElementById('spinner-loading').style.display = 'none';
+            // Mostrar la tabla
+            document.getElementById('content-table').style.display = 'block';
+        };
+    </script>
 </x-app-layout>

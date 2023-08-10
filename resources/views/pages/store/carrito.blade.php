@@ -99,16 +99,11 @@
                                     <p class="text-gray-700">Subtotal</p>
                                     <p class="text-gray-700">${{ Cart::subtotal() }}</p>
                                 </div>
-                                <div class="flex justify-between">
-                                    <p class="text-gray-700">IVA</p>
-                                    <p class="text-gray-700">{{ Cart::tax() }}</p>
-                                </div>
                                 <hr class="my-4" />
                                 <div class="flex justify-between">
                                     <p class="text-lg font-bold">Total</p>
                                     <div class="">
-                                        <p class="mb-1 text-lg font-bold">${{ Cart::total() }}</p>
-                                        <p class="text-sm text-gray-700">Incluido IVA</p>
+                                        <p class="mb-1 text-lg font-bold">${{ Cart::subtotal() }}</p>
                                     </div>
                                 </div>
 

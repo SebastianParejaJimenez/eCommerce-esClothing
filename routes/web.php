@@ -8,7 +8,6 @@ use App\Http\Controllers\CarritoController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\PedidosController;
-use App\Http\Controllers\StripeController;
 use App\Http\Controllers\UsuariosController;
 /*
 |--------------------------------------------------------------------------

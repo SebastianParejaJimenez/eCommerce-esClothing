@@ -28,12 +28,13 @@ class StoreController extends Controller
 
         $categoria = $request->categoria;
         $productos_categoria = Producto::where('categoria', $categoria)->paginate(12);
+        $productoReciente = Producto::latest('created_at')->where('categoria', $categoria)->first();
 
         if (!$request->categoria) {
         $productos_categoria = Producto::paginate(12);
+        $productoReciente = Producto::latest('created_at')->first();
         }
 
-        $productoReciente = Producto::latest('created_at')->first();
         return view('pages/store/catalogo', compact('productos_categoria', 'productoReciente'));
 
     }

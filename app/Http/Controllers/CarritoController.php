@@ -26,7 +26,7 @@ class CarritoController extends Controller
                 'categoria' => $producto->categoria,
             ]
             ]);
-            return redirect()->back()->with("success", "Producto agg");
+            return redirect()->back()->with("agregaritem", "Producto agg");
     }
     public function vercarrito(Request $request){
         return view('pages/store/carrito');
@@ -37,7 +37,7 @@ class CarritoController extends Controller
 
         $item = Cart::content()->where("rowId",$request->id)->first();
         Cart::update($request->id,["qty"=>$item->qty+1]);
-        return redirect()->back()->with("success", "Producto updated");
+        return redirect()->back()->with("incrementarCantidad", "Producto updated");
 
 
     }
@@ -45,20 +45,20 @@ class CarritoController extends Controller
 
         $item = Cart::content()->where("rowId",$request->id)->first();
         Cart::update($request->id,["qty"=>$item->qty-1]);
-        return redirect()->back()->with("success", "Producto updated");
+        return redirect()->back()->with("decrementarCantidad", "Producto updated");
 
 
     }
 
     public function eliminarItem(Request $request){
         Cart::remove($request->id);
-        return redirect()->back()->with("success", "Producto updated");
+        return redirect()->back()->with("eliminarItem", "Producto updated");
 
     }
 
     public function eliminarCarrito(Request $request){
         Cart::destroy();
-        return redirect()->back()->with("success", "carrito eliminao");
+        return redirect()->back()->with("eliminarCarrito", "carrito eliminao");
 
     }
 
@@ -67,8 +67,6 @@ class CarritoController extends Controller
         $orden = new Orden();
 
         $orden->subtotal = str_replace(',', '',Cart::subtotal());
-        $orden->iva =  str_replace(',', '', Cart::tax());
-        $orden->total = str_replace(',', '',  Cart::total());
         $orden->user_id = auth()->user()->id;
         $orden->save();
         foreach(Cart::content() as $item){
@@ -92,12 +90,10 @@ class CarritoController extends Controller
         $productItems = [];
         $user         = auth()->user();
         \Stripe\Stripe::setApiKey(config('stripe.sk'));
-
         foreach(Cart::content() as $item){
             $product_name =  $item->name;
             $total = $item->price;
             $quantity = $item->qty;
-
             $two = "00";
             $unit_amount = "$total$two";
             $productItems[] = [

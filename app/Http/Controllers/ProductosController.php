@@ -22,7 +22,7 @@ class ProductosController extends Controller
 
 
         $dataFeed = new DataFeed();
-        $productos = Producto::paginate(3);
+        $productos = Producto::paginate(5);
 
         $rol = Auth::user()->rol_id;
         if ($rol == 1) {

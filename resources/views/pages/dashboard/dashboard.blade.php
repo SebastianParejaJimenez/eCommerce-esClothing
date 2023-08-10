@@ -4,24 +4,18 @@
         <!-- Welcome banner -->
         <x-dashboard.welcome-banner />
 
-        <!-- Dashboard actions -->
-        <div class="sm:flex sm:justify-between sm:items-center mb-8">
-
-            <!-- Right: Actions -->
-
-        </div>
-
         <!-- Cards -->
-        <div class="grid grid-cols-12 gap-6">
+        <div id="content-main" class="grid grid-cols-12 gap-6">
 
             <!-- Line chart (Acme Plus) -->
-            <x-dashboard.dashboard-card-01 :dataFeed="$dataFeed" />
             <!-- Table (Top Channels) -->
-            <x-dashboard.dashboard-card-07 :productoTopMes="$producto_top_mes" />
+            <x-dashboard.dashboard-card-13 :ventasRecientes="$ordenes_recientes" />
 
+            <x-dashboard.dashboard-card-02 :data="$data" :ventasTotales="$total_ventas" />
 
-
+            <x-dashboard.dashboard-card-07 :productoTopMes="$productosConVentas" />
         </div>
 
     </div>
+
 </x-app-layout>
