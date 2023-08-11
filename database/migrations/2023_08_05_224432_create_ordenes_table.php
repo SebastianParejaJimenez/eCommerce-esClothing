@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->decimal('subtotal', 10, 2);
             $table->unsignedBigInteger('user_id');
+            $table->string('estado')->default('PENDIENTE');
+            $table->string('session_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });

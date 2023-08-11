@@ -24,7 +24,7 @@ use App\Http\Controllers\UsuariosController;
 Route::redirect('/', 'tienda');
 
 Route::post('/session', [CarritoController::class, 'session'])->name('session');
-Route::get('/success', [CarritoController::class, 'confirmarCarrito'])->name('success');
+Route::get('/success', [CarritoController::class, 'success'])->name('success');
 Route::get('/cancel', [CarritoController::class, 'cancel'])->name('cancel');
 
 Route::post('logout', [LoginController::class, 'logout'])->name('cierre_sesion');

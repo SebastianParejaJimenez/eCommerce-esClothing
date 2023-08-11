@@ -22,7 +22,7 @@
                 @if (session('success'))
                 <div class="mt-5 px-4 py-3 leading-normal text-green-700 bg-green-100 rounded-lg" role="alert">
                     <p class="font-bold">Se ha procesado el pago con exito!</p>
-                  </div>
+                </div>
                 @endif
                 @if (session('canceled'))
                 <div class=" mt-5 px-4 py-3 leading-normal text-red-100 bg-red-700 rounded-lg" role="alert">
