@@ -10,11 +10,13 @@
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
+    
         <!-- Styles -->
         @livewireStyles
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+
         <script>
             if (localStorage.getItem('dark-mode') === 'false' || !('dark-mode' in localStorage)) {
                 document.querySelector('html').classList.remove('dark');
@@ -43,13 +45,18 @@
         <!-- Page wrapper -->
         <div class="flex h-screen overflow-hidden">
 
+            @if(Auth::user()->rol_id == 1 )
             <x-app.sidebar />
+            @endif
 
             <!-- Content area -->
             <div class="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden @if($attributes['background']){{ $attributes['background'] }}@endif" x-ref="contentarea">
-
+                
+                @if(Auth::user()->rol_id == 1 )
                 <x-app.header />
-
+                @else
+                <x-app.headerstore />   
+                @endif
                 <main>
                     {{ $slot }}
                 </main>
@@ -59,5 +66,6 @@
         </div>
 
         @livewireScripts
+
     </body>
 </html>

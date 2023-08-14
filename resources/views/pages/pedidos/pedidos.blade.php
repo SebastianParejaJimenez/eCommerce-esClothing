@@ -50,26 +50,48 @@
 
                     </td>
                     <td class="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
-                        <div class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 @if($orden->estado == "PAGADO"){{'text-emerald-500 bg-emerald-100/60'}} @else {{'text-gray-500 bg-gray-200'}}  @endif dark:bg-gray-800">
+                        <div class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 
+                        @switch(true)
+                        @case($orden->estado == "PAGADO")
+                        text-cyan-500 bg-blue-100/60
+                            @break
+                        
+                        @case($orden->estado == "CANCELADO")
+                            text-red-500 bg-red-200
+                            @break
+                        @case($orden->estado == "PENDIENTE")
+                            text-gray-500 bg-gray-200
+                            @break
+                        
+                        @case($orden->estado == "COMPLETADO")
+                            text-green-500 bg-green-100/60
+                            @break
+                        @endswitch
+                        ">
+                            @switch(true)
+                                @case($orden->estado == "PAGADO")
                             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M10 3L4.5 8.5L2 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
+                                @break
+                            @case($orden->estado == "PENDIENTE")
+                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4.5 7L2 4.5M2 4.5L4.5 2M2 4.5H8C8.53043 4.5 9.03914 4.71071 9.41421 5.08579C9.78929 5.46086 10 5.96957 10 6.5V10" stroke="#667085" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            @break
 
+                            @case($orden->estado == "CANCELADO")
+                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 3L3 9M3 3L9 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                                @break
+                            @endswitch
                             <h2 class="text-sm font-normal">{{$orden->estado}}</h2>
                         </div>
 
 
-                            {{-- Estilo para estado inactivo-cancelao --}}
-{{--                         <div class="inline-flex items-center px-3 py-1 text-red-500 rounded-full gap-x-2 bg-red-100/60 dark:bg-gray-800">
-                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9 3L3 9M3 3L9 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-
-                            <h2 class="text-sm font-normal">Cancelled</h2>
-                        </div>
- --}}
-
                     </td>
+                    
                     <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
                         <div class="flex items-center gap-x-2">
                             <img class="object-cover w-8 h-8 rounded-full" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80" alt="">
@@ -100,7 +122,7 @@
                                 Ver Detalles
                             </button>
                         </form>
-                        <button class="text-blue-500 transition-colors duration-200 hover:text-indigo-500 focus:outline-none">
+                        <button class="text-blue-500 transition-colors duration-200 hover:text-indigo-500 focus:outline-none" onclick="onclickexample({{$orden->id}})">
                             Cambiar Estado
                         </button>
                         </div>
@@ -114,6 +136,77 @@
         {{ $ordenes->links() }}
 
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+<script>
 
+function onclickexample(id_pedido){
+
+    (async() => {
+        const {value: estado} = await Swal.fire({
+        title: 'Cambio de Estado',
+        text: 'Selecciona el estado que deseas darle al pedido,',
+        icon: 'question',
+        confirmButtonText: 'Confirmar',
+        cancelButtonText: 'Cancelar',
+        showCancelButton: true,
+
+        input: 'select',
+        inputPlaceholder: 'Seleccione el Nuevo estado',
+        inputOptions: {
+            PENDIENTE: 'Pendiente',
+            COMPLETADO: 'Completado',
+            CANCELADO: 'Cancelado'
+        }
+        })
+
+        if (estado) {
+            const estadoNuevo = estado;
+            const pedidoSeleccionado = id_pedido;
+
+            $.ajax({
+                type: 'GET',
+                url: '{{ route("pedido.estado", ["id" => ":id", "estado" => ":estado"]) }}'
+                    .replace(':id', pedidoSeleccionado)
+                    .replace(':estado', estadoNuevo),
+                error: () => {
+                    Swal.fire(
+                        'Something went wrong!',
+                        'record was not deleted.',
+                        'error',
+                    );
+                },
+                success: function(response) {
+                    if (response.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Estado Cambiado',
+                            showConfirmButton: false,
+ 
+                        }); 
+                        window.setTimeout(function(){ 
+                        location.reload();
+                        } ,900);
+                    }
+                } ,
+            });
+        }
+        else{
+            Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'No se Realizo ningun cambio',
+            showConfirmButton: false,
+            timer: 600
+            })
+        }
+
+    }) ()
+
+
+}
+
+
+</script>
 
 </x-app-layout>

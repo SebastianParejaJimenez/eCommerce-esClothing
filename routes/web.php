@@ -54,6 +54,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     // Route for the getting the data feed
     Route::get('/json-data-feed', [DataFeedController::class, 'getDataFeed'])->name('json_data_feed');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    
     Route::fallback(function() {
         return view('pages/utility/404');
     });
@@ -77,7 +78,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     });
     Route::get('/pedidos', [PedidosController::class, 'index'])->name('pedidos');
     Route::get('/pedidos/detalles/{id}', [PedidosController::class, 'show'])->name('detalles.pedidos');
-
+    Route::get('/pedidos/estado/{id}/{estado}', [PedidosController::class, 'updateEstado'])->name('pedido.estado');
 
 
     Route::get('/usuarios/{id}/editar', [UsuariosController::class, 'edit'])->name('edit');

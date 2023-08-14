@@ -84,7 +84,7 @@
             <div class="w-full md:w-1/2 py-10 px-5 md:px-10">
                 <div class="text-center mb-10">
                     <h1 class="font-bold text-3xl text-gray-900">REGISTER</h1>
-                    <p>Enter your information to register</p>
+                    <p>Ingresa tus datos</p>
                     <x-jet-validation-errors class="mt-4" />
 
                 </div>
@@ -160,14 +160,14 @@
                     </div>
                     <div class="flex -mx-3">
                         <div class="w-full px-3 mb-5">
-                            <x-jet-label for="country" value="{{ __('País') }}" />
-                            <x-jet-input id="country" class="block mt-1 w-full" type="text" name="pais"
-                                :value="old('country')" required placeholder="País" />
+                            <x-jet-label for="pais" value="{{ __('País') }}" />
+                            <x-jet-input id="pais" class="block mt-1 w-full" type="text" name="pais"
+                                :value="old('pais')" required placeholder="País" />
                         </div>
                         <div class="w-full px-3 mb-5">
-                            <x-jet-label for="city" value="{{ __('Ciudad') }}" />
-                            <x-jet-input id="city" class="block mt-1 w-full" type="text" name="ciudad" placeholder="Ciudad"
-                                :value="old('city')" required autofocus />
+                            <x-jet-label for="ciudad" value="{{ __('Ciudad') }}" />
+                            <x-jet-input id="ciudad" class="block mt-1 w-full" type="text" name="ciudad" placeholder="Ciudad"
+                                :value="old('ciudad')" required autofocus />
                         </div>
                     </div>
 

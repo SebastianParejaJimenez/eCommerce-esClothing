@@ -30,4 +30,15 @@ class PedidosController extends Controller
 
 
     }
+
+    public function updateEstado($id, $estado){
+        
+        $pedido = Orden::findOrFail($id);
+        $pedido->estado = $estado;
+        $pedido->save();
+
+        return response()->json(['success' => true]);
+        
+
+    }
 }
