@@ -17,7 +17,11 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('rol_id')->nullable()->default(2);
             $table->foreign('rol_id')->references('id')->on('rols');
+            $table->string('estado')->default('Activo');
             $table->string('name');
+            $table->string('deleted_by')->nullable();
+            $table->string('updated_by')->nullable();
+            $table->string('created_by')->nullable();
             $table->string('email')->unique();
             $table->string('ciudad')->nullable();
             $table->string('pais')->nullable();
@@ -27,6 +31,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+            $table->softDeletes();
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();
             $table->timestamps();

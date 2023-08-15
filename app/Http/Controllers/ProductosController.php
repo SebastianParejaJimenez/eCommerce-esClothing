@@ -20,7 +20,6 @@ class ProductosController extends Controller
     public function index(Request $request)
     {
 
-
         $dataFeed = new DataFeed();
         $productos = Producto::paginate(5);
 
@@ -30,6 +29,19 @@ class ProductosController extends Controller
         }
         return redirect()->route('tienda');
 
+    }
+
+    public function search(Request $request)
+    {
+        $query = Producto::query();
+
+        if ($request->has('q')) {
+            $query->where('nombre', 'like', '%' . $request->input('q') . '%');
+        }
+
+        $productos = $query->paginate(5);
+
+        return view('pages/productos/productos', compact('productos'));
     }
 
     public function create(Request $request){

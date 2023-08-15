@@ -65,7 +65,7 @@
                             <ul class="pl-9 mt-1 @if(!in_array(Request::segment(1), ['dashboard'])){{ 'hidden' }}@endif" :class="open ? '!block' : 'hidden'">
                                 <li class="mb-1 last:mb-0">
                                     <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate @if(Route::is('dashboard')){{ '!text-indigo-500' }}@endif" href="{{ route('dashboard') }}">
-                                        <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Main</span>
+                                        <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Inicio</span>
                                     </a>
                                 </li>
                             </ul>
@@ -132,13 +132,8 @@
                         <div class="lg:hidden lg:sidebar-expanded:block 2xl:block">
                             <ul class="pl-9 mt-1 @if(!in_array(Request::segment(1), ['usuarios'])){{ 'hidden' }}@endif" :class="open ? '!block' : 'hidden'">
                                 <li class="mb-1 last:mb-0">
-                                    <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate @if(Request::segment(1) === 'usuarios' && request('usuario') === 'cliente'){{ '!text-indigo-500' }}@endif" href="{{route('usuarios', ['usuario' => 'cliente'])}}">
-                                        <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Clientes</span>
-                                    </a>
-                                </li>
-                                <li class="mb-1 last:mb-0">
-                                    <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate  @if(Request::segment(1) === 'usuarios' && request('usuario') === 'staff'){{ '!text-indigo-500' }}@endif" href="{{route('usuarios', ['usuario' => 'staff'])}}">
-                                        <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Staff</span>
+                                    <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate @if(Request::segment(1) === 'usuarios'){{ '!text-indigo-500' }}@endif" href="{{route('usuarios')}}">
+                                        <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Usuarios Registrados</span>
                                     </a>
                                 </li>
                             </ul>

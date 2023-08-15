@@ -28,9 +28,16 @@
                 @else
                 <a href="{{route('login')}}" class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">Inicia Sesión</a>
                 @endif
+            </div>                    
+            <div class="flex sm:hidden">
+                <button @click="isOpen = !isOpen" type="button" class="text-gray-600 hover:text-gray-500 focus:outline-none focus:text-gray-500" aria-label="toggle menu">
+                    <svg viewBox="0 0 24 24" class="h-6 w-6 fill-current">
+                        <path fill-rule="evenodd" d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"></path>
+                    </svg>
+                </button>
             </div>
-
-            <div class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1" id="">
+        <nav :class="isOpen ? '' : 'hidden'" class="sm:flex sm:justify-center sm:items-center mt-4">
+            <div class=" justify-between items-center w-full lg:flex lg:w-auto lg:order-1" id="">
                 <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
                     <li>
                         <a href="{{url('/tienda')}}" class="block py-2 pr-4 pl-3 text-gray-700 rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white" aria-current="page">Inicio</a>
@@ -46,6 +53,8 @@
                     </li>
                 </ul>
             </div>
+        </nav>
+        
         </div>
     </nav>
 </header>

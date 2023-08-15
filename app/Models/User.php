@@ -10,6 +10,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Rol;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
@@ -18,7 +19,7 @@ class User extends Authenticatable
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
-
+    use SoftDeletes;
     /**
      * The attributes that are mass assignable.
      *
@@ -30,11 +31,13 @@ class User extends Authenticatable
         'rol_id',
         'password',
         'ciudad',
+        'estado',
         'pais',
         'direccion',
         'codigo_postal',
         'numero_telefono',
     ];
+    protected $dates = ['deleted_at'];
 
     public function rol()
     {

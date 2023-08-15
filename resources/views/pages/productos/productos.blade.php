@@ -5,6 +5,7 @@
         <x-dashboard.spinner-loading />
 
         <div id="content-table" class=" relative overflow-x-auto shadow-md sm:rounded-lg">
+            <form action="{{route('productos.search')}}" method="GET">  
           <div class="my-2 flex sm:flex-row flex-col">
                 <div class="block relative">
                     <span class="h-full absolute inset-y-0 left-0 flex items-center pl-2">
@@ -14,10 +15,12 @@
                             </path>
                         </svg>
                     </span>
-                        <input placeholder="Buscar" id="buscar" class="appearance-none rounded-r rounded-l sm:rounded-l-none border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none" />
+                        <input placeholder="Buscar" name="q" class="appearance-none rounded-r rounded-l sm:rounded-l-none border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none" />
                 </div>
-                <button class=" px-3 btn bg-indigo-500 hover:bg-indigo-600 text-white" type="submit">Buscar</button>
+                <button type="submit" class=" px-3 btn bg-indigo-500 hover:bg-indigo-600 text-white" type="submit">Buscar</button>
             </div>
+        </form>
+
             <table id="productos_lista" class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>

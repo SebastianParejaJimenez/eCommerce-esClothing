@@ -28,8 +28,8 @@ Route::get('/success', [CarritoController::class, 'success'])->name('success');
 Route::get('/cancel', [CarritoController::class, 'cancel'])->name('cancel');
 
 Route::post('logout', [LoginController::class, 'logout'])->name('cierre_sesion');
-Route::get('/json-data-feed', [DataFeedController::class, 'getDataFeed'])->name('json_data_feed');
-
+/* Route::get('/json-data-feed', [DataFeedController::class, 'getDataFeed'])->name('json_data_feed');
+ */
 //Routes Carrito
 Route::post('/agregaritem', [App\Http\Controllers\CarritoController::class, 'agregaritem'])->name('agregaritem');
 Route::get('/carrito', [App\Http\Controllers\CarritoController::class, 'vercarrito'])->name('carrito_detalles');
@@ -63,6 +63,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::resource('productos', ProductosController::class);
     Route::controller(ProductosController::class)->group(function(){
         Route::get('/productos', 'index')->name('productos');
+        Route::get('/products/search', 'search')->name('productos.search');
         Route::post('productos', 'store')->name('productos.store');
         Route::get('productos/create', 'create')->name('producto_crear');
 
@@ -80,11 +81,15 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/pedidos/detalles/{id}', [PedidosController::class, 'show'])->name('detalles.pedidos');
     Route::get('/pedidos/estado/{id}/{estado}', [PedidosController::class, 'updateEstado'])->name('pedido.estado');
 
-
+    Route::get('/usuarios/inactivos', [UsuariosController::class, 'inactivos'])->name('usuarios.inactivos');
     Route::get('/usuarios/{id}/editar', [UsuariosController::class, 'edit'])->name('edit');
-    Route::put('/usuarios/{id}', [UsuariosController::class, 'update'])->name('user.update');
+    Route::delete('/usuarios/{id}', [UsuariosController::class, 'destroy'])->name('usuarios.destroy');
+    Route::get('usuarios/restore/{id}', [UsuariosController::class, 'restore'])->name('users.restore');
+    Route::get('usuarios/restoreAll', [UsuariosController::class, 'restoreAll'])->name('users.restore.all');
+    Route::get('/usuarios/search', [UsuariosController::class, 'search'])->name('usuarios.search');
 
-    Route::get('/usuarios/{usuario}', [UsuariosController::class, 'index'])->name('usuarios');
+
+    Route::put('/usuarios/{id}', [UsuariosController::class, 'update'])->name('user.update');
     Route::get('/usuarios', [UsuariosController::class, 'index'])->name('usuarios');
 
 

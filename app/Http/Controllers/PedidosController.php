@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\DataFeed;
 use App\Models\Orden; // Asegúrate de importar el modelo Orden
 use Carbon\Carbon;
-
+use Illuminate\Support\Facades\Toastr;
 
 use Illuminate\Http\Request;
 
@@ -38,7 +38,5 @@ class PedidosController extends Controller
         $pedido->save();
 
         return response()->json(['success' => true]);
-        
-
     }
 }
