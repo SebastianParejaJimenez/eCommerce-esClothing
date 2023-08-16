@@ -60,9 +60,13 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     });
 
     //Rutas Productos
+    Route::get('/productos/estadisticas', [ProductosController::class, 'estadisticas'])->name('productos.estadisticas');
+    
     Route::resource('productos', ProductosController::class);
     Route::controller(ProductosController::class)->group(function(){
+        
         Route::get('/productos', 'index')->name('productos');
+        
         Route::get('/products/search', 'search')->name('productos.search');
         Route::post('productos', 'store')->name('productos.store');
         Route::get('productos/create', 'create')->name('producto_crear');

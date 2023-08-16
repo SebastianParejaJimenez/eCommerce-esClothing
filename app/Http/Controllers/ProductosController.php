@@ -8,6 +8,7 @@ use App\Models\Producto;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class ProductosController extends Controller
 {
@@ -42,6 +43,37 @@ class ProductosController extends Controller
         $productos = $query->paginate(5);
 
         return view('pages/productos/productos', compact('productos'));
+    }
+
+    public function estadisticas(Request $request){
+        $productosVendidos = Producto::withCount('ordenProductos')->orderBy('orden_productos_count', 'desc')->get();
+        $productosConVentas = Producto::all();
+        
+        $productos_mes = Producto::selectRaw('MONTH(orden_productos.created_at) as mes, COUNT(orden_productos.id) as total_ventas')
+        ->join('orden_productos', 'productos.id', '=', 'orden_productos.producto_id')
+        ->groupBy('mes')
+        ->orderBy('mes')
+        ->get();
+        
+        $data_barras = [];
+        $data = [];
+
+        //Diagrama de torta
+        foreach ($productosConVentas as $producto) {
+            $data['label'][] = $producto->nombre;
+            $data['data'][] = $producto->ordenProductos->count();
+        }
+
+        //Diagrama de Barras
+        foreach ($productos_mes as $producto) {
+            $mesNombre = Carbon::create()->month($producto->mes)->locale('es')->monthName;
+            $data_barras['label_barras'][] = $mesNombre;
+            $data_barras['data_barras'][] = $producto->total_ventas;
+        }
+
+        $data_barras['data_barras'] = json_encode($data_barras);
+        $data['data'] = json_encode($data);
+        return view('pages/productos/estadisticas', $data, $data_barras);
     }
 
     public function create(Request $request){

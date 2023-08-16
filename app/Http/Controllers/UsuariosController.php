@@ -23,13 +23,6 @@ class UsuariosController extends Controller
         if ($request->has('q')) {
             $query->where('name', 'like', '%' . $request->input('q') . '%');
         }
-/*         if ($request->has('rol')) {
-            $query->where('rol', $request->input('rol'));
-        } */
-
-  /*       if ($request->has('estado')) {
-            $query->where('estado', $request->input('estado'));
-        } */
         $usuario = $query->paginate(5);
 
         return view('pages/usuarios/usuarios', compact('usuario'));

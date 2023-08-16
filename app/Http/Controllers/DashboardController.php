@@ -21,11 +21,11 @@
          */
         public function index()
         {
-            $dataFeed = new DataFeed();
             $productosConVentas = Producto::withCount('ordenProductos')->orderBy('orden_productos_count', 'desc')->take(5)->get();
 
             $ordenes_recientes = Orden::with('user')
             ->orderBy('created_at', 'desc')
+            ->whereMonth('created_at', Carbon::now()->month)
             ->take(5)
             ->get();
 
@@ -41,10 +41,9 @@
 
             $data['data'] = json_encode($data);
 
-
             $rol = Auth::user()->rol_id;
             if ($rol == 1) {
-            return view('pages/dashboard/dashboard', $data, compact('dataFeed' , 'total_ventas' , 'productosConVentas', 'ordenes_recientes'));
+            return view('pages/dashboard/dashboard', $data, compact('total_ventas' , 'productosConVentas', 'ordenes_recientes'));
             }
             return redirect()->route('tienda');
 
