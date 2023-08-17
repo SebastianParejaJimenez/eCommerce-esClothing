@@ -29,8 +29,22 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('users')->insert([
-            'name'  => 'Administrador',
+            'name'  => 'Administrador 1',
             'email'     => 'admin@gmail.com',
+            'password'  => bcrypt('12345678'),
+            'rol_id' => '1',
+            'created_at' => now(),
+        ]);
+        DB::table('users')->insert([
+            'name'  => 'Administrador 2',
+            'email'     => 'admin2@gmail.com',
+            'password'  => bcrypt('12345678'),
+            'rol_id' => '1',
+            'created_at' => now(),
+        ]);
+        DB::table('users')->insert([
+            'name'  => 'Administrador 3',
+            'email'     => 'admin3@gmail.com',
             'password'  => bcrypt('12345678'),
             'rol_id' => '1',
             'created_at' => now(),

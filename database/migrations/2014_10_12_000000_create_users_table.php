@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('rol_id')->nullable()->default(2);
             $table->foreign('rol_id')->references('id')->on('rols');
-            $table->string('estado')->default('Activo');
             $table->string('name');
+            $table->string('estado')->default('Activo');
             $table->string('deleted_by')->nullable();
             $table->string('updated_by')->nullable();
             $table->string('created_by')->nullable();

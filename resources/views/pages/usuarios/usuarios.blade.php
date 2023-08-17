@@ -65,7 +65,7 @@
                                 @foreach ($usuario as $usuario)
 
                                     <tr>
-                                        <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{{$usuario->created_at}}</td>
+                                        <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap"> {{\Carbon\Carbon::parse($usuario->created_at)->formatLocalized('%d %B %Y %I:%M %p');}}</td>
                                         <td class="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                                             <div class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 
                                         dark:bg-gray-800
@@ -141,7 +141,7 @@
                                             @method('DELETE')
                                             @csrf
                                                 <button type="submit" class="text-red-500 transition-colors duration-200 hover:text-indigo-500 focus:outline-none dark:hover:text-red-500 dark:text-red-300">
-                                                    Eliminar
+                                                    Desactivar
                                                 </button>
                                         </form>
                                         @endif

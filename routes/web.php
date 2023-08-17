@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductosController;
 use App\Http\Controllers\CarritoController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PedidosController;
 use App\Http\Controllers\UsuariosController;
 /*
@@ -55,13 +56,18 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/json-data-feed', [DataFeedController::class, 'getDataFeed'])->name('json_data_feed');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     
+    Route::get('/Marcar_Notificaciones', [NotificationController::class, 'markAllNotifications'])->name('marcar.notificaciones');
+
     Route::fallback(function() {
         return view('pages/utility/404');
     });
 
     //Rutas Productos
-    Route::get('/productos/estadisticas', [ProductosController::class, 'estadisticas'])->name('productos.estadisticas');
-    
+    Route::get('/estadisticas/productos', [ProductosController::class, 'estadisticas'])->name('productos.estadisticas');
+    Route::get('/productos/inactivos', [ProductosController::class, 'inactivos'])->name('productos.inactivos');
+    Route::get('productos/restore/{id}', [ProductosController::class, 'activar'])->name('productos.restore');
+    Route::get('usuarios/activarAll', [ProductosController::class, 'activarAll'])->name('productos.activarAll');
+
     Route::resource('productos', ProductosController::class);
     Route::controller(ProductosController::class)->group(function(){
         

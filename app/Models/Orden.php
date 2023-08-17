@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use App\Events\OrdenEvent;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Producto;
+use App\Notifications\OrdenNotification;
 use Cart;
 
 class Orden extends Model
@@ -15,6 +17,7 @@ class Orden extends Model
     protected $fillable = [
         'user_id',
         'subtotal',
+        'created_at',
         'session_id',
         'estado'
     ];
@@ -34,6 +37,7 @@ class Orden extends Model
         $orden->subtotal = str_replace(',', '', Cart::subtotal());
         $orden->user_id = auth()->user()->id;
         $orden->estado = "PAGADO";
+
         $orden->save();
         foreach (Cart::content() as $item) {
             $orden_productos = new OrdenProducto();
@@ -44,6 +48,7 @@ class Orden extends Model
             $orden_productos->save();
         }
 
+        
         Cart::destroy();
     }
     public function guardarCarritoNoPagado($session_id){
@@ -61,7 +66,18 @@ class Orden extends Model
             $orden_productos->orden_id = $orden->id;
             $orden_productos->save();
         }
-
+        self::ordenMakeNotification($orden);
         Cart::destroy();
+    }
+
+    static function ordenMakeNotification($orden){
+
+        //Ejemplo para conocer si las notificaciones llegan a bd o no
+/*         User::where('rol_id', 1)
+        ->each(function(User $user) use ($orden){
+            $user->notify(new OrdenNotification($orden));
+        }); */
+
+        event(new OrdenEvent($orden));
     }
 }

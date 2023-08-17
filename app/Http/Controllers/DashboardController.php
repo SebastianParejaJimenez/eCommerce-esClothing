@@ -25,9 +25,8 @@
 
             $ordenes_recientes = Orden::with('user')
             ->orderBy('created_at', 'desc')
-            ->whereMonth('created_at', Carbon::now()->month)
-            ->take(5)
-            ->get();
+            ->whereDay('created_at', Carbon::now()->day)
+            ->paginate('3');
 
             $total_ventas = Orden::sum('subtotal');
 

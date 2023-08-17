@@ -17,7 +17,7 @@
                     </div>
                     <div class="grow flex items-center border-b border-slate-100 dark:border-slate-700 text-sm py-2">
                         <div class="grow flex justify-between">
-                            <div class="self-center"><a class="font-medium text-slate-800 hover:text-slate-900 dark:text-slate-100 dark:hover:text-white" href="#0">Venta</a>  <p class="underline"> {{ $venta->user->name }}</p></div>
+                            <div class="self-center"><a class="font-medium text-slate-800 hover:text-slate-900 dark:text-slate-100 dark:hover:text-white" href="{{route('detalles.pedidos', ['id' => $venta->id, ])}}">Venta</a>  <p class="underline"> {{ $venta->user->name }}</p></div>
                             <div class="shrink-0 self-start ml-2">
                                 <span class="font-medium text-emerald-500">+{{ $venta->subtotal }}</span>
                             </div>
@@ -28,6 +28,7 @@
                 @endforeach
             </ul>
         </div>
-
+        {{ $ventasRecientes->links() }}
+    
     </div>
 </div>

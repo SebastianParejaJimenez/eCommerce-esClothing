@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('deleted_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->unsignedBigInteger('created_by')->nullable();
+            $table->string('estado')->default('Activo');
             $table->string('nombre', 2000);
             $table->string('categoria', 2000);
             $table->decimal('precio');
@@ -27,7 +28,6 @@ return new class extends Migration
             $table->foreign('created_by')->references('id')->on('users');
             $table->foreign('updated_by')->references('id')->on('users');
             $table->foreign('deleted_by')->references('id')->on('users');
-            $table->softDeletes();
             $table->timestamps();
         });
     }

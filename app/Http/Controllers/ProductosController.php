@@ -22,14 +22,40 @@ class ProductosController extends Controller
     {
 
         $dataFeed = new DataFeed();
-        $productos = Producto::paginate(5);
-
+        $productos = Producto::where('estado', 'Activo')->paginate(5);
         $rol = Auth::user()->rol_id;
         if ($rol == 1) {
         return view('pages/productos/productos', compact('dataFeed', 'productos'));
         }
         return redirect()->route('tienda');
 
+    }
+
+
+    public function inactivos(){
+        $productos = Producto::where('estado', 'inactivo')->paginate(5);
+
+        return view('pages/productos/inactivos', compact('productos'));
+        
+    }
+
+    public function activar($id){
+        $producto = Producto::findOrFail($id);
+        $producto->estado = "Activo";
+        $producto->save();
+
+        return redirect()->back();
+        
+    }
+
+    public function activarAll(){
+        $productos = Producto::where('estado', 'inactivo');
+        $productos->each(function ($producto) {
+            $producto->estado = 'Activo';
+            $producto->save();
+        });
+
+        return redirect()->route('productos');
     }
 
     public function search(Request $request)
@@ -151,9 +177,11 @@ class ProductosController extends Controller
     public function destroy($id){
 
         $producto = Producto::findOrFail($id);
-        $producto->delete();
+        $producto->estado = "Inactivo";
+        $producto->deleted_by = Auth::user()->id;
+        $producto->save();
         return redirect()->route('productos');
-
+ 
     }
 
     public function edit($id){
