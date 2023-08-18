@@ -25,6 +25,9 @@
                         <th class="p-2">
                             <div class="font-semibold text-center">Precio</div>
                         </th>
+                        <th scope="col" class="p-2">
+                            <span class="sr-only">Accion</span>
+                        </th>
                     </tr>
                 </thead>
 
@@ -48,13 +51,18 @@
                                 </div>
                             </td>
                             <td class="p-2">
-                                <div class="text-center text-emerald-500">$ {{ $productoTopMes->precio }}
+                                <div class="text-center text-emerald-500">${{ $productoTopMes->precio }}
                                 </div>
                             </td>
                             <td class="p-2">
                                 <a href="{{ route('productos.show', ['id' => $productoTopMes->id, 'slug' => $productoTopMes->slug]) }}"
                                     class="btn bg-indigo-500 hover:bg-indigo-600 text-white">
-                                    <span class="hidden xs:block">Ver Producto</span>
+                                    <span class="">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                                          </svg>
+                                          
+                                    </span>
                                 </a>
                             </td>
                         </tr>

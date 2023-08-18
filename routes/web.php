@@ -60,7 +60,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::fallback(function() {
         return view('pages/utility/404');
-    });
+    })->name('404');
 
     //Rutas Productos
     Route::get('/estadisticas/productos', [ProductosController::class, 'estadisticas'])->name('productos.estadisticas');

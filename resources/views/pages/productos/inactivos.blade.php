@@ -2,7 +2,18 @@
     <div class="px-4 sm:px-6 lg:px-8 py-4 w-full max-w-9xl mx-auto">
 
     <x-dashboard.banners.productos-inactivo-banner />
-    
+
+
+    @if(!$productos->count())
+    <div class="w-full grid place-items-center">
+    <div class="w-9/12 overflow-hidden rounded-lg bg-white shadow-md duration-300 hover:scale-105 hover:shadow-xl">
+        <h1 class="mt-3 text-center text-2xl font-bold text-gray-500">No existen Productos Inactivos</h1>
+        <p class="my-4 text-center text-sm text-gray-500">Actualmente no hay algun producto que este desactivado.</p>
+    </div>
+    </div>
+
+    @endif
+    @if($productos->count())
     <table id="productos_lista" class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
@@ -48,5 +59,6 @@
         </tbody>
 
     </table>
+    @endif
     </div>
 </x-app-layout>

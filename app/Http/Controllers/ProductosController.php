@@ -34,7 +34,6 @@ class ProductosController extends Controller
 
     public function inactivos(){
         $productos = Producto::where('estado', 'inactivo')->paginate(5);
-
         return view('pages/productos/inactivos', compact('productos'));
         
     }
@@ -148,7 +147,7 @@ class ProductosController extends Controller
 
     public function show($id){
         $dataFeed = new DataFeed();
-        $producto = Producto::findOrFail($id);
+        $producto = Producto::where('estado','activo')->findOrFail($id);
 
         return view('pages.productos.show', compact('dataFeed', 'producto'));
 

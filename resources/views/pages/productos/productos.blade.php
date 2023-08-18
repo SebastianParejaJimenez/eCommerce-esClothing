@@ -4,22 +4,33 @@
 
         <x-dashboard.spinner-loading />
 
+        @if(!$productos->count())
+        <div class="w-full grid place-items-center">
+        <div class="w-9/12 overflow-hidden rounded-lg bg-white shadow-md duration-300 hover:scale-105 hover:shadow-xl">
+            <h1 class="mt-3 text-center text-2xl font-bold text-gray-500">¡No existen Productos!</h1>
+            <p class="my-4 text-center text-sm text-gray-500">Actualmente no hay algun Producto Creado o Activado.</p>
+        </div>
+        </div>
+    
+        @endif
+
+        @if($productos->count())
         <div id="content-table" class=" relative overflow-x-auto shadow-md sm:rounded-lg">
             <form action="{{route('productos.search')}}" method="GET">  
-          <div class="my-2 flex sm:flex-row flex-col">
-                <div class="block relative">
-                    <span class="h-full absolute inset-y-0 left-0 flex items-center pl-2">
-                        <svg viewBox="0 0 24 24" class="h-4 w-4 fill-current text-gray-500">
-                            <path
-                                d="M10 4a6 6 0 100 12 6 6 0 000-12zm-8 6a8 8 0 1114.32 4.906l5.387 5.387a1 1 0 01-1.414 1.414l-5.387-5.387A8 8 0 012 10z">
-                            </path>
-                        </svg>
-                    </span>
-                        <input placeholder="Buscar" name="q" class="appearance-none rounded-r rounded-l sm:rounded-l-none border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none" />
-                </div>
-                <button type="submit" class=" px-3 btn bg-indigo-500 hover:bg-indigo-600 text-white" type="submit">Buscar</button>
-            </div>
-        </form>
+                <div class="my-2 flex sm:flex-row flex-col">
+                        <div class="block relative">
+                            <span class="h-full absolute inset-y-0 left-0 flex items-center pl-2">
+                                <svg viewBox="0 0 24 24" class="h-4 w-4 fill-current text-gray-500">
+                                    <path
+                                        d="M10 4a6 6 0 100 12 6 6 0 000-12zm-8 6a8 8 0 1114.32 4.906l5.387 5.387a1 1 0 01-1.414 1.414l-5.387-5.387A8 8 0 012 10z">
+                                    </path>
+                                </svg>
+                            </span>
+                                <input placeholder="Buscar" name="q" class="appearance-none rounded-r rounded-l sm:rounded-l-none border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none" />
+                        </div>
+                        <button type="submit" class=" px-3 btn bg-indigo-500 hover:bg-indigo-600 text-white" type="submit">Buscar</button>
+                    </div>
+            </form>
 
             <table id="productos_lista" class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -135,8 +146,8 @@
                                         <span class="text-white text-md">Editar</span>
                                     </a>
                                     <a href="{{ route('productos.show', ['id' => $producto->id, 'slug' => $producto->slug]) }}"
-                                        class=" btn bg-indigo-500 hover:bg-indigo-600 text-white">
-                                        <span class="hidden xs:block">Ver Producto</span>
+                                        class="flex space-x-2 items-center px-4 py-2 rounded-md drop-shadow-md  btn bg-indigo-500 hover:bg-indigo-600 text-white">
+                                        <span class="">Ver Producto</span>
                                     </a>
 
                         </tr>
@@ -148,6 +159,7 @@
             {{ $productos->links() }}
 
         </div>
+        @endif
     </div>
 
 

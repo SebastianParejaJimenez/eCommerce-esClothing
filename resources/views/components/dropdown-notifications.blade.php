@@ -35,7 +35,7 @@
         <div class="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase pt-1.5 pb-2 px-4">Tienes {{auth()->user()->unreadNotifications->count()}} Notificaciones Nuevas</div>
         
         <ul>
-            <a href="{{route('pedidos')}}" class="block py-2 px-4 hover:bg-slate-50 dark:hover:bg-slate-700/20" href="#0" @click="open = false" @focus="open = true @focusout="open = false">
+            <a href="{{route('pedidos')}}" class="block py-2 px-4 hover:bg-slate-50 dark:hover:bg-slate-700/20" href="#0" @click="open = false" @focus="open = true" @focusout="open = false">
                 <span class="font-medium text-blue-800 dark:text-slate-100 ">Ver Todas</span>
             </a>
 

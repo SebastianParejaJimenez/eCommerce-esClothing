@@ -40,11 +40,15 @@
                                 @csrf
                                 <input name="producto_id" type="hidden" value="{{ $producto->id }}">
 
+                                @if(Auth::user())
                                 <div class="inline-block align-bottom mt-5">
                                     <button type="submite"
                                         class="tracking-wide text-white capitalize transition-colors duration-200 transform bg-gray-800 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-700 px-10 py-2 font-semibold"><i
                                             class="mdi mdi-cart -ml-2 mr-2"></i> Añadir al Carrito </button>
                                 </div>
+                                @endif
+
+                            
                             </form>
                         </div>
                     </div>

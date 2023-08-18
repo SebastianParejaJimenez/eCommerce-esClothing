@@ -27,12 +27,12 @@ class StoreController extends Controller
     public function catalogoVista(Request $request){
 
         $categoria = $request->categoria;
-        $productos_categoria = Producto::where('categoria', $categoria)->paginate(12);
-        $productoReciente = Producto::latest('created_at')->where('categoria', $categoria)->first();
+        $productos_categoria = Producto::where('categoria', $categoria)->where('estado', 'activo')->paginate(12);
+        $productoReciente = Producto::latest('created_at')->where('categoria', $categoria)->where('estado', 'activo')->first();
 
         if (!$request->categoria) {
-        $productos_categoria = Producto::paginate(12);
-        $productoReciente = Producto::latest('created_at')->first();
+        $productos_categoria = Producto::where('estado', 'activo')->paginate(12);
+        $productoReciente = Producto::latest('created_at')->where('estado', 'activo')->first();
         }
 
         return view('pages/store/catalogo', compact('productos_categoria', 'productoReciente'));

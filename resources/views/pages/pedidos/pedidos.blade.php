@@ -1,8 +1,8 @@
 <x-app-layout>
-    <div class="px-4 sm:px-6 lg:px-8 py-4 w-full max-w-9xl mx-auto">
+    <div class="relative overflow-x-auto px-4 sm:px-6 lg:px-8 py-4 w-full max-w-9xl mx-auto">
         <x-dashboard.spinner-loading />
 
-        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+        <table class=" w-full text-sm text-left  divide-y divide-gray-200 dark:divide-gray-700">
             <thead class="bg-gray-50 dark:bg-gray-800">
                 <tr>
                     <th scope="col" class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -53,18 +53,18 @@
                         <div class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 
                         @switch(true)
                         @case($orden->estado == "PAGADO")
-                        text-cyan-500 bg-blue-100/60
+                        text-cyan-500 bg-blue-100/60 dark:bg-gray-800
                             @break
                         
                         @case($orden->estado == "CANCELADO")
-                            text-red-500 bg-red-200
+                            text-red-500 bg-red-200 dark:bg-gray-800
                             @break
                         @case($orden->estado == "PENDIENTE")
-                            text-gray-500 bg-gray-200
+                            text-gray-500 bg-gray-200 dark:bg-gray-800
                             @break
                         
                         @case($orden->estado == "COMPLETADO")
-                            text-green-500 bg-green-100/60
+                            text-green-500 bg-green-100/60 dark:bg-gray-800
                             @break
                         @endswitch
                         ">
@@ -102,7 +102,7 @@
                             </div>
                         </div>
                     </td>
-                    <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
+                    <td class="px-5 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
                         @foreach ($orden->productos as $producto)
                             <p class="underline underline-offset-8 uppercase "> {{$producto->nombre}}</p>
                             <br>
@@ -135,6 +135,7 @@
         {{ $ordenes->links() }}
 
     </div>
+    
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 <script>

@@ -1,6 +1,6 @@
 @php
 use App\Models\Producto;
-$cont_prod= Producto::count();
+$cont_prod= Producto::where('estado','activo')->count();
 
 @endphp
 <div class="lg:flex lg:items-center lg:justify-between py-7">

@@ -9,8 +9,8 @@
 
         <div class="container max-w-screen-xl">
             <div>
-                <div class="rounded shadow-lg p-4 px-4 md:p-8 mb-6 ">
-                    <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
+                <div class="rounded shadow-lg p-4 px-4 md:p-8 mb-6 bg-white dark:bg-gray-800 ">
+                    <div class="  grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
                         <div class="text-gray-600 dark:text-white">
                             <p class="font-medium text-lg">Registro de Producto</p>
                             <p>Por favor llene todos los campos con la informacion requerida.</p>
@@ -66,7 +66,7 @@
                                     </div>
                                     <div class="md:col-span-5 text-right">
                                         <div class="inline-flex items-end">
-                                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-3">Submit</button>
+                                            <button type="submit" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded mx-3">Guardar</button>
                                             <a href="{{ route('productos') }}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mx-3">Cancelar</a>
                                         </div>
                                     </div>
