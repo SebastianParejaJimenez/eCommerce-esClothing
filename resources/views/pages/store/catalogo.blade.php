@@ -29,6 +29,7 @@
 
                         <div class="mt-6 lg:mt-0 lg:px-2 lg:w-4/5 ">
                             <div id="spinner-loading" class='flex items-center justify-center min-h-screen'>
+                                
                                 <div class="flex space-x-2 animate-pulse">
                                     <div class="w-3 h-3 bg-gray-500 rounded-full"></div>
                                     <div class="w-3 h-3 bg-gray-500 rounded-full"></div>
@@ -37,7 +38,9 @@
                             </div>
 
                             <div id="content-main">
+                                
                                 @if ($productoReciente)
+                                <p class="text-gray-500 dark:text-gray-300">Producto mas Reciente</p>
                                     <div class="md:flex md:items-center mt-5">
                                         <div class="w-full h-64 md:w-1/2 lg:h-96">
                                             <img class="h-full w-full rounded-md object-cover max-w-lg mx-auto"
