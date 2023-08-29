@@ -29,7 +29,7 @@
 
                         <div class="mt-6 lg:mt-0 lg:px-2 lg:w-4/5 ">
                             <div id="spinner-loading" class='flex items-center justify-center min-h-screen'>
-                                
+
                                 <div class="flex space-x-2 animate-pulse">
                                     <div class="w-3 h-3 bg-gray-500 rounded-full"></div>
                                     <div class="w-3 h-3 bg-gray-500 rounded-full"></div>
@@ -38,7 +38,7 @@
                             </div>
 
                             <div id="content-main">
-                                
+
                                 @if ($productoReciente)
                                 <p class="text-gray-500 dark:text-gray-300">Producto mas Reciente</p>
                                     <div class="md:flex md:items-center mt-5">
@@ -50,8 +50,39 @@
                                         <div class="w-full max-w-lg mx-auto mt-5 md:ml-8 md:mt-0 md:w-1/2">
                                             <h3 class="text-gray-700 uppercase text-lg">{{ $productoReciente->nombre }}</h3>
                                             <span
-                                                class="text-gray-500 mt-3">${{ number_format($productoReciente->precio, 0, ',', '.') }}
+                                                class="text-green-500 mt-3 ">${{ number_format($productoReciente->precio, 0, ',', '.') }}
                                             </span>
+
+                                            <div class="my-5">
+
+
+                                            <div class="flex-1 inline-flex items-center">
+                                                <span class="text-secondary whitespace-nowrap mr-3">Tallas Disponibles</span>
+                                                <div class="grid grid-cols-4 gap-2 rounded-xl bg-gray-100 p-2">
+                                                    <div>
+                                                        <input type="radio" name="option" id="1" value="1" class="peer hidden" checked />
+                                                        <label for="1" class="block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-blue-500 peer-checked:font-bold peer-checked:text-white">S</label>
+                                                    </div>
+
+                                                    <div>
+                                                        <input type="radio" name="option" id="2" value="2" class="peer hidden" />
+                                                        <label for="2" class="block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-blue-500 peer-checked:font-bold peer-checked:text-white">L</label>
+                                                    </div>
+
+                                                    <div>
+                                                        <input type="radio" name="option" id="3" value="3" class="peer hidden" />
+                                                        <label for="3" class="block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-blue-500 peer-checked:font-bold peer-checked:text-white">M</label>
+                                                    </div>
+
+                                                    <div>
+                                                        <input type="radio" name="option" id="4" value="3" class="peer hidden" />
+                                                        <label for="4" class="block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-blue-500 peer-checked:font-bold peer-checked:text-white">XL</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </ul>
+                                            </div>
+
                                             <hr class="my-3">
                                             <form class="flex items-center mt-6" action="{{ route('agregaritem') }}"
                                                 method="POST">

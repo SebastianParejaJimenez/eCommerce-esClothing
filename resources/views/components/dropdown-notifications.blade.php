@@ -14,10 +14,12 @@
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
         <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
       </svg>
-      
+    @if (auth()->user()->unreadNotifications->count() > 0)
       <span class="absolute -top-2 left-4 rounded-full bg-red-500 p-0.5 px-2 text-sm text-red-50">
         {{auth()->user()->unreadNotifications->count()}}
-    </span>
+        </span>
+    @endif
+
     </button>
     <div
         class="origin-top-right z-10 absolute top-full -mr-48 sm:mr-0 min-w-80 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 py-1.5 rounded shadow-lg overflow-hidden mt-1 {{$align === 'right' ? 'right-0' : 'left-0'}}"
@@ -33,15 +35,15 @@
         x-cloak
     >
         <div class="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase pt-1.5 pb-2 px-4">Tienes {{auth()->user()->unreadNotifications->count()}} Notificaciones Nuevas</div>
-        
+
         <ul>
-            <a href="{{route('pedidos')}}" class="block py-2 px-4 hover:bg-slate-50 dark:hover:bg-slate-700/20" href="#0" @click="open = false" @focus="open = true" @focusout="open = false">
+            <a href="{{route('marcar.notificaciones')}}" class="block py-2 px-4 hover:bg-slate-50 dark:hover:bg-slate-700/20" href="#0" @click="open = false" @focus="open = true" @focusout="open = false">
                 <span class="font-medium text-blue-800 dark:text-slate-100 ">Ver Todas</span>
             </a>
 
             @foreach(auth()->user()->unreadNotifications as $notification)
             <li class="border-b border-slate-200 dark:border-slate-700 last:border-0">
-                <a class="block py-2 px-4 hover:bg-slate-50 dark:hover:bg-slate-700/20" href="#0" @click="open = false" @focus="open = true" @focusout="open = false">
+                <a class="block py-2 px-4 hover:bg-slate-50 dark:hover:bg-slate-700/20" href="{{route('marcar.notificacion', [$notification->id, $notification->data['id']])}}" @click="open = false" @focus="open = true" @focusout="open = false">
                     <span class="block text-sm mb-2">📣 <span class="font-medium text-slate-800 dark:text-slate-100">Nuevo Pedido</span>
                     <span class="block text-sm mb-2"><span class="font-medium text-slate-800 dark:text-slate-100">El usuario:</span> {{$notification->data['name']}}, Ha realizado un pedido por: {{$notification->data['subtotal']}}$</span>
                     <span class="block text-xs font-medium text-slate-400 dark:text-slate-500">Fecha:  {{\Carbon\Carbon::parse($notification->data['orden_date'])->formatLocalized('%d %B %Y %I:%M %p');}}</span>

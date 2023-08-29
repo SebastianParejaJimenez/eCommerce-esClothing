@@ -2,6 +2,18 @@
     <div class="relative overflow-x-auto px-4 sm:px-6 lg:px-8 py-4 w-full max-w-9xl mx-auto">
         <x-dashboard.spinner-loading />
 
+        @if(!$ordenes->count())
+        <div class="w-full grid place-items-center">
+        <div class="w-9/12 overflow-hidden rounded-lg bg-white shadow-md duration-300 hover:scale-105 hover:shadow-xl">
+            <h1 class="mt-3 text-center text-2xl font-bold text-gray-500">¡No existen Pedidos!</h1>
+            <p class="my-4 text-center text-sm text-gray-500">Actualmente no existen pedidos.</p>
+        </div>
+        </div>
+
+        @endif
+
+
+        @if($ordenes->count())
         <table class=" w-full text-sm text-left  divide-y divide-gray-200 dark:divide-gray-700">
             <thead class="bg-gray-50 dark:bg-gray-800">
                 <tr>
@@ -50,19 +62,19 @@
 
                     </td>
                     <td class="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
-                        <div class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 
+                        <div class="inline-flex items-center px-3 py-1 rounded-full gap-x-2
                         @switch(true)
                         @case($orden->estado == "PAGADO")
                         text-cyan-500 bg-blue-100/60 dark:bg-gray-800
                             @break
-                        
+
                         @case($orden->estado == "CANCELADO")
                             text-red-500 bg-red-200 dark:bg-gray-800
                             @break
                         @case($orden->estado == "PENDIENTE")
                             text-gray-500 bg-gray-200 dark:bg-gray-800
                             @break
-                        
+
                         @case($orden->estado == "COMPLETADO")
                             text-green-500 bg-green-100/60 dark:bg-gray-800
                             @break
@@ -91,7 +103,7 @@
 
 
                     </td>
-                    
+
                     <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
                         <div class="flex items-center gap-x-2">
                             <img class="object-cover w-8 h-8 rounded-full" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80" alt="">
@@ -133,9 +145,9 @@
             </tbody>
         </table>
         {{ $ordenes->links() }}
-
+        @endif
     </div>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 <script>
@@ -182,23 +194,14 @@ function onclickexample(id_pedido){
                             icon: 'success',
                             title: 'Estado Cambiado',
                             showConfirmButton: false,
- 
-                        }); 
-                        window.setTimeout(function(){ 
+
+                        });
+                        window.setTimeout(function(){
                         location.reload();
                         } ,900);
                     }
                 } ,
             });
-        }
-        else{
-            Swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            title: 'No se Realizo ningun cambio',
-            showConfirmButton: false,
-            timer: 600
-            })
         }
 
     }) ()

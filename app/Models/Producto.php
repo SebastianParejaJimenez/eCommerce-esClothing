@@ -11,7 +11,7 @@ class Producto extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nombre','categoria', 'imagen', 'estado' ,'precio','created_at', 'updated_at', 'created_by', 'updated_by'];
+    protected $fillable = ['nombre','categoria', 'imagen', 'estado' ,'precio', 'talla_s', 'talla_m' , 'talla_l' , 'talla_xl'  ,'created_at', 'updated_at', 'created_by', 'updated_by'];
 
 
     public function ordenProductos()

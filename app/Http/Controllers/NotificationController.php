@@ -11,7 +11,7 @@ class NotificationController extends Controller
 
     public function markAllNotifications(){
         Auth()->user()->unreadNotifications->markAsRead();
-        redirect()->route('pedidos');
+        return redirect()->route('pedidos');
     }
 
 
@@ -20,10 +20,10 @@ class NotificationController extends Controller
             return $query->where('id', $notification_id);
         })->markAsRead();
 
-        $orden = Orden::find($orden_id); 
-        redirect()->route('detalles.pedidos');
+        $orden = Orden::find($orden_id);
+        return redirect()->route('detalles.pedidos', $orden->id);
 
     }
-    
+
 
 }

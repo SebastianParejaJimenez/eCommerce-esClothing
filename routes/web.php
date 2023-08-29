@@ -55,8 +55,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     // Route for the getting the data feed
     Route::get('/json-data-feed', [DataFeedController::class, 'getDataFeed'])->name('json_data_feed');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    
-    Route::get('/Marcar_Notificaciones', [NotificationController::class, 'markAllNotifications'])->name('marcar.notificaciones');
+
+    Route::get('/marcar_Notificaciones', [NotificationController::class, 'markAllNotifications'])->name('marcar.notificaciones');
+    Route::get('/marcar_notificacion/{notification_id}/{orden_id}', [NotificationController::class, 'markOneNotification'])->name('marcar.notificacion');
 
     Route::fallback(function() {
         return view('pages/utility/404');
@@ -70,9 +71,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::resource('productos', ProductosController::class);
     Route::controller(ProductosController::class)->group(function(){
-        
+
         Route::get('/productos', 'index')->name('productos');
-        
+
         Route::get('/products/search', 'search')->name('productos.search');
         Route::post('productos', 'store')->name('productos.store');
         Route::get('productos/create', 'create')->name('producto_crear');

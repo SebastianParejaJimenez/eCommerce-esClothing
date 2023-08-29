@@ -23,6 +23,10 @@ return new class extends Migration
             $table->string('categoria', 2000);
             $table->decimal('precio');
             $table->integer('cantidad');
+            $table->boolean('talla_s')->nullable();
+            $table->boolean('talla_m')->nullable();
+            $table->boolean('talla_l')->nullable();
+            $table->boolean('talla_xl')->nullable();
             $table->string('slug', 2000)->nullable();
             $table->string('imagen', 2000)->nullable()->mimes('jpg', 'jpeg', 'png');
             $table->foreign('created_by')->references('id')->on('users');

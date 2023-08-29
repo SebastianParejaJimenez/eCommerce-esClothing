@@ -35,7 +35,7 @@ class ProductosController extends Controller
     public function inactivos(){
         $productos = Producto::where('estado', 'inactivo')->paginate(5);
         return view('pages/productos/inactivos', compact('productos'));
-        
+
     }
 
     public function activar($id){
@@ -44,7 +44,7 @@ class ProductosController extends Controller
         $producto->save();
 
         return redirect()->back();
-        
+
     }
 
     public function activarAll(){
@@ -73,13 +73,13 @@ class ProductosController extends Controller
     public function estadisticas(Request $request){
         $productosVendidos = Producto::withCount('ordenProductos')->orderBy('orden_productos_count', 'desc')->get();
         $productosConVentas = Producto::all();
-        
+
         $productos_mes = Producto::selectRaw('MONTH(orden_productos.created_at) as mes, COUNT(orden_productos.id) as total_ventas')
         ->join('orden_productos', 'productos.id', '=', 'orden_productos.producto_id')
         ->groupBy('mes')
         ->orderBy('mes')
         ->get();
-        
+
         $data_barras = [];
         $data = [];
 
@@ -118,11 +118,19 @@ class ProductosController extends Controller
             'cantidad' => 'required|numeric|min:1',
             'categoria' => 'required',
             'imagen' => 'required|image|mimes:jpg,png,gif',
+            'talla_s' => 'boolean',
+            'talla_l'=> 'boolean',
+            'talla_m'=> 'boolean',
+            'talla_xl'=> 'boolean',
         ]);
         $user_creador = Auth::user()->id;
 
         $producto = new Producto();
 
+        $producto->talla_s = $request->has('talla_s');
+        $producto->talla_l = $request->has('talla_l');
+        $producto->talla_m = $request->has('talla_m');
+        $producto->talla_xl = $request->has('talla_xl');
         $producto->nombre = $request->input('nombre');
         $producto->slug = Str::slug($request->input('nombre'));
         $producto->precio = $request->input('precio');
@@ -180,7 +188,7 @@ class ProductosController extends Controller
         $producto->deleted_by = Auth::user()->id;
         $producto->save();
         return redirect()->route('productos');
- 
+
     }
 
     public function edit($id){

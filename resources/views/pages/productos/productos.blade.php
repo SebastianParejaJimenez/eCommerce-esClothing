@@ -11,12 +11,12 @@
             <p class="my-4 text-center text-sm text-gray-500">Actualmente no hay algun Producto Creado o Activado.</p>
         </div>
         </div>
-    
+
         @endif
 
         @if($productos->count())
         <div id="content-table" class=" relative overflow-x-auto shadow-md sm:rounded-lg">
-            <form action="{{route('productos.search')}}" method="GET">  
+            <form action="{{route('productos.search')}}" method="GET">
                 <div class="my-2 flex sm:flex-row flex-col">
                         <div class="block relative">
                             <span class="h-full absolute inset-y-0 left-0 flex items-center pl-2">
@@ -51,12 +51,15 @@
                             Precio
                         </th>
                         <th scope="col" class="px-6 py-3">
+                            Tallas
+                        </th>
+                        <th scope="col" class="px-6 py-3">
                             Acción
                         </th>
                     </tr>
                 </thead>
                 <tbody>
-                
+
                     @foreach ($productos as $producto)
                         <tr
                             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -115,6 +118,18 @@
                             <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white producto_precio">
                                 {{ $producto->precio }}
                             </td>
+
+                            <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white producto_precio">
+
+                                <span class="bg-green-100 text-gray-900 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-gray-700 dark:text-gray-300">{{$producto->talla_s ? 'S': ''}}</span>
+
+                                <span class="bg-green-100 text-gray-900 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-gray-700 dark:text-gray-300">{{$producto->talla_m ? 'M': ''}}</span>
+
+                                <span class="bg-green-100 text-gray-900 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-gray-700 dark:text-gray-300">{{$producto->talla_l ? 'L': ''}}</span>
+
+                                <span class="bg-green-100 text-gray-900 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-gray-700 dark:text-gray-300">{{$producto->talla_xl ? 'XL': ''}}</span>
+
+                            </td>
                             <td class="px-6 py-4">
 
                                 <div class="flex items-center space-x-4 p-3">
@@ -154,7 +169,7 @@
                     @endforeach
 
                 </tbody>
-                
+
             </table>
             {{ $productos->links() }}
 

@@ -9,8 +9,10 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+        <link rel="stylesheet" href="https://horizon-tailwind-react-git-tailwind-components-horizon-ui.vercel.app/static/css/main.ad49aa9b.css" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0" />
 
-    
+
         <!-- Styles -->
         @livewireStyles
 
@@ -51,11 +53,11 @@
 
             <!-- Content area -->
             <div class="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden @if($attributes['background']){{ $attributes['background'] }}@endif" x-ref="contentarea">
-                
+
                 @if(Auth::user()->rol_id == 1 )
                 <x-app.header />
                 @else
-                <x-app.headerstore />   
+                <x-app.headerstore />
                 @endif
                 <main>
                     {{ $slot }}
