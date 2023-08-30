@@ -16,6 +16,7 @@ class OrdenProducto extends Model
         'orden_id',
         'product_id',
         'cantidad',
+        'talla',
         'precio',
     ];
 

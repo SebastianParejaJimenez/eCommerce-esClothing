@@ -15,6 +15,9 @@ class CarritoController extends Controller
     {
 
         $producto = Producto::find($request->producto_id);
+        if (!$request->talla) {
+           return redirect()->back()->with('error', 'talla');
+        }
         Cart::add([
             'id' => $producto->id,
             'name' => $producto->nombre,
@@ -24,6 +27,7 @@ class CarritoController extends Controller
             'options' => [
                 'urlfoto' => $producto->imagen,
                 'categoria' => $producto->categoria,
+                'talla' => $request->talla,
             ]
         ]);
         return redirect()->back()->with("agregaritem", "Producto agg");
@@ -68,12 +72,16 @@ class CarritoController extends Controller
         $orden->subtotal = str_replace(',', '', Cart::subtotal());
         $orden->user_id = auth()->user()->id;
         $orden->save();
+        dd(Cart::content());
         foreach (Cart::content() as $item) {
+
+
             $orden_productos = new OrdenProducto();
             $orden_productos->precio = $item->price;
             $orden_productos->cantidad = $item->qty;
             $orden_productos->producto_id = $item->id;
             $orden_productos->orden_id = $orden->id;
+
             $orden_productos->save();
         }
 
@@ -91,7 +99,7 @@ class CarritoController extends Controller
         $curl = new \Stripe\HttpClient\CurlClient([CURLOPT_SSLVERSION => CURL_SSLVERSION_TLSv1]);
         \Stripe\ApiRequestor::setHttpClient($curl);
 
-        
+
         \Stripe\Stripe::setVerifySslCerts(false);
         \Stripe\Stripe::setApiKey(config('stripe.sk'));
 
@@ -126,7 +134,7 @@ class CarritoController extends Controller
             'cancel_url' => route('cancel'),
         ]);
 
-        
+
 
         $orden = new Orden();
         $orden->guardarCarritoNoPagado($checkoutSession->id);
@@ -158,7 +166,7 @@ class CarritoController extends Controller
         } catch (\Throwable $th) {
             throw new NotFoundHttpException();
         }
-        
+
         return redirect()->back()->with("success", "success");
     }
     public function cancel()

@@ -24,7 +24,7 @@ class Orden extends Model
     public function productos()
     {
         return $this->belongsToMany(Producto::class, 'orden_productos')
-            ->withPivot(['cantidad', 'precio']);
+            ->withPivot(['cantidad', 'precio', 'talla']);
     }
 
     public function user()
@@ -45,10 +45,12 @@ class Orden extends Model
             $orden_productos->cantidad = $item->qty;
             $orden_productos->producto_id = $item->id;
             $orden_productos->orden_id = $orden->id;
+            $orden_productos->talla = $item->talla;
+
             $orden_productos->save();
         }
 
-        
+
         Cart::destroy();
     }
     public function guardarCarritoNoPagado($session_id){
@@ -58,12 +60,15 @@ class Orden extends Model
         $orden->user_id = auth()->user()->id;
         $orden->session_id = $session_id;
         $orden->save();
+
         foreach (Cart::content() as $item) {
             $orden_productos = new OrdenProducto();
             $orden_productos->precio = $item->price;
             $orden_productos->cantidad = $item->qty;
             $orden_productos->producto_id = $item->id;
             $orden_productos->orden_id = $orden->id;
+            $orden_productos->talla = $item->options->talla;
+
             $orden_productos->save();
         }
         self::ordenMakeNotification($orden);

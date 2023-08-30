@@ -12,11 +12,11 @@ class StoreController extends Controller
     public function index(Request $request){
 
 
-        $producto_randoms = Producto::inRandomOrder()
+        $producto_randoms = Producto::where('estado', 'Activo')->inRandomOrder()
         ->limit(4)
         ->get();
 
-        $productos_top  = Producto::inRandomOrder()
+        $productos_top  = Producto::where('estado', 'Activo')->inRandomOrder()
         ->limit(4)
         ->get();
 

@@ -1,10 +1,10 @@
 <div id="spinner-loading" class='flex items-center justify-center min-h-screen'>
-    <button type="button" class="bg-indigo-400 h-max w-max rounded-lg text-white font-bold hover:bg-indigo-300 hover:cursor-not-allowed duration-[500ms,800ms]" disabled>
-        <div class="flex items-center justify-center m-[10px]">
-            <div class="h-5 w-5 border-t-transparent border-solid animate-spin rounded-full border-white border-4"></div>
-            <div class="ml-2"> Procesando... <div>
-        </div>
-    </button>
+
+    <div class="flex space-x-2 animate-pulse">
+        <div class="w-3 h-3 bg-gray-500 rounded-full"></div>
+        <div class="w-3 h-3 bg-gray-500 rounded-full"></div>
+        <div class="w-3 h-3 bg-gray-500 rounded-full"></div>
+    </div>
 </div>
 <script>
     window.onload = function () {

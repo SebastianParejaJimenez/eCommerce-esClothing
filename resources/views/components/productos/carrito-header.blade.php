@@ -1,6 +1,6 @@
 @if (count(Cart::content()))
 
-<div :class="cartOpen ? 'translate-x-0 ease-out' : 'translate-x-full ease-in'" class="fixed right-0 top-0 max-w-xs w-full h-4/5 px-6 py-4 transition duration-300 transform overflow-y-auto bg-white border-2 border-gray-300">
+<div :class="cartOpen ? 'translate-x-0 ease-out' : 'translate-x-full ease-in'" class="z-50 fixed right-0 top-0 max-w-xs w-full h-full px-6 py-4 transition duration-300 transform overflow-y-auto bg-white border-2 border-gray-300">
     <div class="flex items-center justify-between">
         <h3 class="text-2xl font-medium text-gray-700">Resumen Carrito de Compras</h3>
         <button @click="cartOpen = !cartOpen" class="text-gray-600 focus:outline-none">
@@ -16,6 +16,7 @@
             <div class="mx-3">
                 <h3 class="text-sm text-gray-600">{{$item->name}}</h3>
                 <p class="text-sm">Cantidad. {{$item->qty}}</p>
+                <p class="text-sm">Talla. {{$item->options->talla}}</p>
             </div>
         </div>
         <span class="text-gray-600">${{number_format($item->price, 0, ',', '.')}}</span>

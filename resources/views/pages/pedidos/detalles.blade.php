@@ -79,6 +79,10 @@
                             <a href="{{ route('productos.show', ['id' => $producto->id, 'slug' => $producto->slug]) }}" class="text-purple-700 hover:underline dark:text-white">
                                     {{ $producto->nombre }}
                             </a>
+                            <p>Talla:</p>
+                            <div class="border-1 flex items-center p-2 rounded justify-between font-semibold">
+                                {{$producto->pivot->talla}}
+                            </div>
                             <p>Precio:</p>
                             <div class="border-1 flex items-center p-2 rounded justify-between font-semibold">
                                 {{$producto->pivot->precio}}

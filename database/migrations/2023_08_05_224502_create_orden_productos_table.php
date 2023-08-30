@@ -19,6 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('producto_id');
             $table->integer('cantidad');
             $table->decimal('precio');
+            $table->string('talla');
             $table->string('estado')->default('Activo');
             $table->foreign('orden_id')->references('id')->on('ordenes');
             $table->foreign('producto_id')->references('id')->on('productos');

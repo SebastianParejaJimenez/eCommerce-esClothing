@@ -37,18 +37,53 @@
                             </div>
 
                             <form action="{{ route('agregaritem') }}" method="POST">
+
+                                <div class="mt-3">
+                                    <label class="text-gray-700 text-sm" for="count">Seleccionar una talla:</label>
+                                    <div class="flex items-center mt-2">
+                                        @if ($producto->talla_s)
+                                        <div>
+                                            <input type="radio" name="talla" id="S" value="S" class="peer hidden" />
+                                            <label for="S" class=" cursor-pointer select-none border-solid border-2 border-indigo-200  rounded-md p-2 mx-2 text-center peer-checked:bg-gray-200 peer-checked:font-bold peer-checked:text-gray-600  hover:bg-indigo-200">S</label>
+                                        </div>
+                                        @endif
+                                        @if ($producto->talla_m)
+                                        <div>
+                                            <input type="radio" name="talla" id="M" value="M" class="peer hidden" />
+                                            <label for="M" class=" cursor-pointer select-none border-solid border-2 border-indigo-200  rounded-md p-2 mx-2 text-center peer-checked:bg-gray-200 peer-checked:font-bold peer-checked:text-gray-600 hover:bg-indigo-200">M</label>
+                                        </div>
+                                        @endif
+
+
+                                        @if ($producto->talla_l)
+                                        <div>
+                                            <input type="radio" name="talla" id="L" value="L" class="peer hidden" />
+                                            <label for="L" class=" cursor-pointer select-none border-solid border-2 border-indigo-200  rounded-md p-2 mx-2 text-center peer-checked:bg-gray-200 peer-checked:font-bold peer-checked:text-gray-600 hover:bg-indigo-200">L</label>
+                                        </div>
+
+                                        @endif
+
+                                        @if ($producto->talla_xl)
+                                        <div>
+                                            <input type="radio" name="talla" id="XL" value="XL" class="peer hidden" />
+                                            <label for="XL" class=" cursor-pointer select-none border-solid border-2 border-indigo-200  rounded-md p-2 mx-2 text-center peer-checked:bg-gray-200 peer-checked:font-bold peer-checked:text-gray-600 hover:bg-indigo-200">XL</label>
+                                        </div>
+                                        @endif
+                                    </div>
+                                </div>
+
                                 @csrf
                                 <input name="producto_id" type="hidden" value="{{ $producto->id }}">
 
-                                @if(Auth::user())
-                                <div class="inline-block align-bottom mt-5">
-                                    <button type="submite"
-                                        class="tracking-wide text-white capitalize transition-colors duration-200 transform bg-gray-800 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-700 px-10 py-2 font-semibold"><i
-                                            class="mdi mdi-cart -ml-2 mr-2"></i> Añadir al Carrito </button>
-                                </div>
+                                @if (Auth::user())
+                                    <div class="inline-block align-bottom mt-5">
+                                        <button type="submite"
+                                            class="tracking-wide text-white capitalize transition-colors duration-200 transform bg-gray-800 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-700 px-10 py-2 font-semibold"><i
+                                                class="mdi mdi-cart -ml-2 mr-2"></i> Añadir al Carrito </button>
+                                    </div>
                                 @endif
 
-                            
+
                             </form>
                         </div>
                     </div>
@@ -58,4 +93,20 @@
     </div>
 
 
-    @endsection
+@endsection
+
+@section('scripts')
+
+@if(session('error')== "talla")
+<script>
+    Swal.fire({
+        title: 'Faltan Datos',
+        text: "Necesitas seleccionar una talla para poder agregar al Carrito!",
+        icon: 'warning',
+        showCancelButton: false,
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'Aceptar'
+        })
+</script>
+@endif
+@endsection

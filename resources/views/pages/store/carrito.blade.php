@@ -20,28 +20,34 @@
 
             <body>
                 @if (session('success'))
-                <div class="mt-5 px-4 py-3 leading-normal text-green-700 bg-green-100 rounded-lg" role="alert">
-                    <p class="font-bold">Se ha procesado el pago con exito!</p>
-                </div>
+                    <div class="mt-5 px-4 py-3 leading-normal text-green-700 bg-green-100 rounded-lg" role="alert">
+                        <p class="font-bold">Se ha procesado el pago con exito!</p>
+                    </div>
                 @endif
                 @if (session('canceled'))
-                <div class=" mt-5 px-4 py-3 leading-normal text-red-100 bg-red-700 rounded-lg" role="alert">
-                    <p>El Pago ha sido cancelado o ha ocurrido algun error!</p>
-                  </div>
+                    <div class=" mt-5 px-4 py-3 leading-normal text-red-100 bg-red-700 rounded-lg" role="alert">
+                        <p>El Pago ha sido cancelado o ha ocurrido algun error!</p>
+                    </div>
                 @endif
 
-            <div class="h-screen bg-gray-100 pt-10">
+                <div class="h-screen bg-gray-100 pt-10">
                     <h1 class="mb-10 text-center text-2xl font-bold">Carrito de Compras</h1>
                     <div class="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
                         <div class="rounded-lg md:w-2/3">
                             @foreach (Cart::content() as $item)
-                                <div class="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start">
+                                <div
+                                    class="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start">
                                     <img src="{{ url('productos_subidos') }}/{{ $item->options->urlfoto }}" width="100"
                                         height="100" alt="IMAGEN" class="w-full rounded-lg sm:w-20 sm:h-30" />
                                     <div class="sm:ml-4 sm:flex sm:w-full sm:justify-between">
                                         <div class="mt-5 sm:mt-0">
                                             <h2 class="text-lg font-bold text-gray-900">{{ $item->name }}</h2>
-                                            <p class="mt-1 text-xs text-gray-700">{{ $item->options->categoria }}</p>
+                                            <p class="mt-1 text-xs text-gray-700">Categoria: {{ $item->options->categoria }}</p>
+                                            <p class="mt-1 text-xs text-gray-700">Talla: {{ $item->options->talla}}</p>
+
+                                        </div>
+
+                                        <div class="flex ml-6 items-center">
                                         </div>
                                         <div
                                             class="mt-4 flex justify-between im sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
@@ -49,7 +55,8 @@
                                                 <a href="{{ route('decrementarcantidad', ['id' => $item->rowId]) }}"
                                                     class="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50">
                                                     - </a>
-                                                <input disabled   class="h-8 w-10 border bg-white text-center text-xs outline-none"
+                                                <input disabled
+                                                    class="h-8 w-10 border bg-white text-center text-xs outline-none"
                                                     type="number" value="{{ $item->qty }}" min="1" />
                                                 <a href="{{ route('incrementarcantidad', ['id' => $item->rowId]) }}"
                                                     class="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50">
@@ -57,7 +64,8 @@
 
                                             </div>
                                             <div class="flex items-center space-x-5">
-                                                <p class="text-sm">{{ number_format($item->qty * $item->price, 2) }}</p>
+                                                <p class="text-sm">Precio:
+                                                    ${{ number_format($item->qty * $item->price, 2) }}</p>
 
                                                 <a href="{{ route('eliminaritem', ['id' => $item->rowId]) }}">
                                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -72,6 +80,7 @@
                                     </div>
                                 </div>
                             @endforeach
+
                             @if (!Cart::content()->count())
                                 <div
                                     class="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start">
@@ -108,19 +117,20 @@
                                 </div>
 
                                 @auth
-                                <form action="{{ url('/session') }}" method="POST">
-                                    @csrf
-                                    <button
-                                        class="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">Continuar Compra
-                                    </button>
-                                </form>
-
-                                    <form action="{{ route('eliminarcarrito') }}">
-                                        <button class="mt-6 w-full rounded-md bg-gray-500 py-1.5 font-medium text-blue-50 hover:bg-gray-600">Vaciar
-                                            Carrito
+                                    <form action="{{ url('/session') }}" method="POST">
+                                        @csrf
+                                        <button
+                                            class="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">Continuar
+                                            Compra
                                         </button>
                                     </form>
 
+                                    <form action="{{ route('eliminarcarrito') }}">
+                                        <button
+                                            class="mt-6 w-full rounded-md bg-gray-500 py-1.5 font-medium text-blue-50 hover:bg-gray-600">Vaciar
+                                            Carrito
+                                        </button>
+                                    </form>
                                 @else
                                     <form action="{{ route('login') }}">
                                         <button
@@ -140,8 +150,7 @@
             </body>
 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"
-            integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous">
-            </script>
+                integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
 
 
         </div>
