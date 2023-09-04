@@ -8,9 +8,6 @@
 
         <!-- Cards -->
         <div id="content-main" class="grid grid-cols-12 gap-6">
-
-            <!-- Line chart (Acme Plus) -->
-            <!-- Table (Top Channels) -->
             <x-dashboard.dashboard-card-13 :ventasRecientes="$ordenes_recientes" />
 
             <x-dashboard.dashboard-card-02 :data="$data" :ventasTotales="$total_ventas" />
@@ -19,5 +16,6 @@
         </div>
 
     </div>
-
+    <x-slot:js>
+    </x-slot:js>
 </x-app-layout>

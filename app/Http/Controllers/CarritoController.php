@@ -8,6 +8,7 @@ use App\Models\Producto;
 use App\Models\Orden;
 use App\Models\OrdenProducto;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Illuminate\Support\Facades\Auth;
 
 class CarritoController extends Controller
 {
@@ -74,8 +75,6 @@ class CarritoController extends Controller
         $orden->save();
         dd(Cart::content());
         foreach (Cart::content() as $item) {
-
-
             $orden_productos = new OrdenProducto();
             $orden_productos->precio = $item->price;
             $orden_productos->cantidad = $item->qty;
@@ -92,8 +91,6 @@ class CarritoController extends Controller
 
     public function session()
     {
-
-
         $productItems = [];
         $user         = auth()->user();
         $curl = new \Stripe\HttpClient\CurlClient([CURLOPT_SSLVERSION => CURL_SSLVERSION_TLSv1]);
@@ -166,6 +163,9 @@ class CarritoController extends Controller
         } catch (\Throwable $th) {
             throw new NotFoundHttpException();
         }
+        $user_id = Auth::user()->id;
+
+        $pedido_detalle = Orden::where('session_id', $session->id)->with('productos', 'user')->first();
 
         return redirect()->back()->with("success", "success");
     }

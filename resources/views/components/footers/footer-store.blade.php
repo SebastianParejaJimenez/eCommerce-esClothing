@@ -1,5 +1,5 @@
 
-<div class="mx-auto container py-12 xl:px-20 lg:px-12 sm:px-6 px-4">
+<div class="mx-auto container py-4 xl:px-20 lg:px-12 sm:px-6 px-4 border-t-2  border-gray-200">
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 md:gap-8 gap-4">
         <div class="flex flex-col flex-shrink-0">
             <div class="dark:text-white">

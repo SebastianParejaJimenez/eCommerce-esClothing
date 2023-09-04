@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Producto;
+use Carbon\Carbon;
+use App\Models\Orden;
+use Illuminate\Support\Facades\Auth;
 
 class StoreController extends Controller
 {
@@ -39,5 +42,9 @@ class StoreController extends Controller
 
     }
 
+    public function pedidos_hechos(){
+
+        return view('pages/store/pedidos');
+    }
 
 }

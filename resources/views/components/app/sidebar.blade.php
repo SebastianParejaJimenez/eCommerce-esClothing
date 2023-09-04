@@ -4,13 +4,13 @@
         class="fixed inset-0 bg-slate-900 bg-opacity-30 z-40 lg:hidden lg:z-auto transition-opacity duration-200"
         :class="sidebarOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'"
         aria-hidden="true"
-        x-cloak
-    ></div>
+        x-cloak>
+    </div>
 
     <!-- Sidebar -->
     <div
         id="sidebar"
-        class="flex flex-col absolute z-40 left-0 top-0 lg:static lg:left-auto lg:top-auto lg:translate-x-0 h-screen overflow-y-scroll lg:overflow-y-auto no-scrollbar w-64 lg:w-20 lg:sidebar-expanded:!w-64 2xl:!w-64 shrink-0 dark:bg-slate-800 bg-gray-200 p-4 transition-all duration-200 ease-in-out"
+        class="flex flex-col absolute z-40 left-0 top-0 lg:static lg:left-auto lg:top-auto lg:translate-x-0 h-screen overflow-y-scroll lg:overflow-y-auto no-scrollbar w-64 lg:w-full lg:sidebar-expanded:!w-64 2xl:!w-64 shrink-0 dark:bg-slate-800 bg-gray-200 p-4 transition-all duration-200 ease-in-out"
         :class="sidebarOpen ? 'translate-x-0' : '-translate-x-64'"
         @click.outside="sidebarOpen = false"
         @keydown.escape.window="sidebarOpen = false"
@@ -29,7 +29,7 @@
             <!-- Logo -->
             <a class="block" href="{{ route('dashboard') }}">
                 <h1>esClothing.</h1>
-            </a> 
+            </a>
         </div>
 
         <!-- Links -->
@@ -92,7 +92,7 @@
                         </a>
                       </div>
                     </div>
-        
+
 
                     <div x-data="{ isActive: {{ in_array(Request::segment(1), ['productos', 'pedidos']) ? 1 : 0 }}, open: {{ in_array(Request::segment(1), ['productos', 'pedidos']) ? 1 : 0 }}}">
                       <!-- active classes 'bg-indigo-100 dark:bg-indigo-600' -->
@@ -227,7 +227,7 @@
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z" />
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z" />
-                              </svg>                              
+                              </svg>
                         </span>
                         <span class="ml-2 text-sm"> Estadisticas </span>
                         <span aria-hidden="true" class="ml-auto">

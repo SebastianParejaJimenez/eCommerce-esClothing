@@ -67,4 +67,7 @@
                     </form>
         </div>
     </div>
+    <x-slot:js>
+    </x-slot:js>
+
 </x-app-layout>

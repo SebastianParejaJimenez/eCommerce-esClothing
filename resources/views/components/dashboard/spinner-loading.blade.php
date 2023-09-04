@@ -7,10 +7,22 @@
     </div>
 </div>
 <script>
-    window.onload = function () {
-        // Ocultar el spinner
-        document.getElementById('spinner-loading').style.display = 'none';
-        // Mostrar la tabla
-        document.getElementById('content-table').style.display = 'block';
-    };
+
+function showSpinner() {
+  // Mostrar el spinner
+
+  // Insertar la clase invisible en el contenido de la tabla
+  contentTable.classList.add("invisible");
+}
+
+function hideSpinner() {
+  // Ocultar el spinner
+  document.getElementById('spinner-loading').style.display = 'none';
+
+  // Eliminar la clase invisible del contenido de la tabla
+  contentTable.classList.remove("invisible");
+}
+
+hideSpinner();
+
 </script>

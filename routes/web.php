@@ -46,6 +46,7 @@ Route::controller(StoreController::class)->group(function(){
     Route::get('/tienda', 'index')->name('tienda');
     Route::get('/catalogo', 'catalogoVista')->name('catalogo');
     Route::get('/catalogo/{categoria}', 'catalogoVista')->name('catalogo_categoria');
+    Route::get('/tienda/pedidos', 'pedidos_hechos')->name('pedidos_hechos');
 
 });
 

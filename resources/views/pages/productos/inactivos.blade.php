@@ -61,4 +61,7 @@
     </table>
     @endif
     </div>
+    <x-slot:js>
+    </x-slot:js>
+
 </x-app-layout>

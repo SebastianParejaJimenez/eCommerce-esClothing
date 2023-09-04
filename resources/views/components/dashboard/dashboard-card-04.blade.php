@@ -7,7 +7,7 @@
 </div>
   <!-- Required chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  
+
   <!-- Chart bar -->
   <script>
    $(document).ready(function() {
@@ -19,7 +19,7 @@
         const dataBar = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: cData.label_barras,     
+                labels: cData.label_barras,
                 datasets:[{
                 label: 'Cantidad de Ventas',
                 data: cData.data_barras,
@@ -45,4 +45,3 @@
     })
   </script>
 
-  

@@ -31,28 +31,7 @@ class Orden extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-    public function guardarCarritoPagado($session_id){
-        $orden = new Orden();
 
-        $orden->subtotal = str_replace(',', '', Cart::subtotal());
-        $orden->user_id = auth()->user()->id;
-        $orden->estado = "PAGADO";
-
-        $orden->save();
-        foreach (Cart::content() as $item) {
-            $orden_productos = new OrdenProducto();
-            $orden_productos->precio = $item->price;
-            $orden_productos->cantidad = $item->qty;
-            $orden_productos->producto_id = $item->id;
-            $orden_productos->orden_id = $orden->id;
-            $orden_productos->talla = $item->talla;
-
-            $orden_productos->save();
-        }
-
-
-        Cart::destroy();
-    }
     public function guardarCarritoNoPagado($session_id){
         $orden = new Orden();
 

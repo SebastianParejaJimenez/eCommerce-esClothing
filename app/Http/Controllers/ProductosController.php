@@ -72,6 +72,8 @@ class ProductosController extends Controller
 
     public function estadisticas(Request $request){
         $productosVendidos = Producto::withCount('ordenProductos')->orderBy('orden_productos_count', 'desc')->get();
+
+
         $productosConVentas = Producto::all();
 
         $productos_mes = Producto::selectRaw('MONTH(orden_productos.created_at) as mes, COUNT(orden_productos.id) as total_ventas')
