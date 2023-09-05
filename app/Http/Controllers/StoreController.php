@@ -43,8 +43,22 @@ class StoreController extends Controller
     }
 
     public function pedidos_hechos(){
+        $user_id = Auth::user()->id;
 
-        return view('pages/store/pedidos');
+        $pedidos = Orden::with('productos', 'user')->where('user_id', $user_id)->orderByDesc('created_at')->get();
+
+
+        return view('pages/store/pedidos', compact('pedidos'));
+    }
+
+    public function pedidoInformacion($id){
+
+        $pedido = Orden::findOrFail($id)
+        ->with('productos', 'user')->where('id', $id)->get();
+        $cont = 1;
+        return view('pages/store/detalle', compact('pedido', 'cont'));
+
+
     }
 
 }

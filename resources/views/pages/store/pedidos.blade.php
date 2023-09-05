@@ -5,76 +5,118 @@
     @section('content')
         <x-productos.carrito-header />
         <!-- component -->
-        <section class="text-gray-600 body-font bg-gray-100">
-            <div class="container px-5 py-24 mx-auto">
-                <div class="p-5 bg-white flex items-center mx-auto border-b  mb-10 border-gray-200 rounded-lg sm:flex-row flex-col">
-                    <div class="flex-grow sm:text-left text-center mt-6 sm:mt-0">
-                        <h1 class="text-black text-xl title-font font-bold mb-2">ID COMPRA</h1>
-                        <div class="py-2">
-                            <div class=" inline-block mr-2">
-                                <div class="flex  pr-2 h-full items-center">
-                                    <svg class="text-gray-500 w-6 h-6 mr-1" width="24" height="24"
-                                        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                        stroke-linecap="round" stroke-linejoin="round">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
-                                    </svg>
-                                    <p class="title-font font-medium">Estado:</p>
-                                </div>
+        <section class="flex items-center  bg-gray-100  font-poppins dark:bg-gray-800 ">
+            <div class=" flex-1 max-w-5xl px-4 py-4 mx-auto text-left lg:py-10 ">
+                <div class="mb-10 text-center">
+                    <span
+                        class="block mb-4 text-xs font-semibold leading-4 tracking-widest text-center text-blue-500 uppercase dark:text-gray-400">
+                        Tus pedidos
+                    </span>
+                    <h1 class="text-3xl font-bold capitalize dark:text-white"> Lista de Pedidos</h1>
+                </div>
+                <div class="grid grid-cols-2 w-full gap-4">
+                    @foreach ($pedidos as $pedido)
+                        <div class="p-4 mb-6 rounded-md bg-gray-50 dark:bg-gray-900">
+                            <div class="flex items-center justify-between">
+                                <a href="#"
+                                    class="inline-block mb-2 text-xs font-semibold text-blue-500 uppercase hover:text-blue-600 dark:text-gray-400">
+                                    Pedido #{{ $pedido->id }}
+                                </a>
+                                <span class="mb-2 text-xs text-gray-500 dark:text-gray-400">{{
+                                    \Carbon\Carbon::parse($pedido->created_at)->subDays(5)->diffForHumans();}}</span>
                             </div>
-                            <div class="inline-block mr-2">
-                                <div class="flex  pr-2 h-full items-center">
-                                    <svg class="text-green-500 w-6 h-6 mr-1" width="24" height="24"
-                                        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                        stroke-linecap="round" stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z" />
-                                        <circle cx="12" cy="12" r="9" />
-                                        <path d="M9 12l2 2l4 -4" />
-                                    </svg>
-                                    <p class="title-font font-medium">ACTIVO</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="md:flex font-bold text-gray-800">
-                            <div class="w-full md:w-1/2 flex space-x-3">
-                                <div class="w-1/2">
-                                    <h2 class="text-gray-500">ID de Compra</h2>
-                                    <p>description</p>
-                                </div>
-                                <div class="w-1/2">
-                                    <h2 class="text-gray-500">Fecha de Compra</h2>
-                                    <p>description</p>
-                                </div>
-                            </div>
-                        </div>
+                            <div class="flex flex-wrap items-center mb-4 ">
+                                <a href="#"
+                                    class="flex items-center mb-2 mr-4 text-sm md:mb-0
+                                @switch($pedido->estado)
+                                    @case('PAGADO')
+                                        text-blue-500 hover:text-blue-600
+                                        @break
+                                    @case('COMPLETADO')
+                                       text-green-500  hover:text-green-600
+                                        @break
+                                    @case('PENDIENTE')
+                                        text-gray-500  dark:bg-gray-800
+                                        @break
+                                    @case('CANCELADO')
+                                        text-red-500  dark:bg-gray-800
+                                        @break
+                                @endswitch
+                                dark:text-gray-400 dark:hover:text-gray-100">
 
-                        <div x-data="{ reportsOpen: false }" class="mt-4">
-                            <div @click="reportsOpen = !reportsOpen"
-                                class='flex items-center text-indigo-600 w-full overflow-hidden mt-32 md:mt-0 mb-2 mx-auto'>
+                                    @switch($pedido->estado)
+                                        @case('CANCELADO')
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                        @break
 
-                                <div class='flex items-center py-3'>
-                                    <div class='mx-3'>
-                                        <button class="hover:underline">Ver Detalles</button>
+                                        @case('PAGADO')
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                        @break
+
+                                        @case('COMPLETADO')
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                        @break
+
+                                        @default
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+                                            </svg>
+                                        @break
+                                    @endswitch
+                                    {{ $pedido->estado }}
+                                </a>
+                                <a href="#"
+                                    class="flex items-center mb-2 mr-4 text-sm text-indigo-500 md:mb-0 hover:text-indigo-700 dark:text-gray-400 dark:hover:text-gray-100">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                        fill="currentColor" class="w-4 h-4 mr-1 bi bi-geo-alt" viewBox="0 0 16 16">
+                                        <path
+                                            d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z" />
+                                        <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                                    </svg>Medellín
+                                </a>
+                            </div>
+                            <div class="max-w-lg mx-auto ">
+                                <h2 class="mb-2 text-lg font-medium dark:text-gray-400 ">Orden:</h2>
+                                <div class="grid grid-cols-2 gap-3 mb-10 lg:grid-cols-2">
+                                    <div
+                                        class="flex items-center justify-between px-10 py-3 font-normal leading-8 bg-gray-50 rounded-md shadow-md dark:text-gray-400 dark:bg-gray-800 font-heading">
+                                        <span>Productos:</span>
+                                        <span class="flex items-center rounded-full shadow-lg p-1">
+                                            <span class="text-base text-blue-500 ">{{ $pedido->producto->count() }}</span>
+                                        </span>
                                     </div>
-                                    <div class='w-10 border-r px-2 transform transition duration-300 ease-in-out'
-                                        :class="{ 'rotate-90': reportsOpen, ' -translate-y-0.0': !reportsOpen }">
-                                        <svg fill="none" stroke="currentColor" stroke-linecap="round"
-                                            stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2"
-                                            viewBox="0 0 24 24">
-                                            <path d="M5 12h14M12 5l7 7-7 7"></path>
-                                        </svg>
+                                    <div
+                                        class="flex items-center justify-between px-10 py-3 font-medium leading-8 bg-gray-50 rounded-md shadow-md dark:text-gray-400 dark:bg-gray-800 font-heading">
+                                        <span>Total</span>
+                                        <span class="flex items-center text-blue-500 dark:text-blue-400">
+                                            <span class="ml-3 mr-1 text-sm">$</span>
+                                            <span class="text-base">{{ $pedido->subtotal }}</span>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="flex p-5 md:p-0 w-full transform transition duration-300 ease-in-out border-b pb-10"
-                                x-cloak x-show="reportsOpen" x-collapse x-collapse.duration.500ms>
-                                This is a very simple dropdown/accordion/collapse (whatever you call it) using Tailwind,
-                                Alpine.js, and the Alpine.js plugin "Collapse" to enable smoother open/collapse transitions
-                                than what comes out of the box with Alpine.js
-                            </div>
-
+                            <a href="{{route('pedido.informacion', $pedido->id)}}" class='flex items-center px-2 py-2 mb-2  text-sm text-gray-100 bg-blue-500 rounded-md md:mb-0 hover:bg-blue-600 dark:text-gray-100 dark:hover:bg-blue-500 dark:bg-blue-400'>
+                                <div class='mx-3'>
+                                    <div class="hover:underline">Ver Detalles</div>
+                                </div>
+                            </a>
                         </div>
-                    </div>
+                    @endforeach
+
                 </div>
 
             </div>

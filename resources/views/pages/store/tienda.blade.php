@@ -40,7 +40,7 @@
             <section class="flex items-center  font-poppins dark:bg-gray-800 ">
                 <div class="justify-center flex-1 mx-auto max-w-7xl ">
                     <div class="relative px-4 py-4 mx-4 bg-white bg-bottom bg-no-repeat bg-cover rounded-md shadow md:p-10 dark:bg-gray-900"
-                        style="min-height: 380px; background-image: url('https://i.postimg.cc/MG2RXhTt/bg.png')">
+                        style="min-height: 380px;">
                         <div class="absolute top-0 bottom-0 left-0 right-0 flex items-center ">
                             <div class="max-w-3xl px-4 mx-auto text-center">
                                 <a class="inline-block mb-2 text-blue-500 dark:text-blue-400" href="#">

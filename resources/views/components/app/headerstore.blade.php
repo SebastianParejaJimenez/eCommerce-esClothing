@@ -28,7 +28,7 @@
                 @else
                 <a href="{{route('login')}}" class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">Inicia Sesión</a>
                 @endif
-            </div>                    
+            </div>
             <div class="flex sm:hidden">
                 <button @click="isOpen = !isOpen" type="button" class="text-gray-600 hover:text-gray-500 focus:outline-none focus:text-gray-500" aria-label="toggle menu">
                     <svg viewBox="0 0 24 24" class="h-6 w-6 fill-current">
@@ -47,14 +47,16 @@
                         <a href="{{url('/dashboard')}}" class="block py-2 pr-4 pl-3 text-gray-700 rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white" aria-current="page">Dashboard</a>
                     </li>
                     @endif
-
+                    <li>
+                        <a href="{{route('pedidos_hechos')}}" class="block py-2 pr-4 pl-3 text-gray-700 rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white" aria-current="page">Historial de Pedidos</a>
+                    </li>
                     <li>
                         <a href="{{route('catalogo')}}" class="block py-2 pr-4 pl-3 text-gray-700 rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white" aria-current="page">Catálogo</a>
                     </li>
                 </ul>
             </div>
         </nav>
-        
+
         </div>
     </nav>
 </header>

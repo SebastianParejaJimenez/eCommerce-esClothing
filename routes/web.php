@@ -46,23 +46,24 @@ Route::controller(StoreController::class)->group(function(){
     Route::get('/tienda', 'index')->name('tienda');
     Route::get('/catalogo', 'catalogoVista')->name('catalogo');
     Route::get('/catalogo/{categoria}', 'catalogoVista')->name('catalogo_categoria');
-    Route::get('/tienda/pedidos', 'pedidos_hechos')->name('pedidos_hechos');
 
 });
 
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
-    // Route for the getting the data feed
-    Route::get('/json-data-feed', [DataFeedController::class, 'getDataFeed'])->name('json_data_feed');
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
-    Route::get('/marcar_Notificaciones', [NotificationController::class, 'markAllNotifications'])->name('marcar.notificaciones');
-    Route::get('/marcar_notificacion/{notification_id}/{orden_id}', [NotificationController::class, 'markOneNotification'])->name('marcar.notificacion');
-
     Route::fallback(function() {
         return view('pages/utility/404');
     })->name('404');
+
+    Route::get('/tienda/pedidos', [StoreController::class, 'pedidos_hechos'])->name('pedidos_hechos');
+    Route::get('/tienda/pedidos/{id}', [StoreController::class, 'pedidoInformacion'])->name('pedido.informacion');
+
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/marcar_Notificaciones', [NotificationController::class, 'markAllNotifications'])->name('marcar.notificaciones');
+    Route::get('/marcar_notificacion/{notification_id}/{orden_id}', [NotificationController::class, 'markOneNotification'])->name('marcar.notificacion');
+
+
 
     //Rutas Productos
     Route::get('/estadisticas/productos', [ProductosController::class, 'estadisticas'])->name('productos.estadisticas');
