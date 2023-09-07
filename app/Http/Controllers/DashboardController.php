@@ -1,51 +1,48 @@
 <?php
 
-    namespace App\Http\Controllers;
+namespace App\Http\Controllers;
 
-    use Illuminate\Http\Request;
-    use Illuminate\Support\Facades\Http;
-    use App\Models\DataFeed;
-    use Carbon\Carbon;
-    use App\Models\Producto;
-    use Illuminate\Support\Facades\Auth;
-    use App\Models\Orden;
-    use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use Carbon\Carbon;
+use App\Models\Producto;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Orden;
+use App\Models\User;
 
-    class DashboardController extends Controller
+class DashboardController extends Controller
+{
+
+    /**
+     * Displays the dashboard screen
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function index()
     {
+        $productosConVentas = Producto::withCount('ordenProductos')->orderBy('orden_productos_count', 'desc')->take(5)->get();
 
-        /**
-         * Displays the dashboard screen
-         *
-         * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-         */
-        public function index()
-        {
-            $productosConVentas = Producto::withCount('ordenProductos')->orderBy('orden_productos_count', 'desc')->take(5)->get();
-
-            $ordenes_recientes = Orden::with('user')
+        $ordenes_recientes = Orden::with('user')
             ->orderBy('created_at', 'desc')
             ->whereDay('created_at', Carbon::now()->day)
             ->paginate('3');
 
-            $total_ventas = Orden::sum('subtotal');
+        $total_ventas = Orden::sum('subtotal');
 
-            $ventas = Orden::all();
+        $ventas = Orden::all();
 
-            $data = [];
-            foreach ($ventas as $venta) {
-                $data['label'][] = $venta->created_at->format('F');
-                $data['data'][] = $venta->subtotal;
-            }
-
-            $data['data'] = json_encode($data);
-
-            $rol = Auth::user()->rol_id;
-            if ($rol == 1) {
-            return view('pages/dashboard/dashboard', $data, compact('total_ventas' , 'productosConVentas', 'ordenes_recientes'));
-            }
-            return redirect()->route('tienda');
-
-
+        $data = [];
+        foreach ($ventas as $venta) {
+            $data['label'][] = $venta->created_at->format('F');
+            $data['data'][] = $venta->subtotal;
         }
+
+        $data['data'] = json_encode($data);
+
+        $rol = Auth::user()->rol_id;
+        if ($rol == 1) {
+            return view('pages/dashboard/dashboard', $data, compact('total_ventas', 'productosConVentas', 'ordenes_recientes'));
+        }
+        return redirect()->route('tienda');
     }
+}

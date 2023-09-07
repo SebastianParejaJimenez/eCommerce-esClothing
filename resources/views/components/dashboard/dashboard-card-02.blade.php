@@ -9,7 +9,6 @@
             Generadas</div>
         <div class="flex items-start">
             <div class="text-3xl font-bold text-slate-800 dark:text-slate-100 mr-2">${{number_format($ventasTotales, 2, ',', '.') }}</div>
-            <div class="text-sm font-semibold text-white px-1.5 bg-amber-500 rounded-full">-14%</div>
         </div>
     </div>
     <div class="grow max-sm:max-h-[100%] xl:max-h-[90%] w-full">
@@ -54,6 +53,7 @@
             data: {
                 labels: cData.label,
                 datasets: [{
+                    label: 'Total Generado',
                     data: cData.data,
                     fill: true,
                     borderWidth: 3,

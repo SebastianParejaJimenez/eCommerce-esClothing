@@ -65,7 +65,7 @@ class CarritoController extends Controller
         return redirect()->back()->with("eliminarCarrito", "carrito eliminao");
     }
 
-    public function confirmarCarrito(Request $request)
+   /*  public function confirmarCarrito(Request $request)
     {
 
         $orden = new Orden();
@@ -87,7 +87,7 @@ class CarritoController extends Controller
         Cart::destroy();
         return redirect()->back()->with("success", "confirmado");
     }
-
+ */
 
     public function session()
     {

@@ -38,6 +38,7 @@ class Orden extends Model
         $orden->subtotal = str_replace(',', '', Cart::subtotal());
         $orden->user_id = auth()->user()->id;
         $orden->session_id = $session_id;
+        $orden->ciudad_envio = auth()->user()->ciudad;
         $orden->save();
 
         foreach (Cart::content() as $item) {

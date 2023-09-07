@@ -7,36 +7,9 @@
 
                         <div class="overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg">
                             <x-dashboard.spinner-loading />
-                            <form action="{{route('usuarios.search')}}" method="GET">  
-                                <div class="my-2 flex sm:flex-row flex-col ">
-                                    <div class="block relative">
-                                        <span class="h-full absolute inset-y-0 left-0 flex items-center pl-2">
-                                            <svg viewBox="0 0 24 24" class="h-4 w-4 fill-current text-gray-500">
-                                                <path
-                                                    d="M10 4a6 6 0 100 12 6 6 0 000-12zm-8 6a8 8 0 1114.32 4.906l5.387 5.387a1 1 0 01-1.414 1.414l-5.387-5.387A8 8 0 012 10z">
-                                                </path>
-                                            </svg>
-                                        </span>
-                                            <input placeholder="Buscar" name="q" class="appearance-none rounded-r rounded-l sm:rounded-l-none border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none" />
-                                    </div>
-                                
-                                    <button type="submit" class=" ml-3 px-3 btn bg-indigo-500 hover:bg-indigo-600 text-white" type="submit">Buscar</button>
-                                    
-{{--                                     <select name="rol" class="mx-3">
-                                        <option value="">Todos los Roles</option>
-                                        <option value="Administrador">Administrador</option>
-                                        <option value="Cliente">Cliente</option>
-                                    </select> --}}
-{{--                                     <select name="estado">
-                                        <option value="*">Todos los Estados</option>
-                                        <option value="activo">Activo</option>
-                                        <option value="inactivo">Inactivo</option>
-                                    </select> --}}
-                                    </div>
-
-
-                            </form>
-                            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+{{--                             <input placeholder="Buscar" name="q" class="appearance-none rounded-r rounded-l sm:rounded-l-none border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none" />
+ --}}
+                            <table class="min-w-full divide-y datatable  divide-gray-200 dark:divide-gray-700" id="dataTable">
                                 <thead class="bg-gray-50 dark:bg-gray-800">
                                     <tr>
 
@@ -67,13 +40,13 @@
                                     <tr>
                                         <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap"> {{\Carbon\Carbon::parse($usuario->created_at)->formatLocalized('%d %B %Y %I:%M %p');}}</td>
                                         <td class="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
-                                            <div class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 
+                                            <div class="inline-flex items-center px-3 py-1 rounded-full gap-x-2
                                         dark:bg-gray-800
                                         @switch(true)
                                             @case($usuario->estado == "Activo")
                                                 text-green-500 bg-green-100/60
                                                 @break
-                                            
+
                                             @case($usuario->estado == "Inactivo")
                                                 text-red-500 bg-red-200
                                                 @break
@@ -86,7 +59,7 @@
                                             <path d="M10 3L4.5 8.5L2 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                         </svg>
                                             @break
-            
+
                                         @case($usuario->estado == "Inactivo")
                                         <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M9 3L3 9M3 3L9 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -99,7 +72,7 @@
                                         </td>
                                         <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
                                             <div class="flex items-center gap-x-2">
-                                                <img class="w-8 h-8 rounded-full" src="{{ Auth::user()->profile_photo_url }}" width="32" height="32" alt="{{$usuario->name}}" />
+                                                <img class="w-8 h-8 rounded-full" src="{{ $usuario->profile_photo_url }}" width="32" height="32" alt="{{$usuario->name}}" />
 
                                                 <div>
                                                     <h2 class="text-sm font-medium text-gray-800 dark:text-white ">{{$usuario->name}}</h2>
@@ -136,7 +109,7 @@
                                             </a>
                                         </div>
                                         @else
-                                                                                        
+
                                         <form method="POST" action="{{ route('usuarios.destroy', ['id' => $usuario->id]) }}">
                                             @method('DELETE')
                                             @csrf
@@ -157,5 +130,34 @@
                 </div>
             </div>
         </section>
+
+    <x-slot:js>
+
+    <script>
+   $(document).ready(function() {
+  // Create a DataTable object
+  var dataTable = $('#dataTable').DataTable({
+    // Set the language to Spanish
+    language: {
+      "lengthMenu": "Mostrar _MENU_ registros por página",
+      "zeroRecords": "No se encontraron resultados",
+      "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+      "infoEmpty": "Mostrando 0 a 0 de 0 registros",
+      "infoFiltered": "(filtrado de _MAX_ registros)",
+      "search": "Buscar:",
+      "paginate": {
+        "first": "Primera",
+        "previous": "Anterior",
+        "next": "Siguiente",
+        "last": "Última"
+      }
+    },
+
+  });
+});
+    </script>
+
+
+    </x-slot:js>
 
     </x-app-layout>

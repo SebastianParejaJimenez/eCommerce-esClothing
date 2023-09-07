@@ -1,7 +1,7 @@
 <header>
     <nav class=" top-0 bg-white dark:bg-[#182235] border-b border-slate-200 dark:border-slate-700 z-30 px-4 lg:px-6 py-2.5">
         <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
-            <a href="#" class="flex items-center">
+            <a href="{{route('tienda')}}" class="flex items-center">
                 <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">esClothing</span>
             </a>
             <div class="flex items-center lg:order-2">

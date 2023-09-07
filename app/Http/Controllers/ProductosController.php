@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\DataFeed;
 use App\Models\Producto;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -21,11 +20,10 @@ class ProductosController extends Controller
     public function index(Request $request)
     {
 
-        $dataFeed = new DataFeed();
         $productos = Producto::where('estado', 'Activo')->paginate(5);
         $rol = Auth::user()->rol_id;
         if ($rol == 1) {
-        return view('pages/productos/productos', compact('dataFeed', 'productos'));
+        return view('pages/productos/productos', compact('productos'));
         }
         return redirect()->route('tienda');
 
@@ -104,11 +102,10 @@ class ProductosController extends Controller
     }
 
     public function create(Request $request){
-        $dataFeed = new DataFeed();
         $rol = Auth::user()->rol_id;
 
         if ($rol == 1) {
-        return view('pages/productos/create', compact('dataFeed'));
+        return view('pages/productos/create');
         }
         return redirect()->route('tienda');
 
@@ -156,10 +153,9 @@ class ProductosController extends Controller
     }
 
     public function show($id){
-        $dataFeed = new DataFeed();
         $producto = Producto::where('estado','activo')->findOrFail($id);
 
-        return view('pages.productos.show', compact('dataFeed', 'producto'));
+        return view('pages.productos.show', compact( 'producto'));
 
     }
 
@@ -194,13 +190,12 @@ class ProductosController extends Controller
     }
 
     public function edit($id){
-        $dataFeed = new DataFeed();
         $producto = Producto::findOrFail($id);
         $rol = Auth::user()->rol_id;
 
         if ($rol == 1) {
 
-            return view('pages/productos/edit', compact('dataFeed', 'producto'));
+            return view('pages/productos/edit', compact( 'producto'));
 
     }
 

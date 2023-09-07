@@ -180,7 +180,7 @@
                         <div class="w-full px-3 mb-5">
                             <x-jet-label for="postal_code" value="{{ __('Código Postal') }}" />
                             <x-jet-input id="codigo_postal" class="block mt-1 w-full" type="text"
-                                name="codigo_postal" :value="old('codigo_postal')" required placeholder="codigo_postal" />
+                                name="codigo_postal" :value="old('codigo_postal')" required placeholder="Codigo Postal" />
                         </div>
                     </div>
 

@@ -21,9 +21,6 @@
             <div class="max-w-4xl mx-auto mb-10">
                 <h2 class="mb-4 text-xl font-medium dark:text-gray-400">Informacion del Pedido:</h2>
             @foreach ($pedido->productos as $producto)
-
-
-
                 <div class="p-9 mb-8 bg-white rounded-md shadow dark:bg-gray-800 sm:flex sm:items-center xl:py-5 xl:px-12 relative">
                     <a href="#" class="mr-6 md:mr-12">
                         <img class=" w-full lg:w-[80px] h-[200px] lg:h-[80px]  object-cover  mx-auto mb-6 sm:mb-0 "
@@ -31,16 +28,16 @@
                             alt="dress">
                     </a>
 
-                    <a href="{{ route('productos.show', ['id' => $producto->id, 'slug' => $producto->slug]) }}"
+                    <p
                         class="btn p-2 bg-indigo-400 hover:bg-indigo-500 text-white absolute -top-3 -left-3 rounded-full">
                         <span class="">
                             #{{$cont++}}
                         </span>
-                    </a>
+                    </p>
 
 
                     <div>
-                        <a class="inline-block mb-1 text-lg font-medium hover:underline dark:text-gray-400" href="#">
+                        <a href="{{ route('productos.show', ['id' => $producto->id, 'slug' => $producto->slug]) }}" class="inline-block mb-1 text-lg font-medium hover:underline dark:text-gray-400" >
                             {{ $producto->nombre }}</a>
                         <div class="flex flex-wrap">
 
@@ -96,3 +93,4 @@
         </div>
     </section>
     @endsection
+

@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -16,10 +16,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-
-        $this->call([
-            DashboardTableSeeder::class,
-        ]);
+        User::factory(20)->create();
 
         DB::table('rols')->insert([
             'rol'  => 'Administrador',
@@ -49,7 +46,7 @@ class DatabaseSeeder extends Seeder
             'rol_id' => '1',
             'created_at' => now(),
         ]);
-        
+
 /*         DB::table('productos')->insert([
             'nombre'  => 'Camisa',
             'categoria'     => 'Camisas',

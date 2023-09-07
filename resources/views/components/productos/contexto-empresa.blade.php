@@ -1,40 +1,58 @@
-<div class="bg-white" id="Tienda">
-    <div class="mx-auto grid max-w-2xl grid-cols-1 items-center gap-x-8 gap-y-16 px-4 py-24 sm:px-6 sm:py-12 lg:max-w-7xl lg:grid-cols-2 lg:px-8">
-      <div>
-        <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Nuestra Empresa</h2>
-        <p class="mt-4 text-gray-500">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quod eligendi aut reprehenderit </p>
-
-        <dl class="mt-16 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 sm:gap-y-16 lg:gap-x-8">
-          <div class="border-t border-gray-200 pt-4">
-            <dt class="font-medium text-gray-900">Origen</dt>
-            <dd class="mt-2 text-sm text-gray-500">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quod eligendi aut reprehenderit </dd>
-          </div>
-          <div class="border-t border-gray-200 pt-4">
-            <dt class="font-medium text-gray-900">Nuestros Productos</dt>
-            <dd class="mt-2 text-sm text-gray-500">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quod eligendi aut reprehenderit </dd>
-          </div>
-          <div class="border-t border-gray-200 pt-4">
-            <dt class="font-medium text-gray-900">Dedicacion</dt>
-            <dd class="mt-2 text-sm text-gray-500">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quod eligendi aut reprehenderit </dd>
-          </div>
-          <div class="border-t border-gray-200 pt-4">
-            <dt class="font-medium text-gray-900">Nuestras Categorias</dt>
-            <dd class="mt-2 text-sm text-gray-500">Hand sanded and finished with natural oil</dd>
-          </div>
-          <div class="border-t border-gray-200 pt-4">
-            <dt class="font-medium text-gray-900">Metodos de Pagos</dt>
-            <dd class="mt-2 text-sm text-gray-500">Wood card tray and 3 refill packs</dd>
-          </div>
-          <div class="border-t border-gray-200 pt-4">
-            <dt class="font-medium text-gray-900">Metodos de Envio</dt>
-            <dd class="mt-2 text-sm text-gray-500">Made from natural materials. Grain and color vary with each item.</dd>
-          </div>
-        </dl>
-      </div>
-      <div class="grid grid-cols-2 grid-rows-2 gap-4 sm:gap-6 lg:gap-8">
-        @foreach ($productos as $producto_randoms)
-        <img src="{{ url('productos_subidos') }}/{{ $producto_randoms->imagen }}" alt="{{$producto_randoms->nombre}}." class="rounded-lg bg-gray-100">
-        @endforeach
+<section class="flex items-center justify-center dark:bg-gray-800 lg:h-min">
+    <div class="px-4 py-5 mx-auto max-w-7xl">
+        <div class="flex flex-wrap">
+            <div class="flex-1 pl-0 lg:pl-4">
+                <div class="mb-12">
+                    <div class="relative">
+                        <h1 class="absolute -top-12 -left-44 text-[120px] font-bold opacity-5"> esClothing
+                        </h1>
+                        <h1 class="text-5xl font-bold dark:text-white"> Nuestros <span class="text-indigo-500">
+                                Productos
+                            </span> </h1>
+                        <div class="flex w-24 mt-1 mb-10 overflow-hidden rounded">
+                            <div class="flex-1 h-2 bg-indigo-200">
+                            </div>
+                            <div class="flex-1 h-2 bg-indigo-400">
+                            </div>
+                            <div class="flex-1 h-2 bg-indigo-600">
+                            </div>
+                        </div>
+                    </div>
+                    <p class="mb-16 text-base text-gray-500">
+                        Nos aseguramos de proporcionar a nuestros clientes aquellos materiales que tenemos a disposicion de la mejor calidad posible
+                    </p>
+                </div>
+                <div class="grid flex-1 grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-2">
+                    <a href="{{route('catalogo_categoria', ['categoria' => 'Camisas'])}}"
+                        class="w-full p-8 text-center transition-all bg-white rounded shadow dark:bg-gray-700 hover:shadow-lg">
+                        <div class="inline-block p-4 mb-4 bg-indigo-400 rounded-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="#fff"><path d="M21.316 4.055C19.556 3.478 15 1.985 15 2a3 3 0 1 1-6 0c0-.015-4.556 1.478-6.317 2.055A.992.992 0 0 0 2 5.003v3.716a1 1 0 0 0 1.242.97L6 9v12a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V9l2.758.689A1 1 0 0 0 22 8.719V5.003a.992.992 0 0 0-.684-.948z"></path></svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-black dark:text-white"> Camisas </h3>
+                    </a>
+                    <a href="{{route('catalogo_categoria', ['categoria'=>'Conjuntos'])}}"
+                        class="w-full p-8 text-center transition-all bg-white rounded shadow dark:bg-gray-700 hover:shadow-lg">
+                        <div class="inline-block p-4 mb-4 bg-indigo-400 rounded-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="#fff"><path d="M21.316 4.055C19.556 3.478 15 1.985 15 2a3 3 0 1 1-6 0c0-.015-4.556 1.478-6.317 2.055A.992.992 0 0 0 2 5.003v3.716a1 1 0 0 0 1.242.97L6 9v12a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V9l2.758.689A1 1 0 0 0 22 8.719V5.003a.992.992 0 0 0-.684-.948z"></path></svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-black dark:text-white"> Conjuntos </h3>
+                    </a>
+                    <a href="{{route('catalogo_categoria', ['categoria' => 'Chaquetas-Buzos'])}}"
+                        class="w-full p-8 text-center transition-all bg-white rounded shadow dark:bg-gray-700 hover:shadow-lg">
+                        <div class="inline-block p-4 mb-4 bg-indigo-400 rounded-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="#fff"><path d="M21.316 4.055C19.556 3.478 15 1.985 15 2a3 3 0 1 1-6 0c0-.015-4.556 1.478-6.317 2.055A.992.992 0 0 0 2 5.003v3.716a1 1 0 0 0 1.242.97L6 9v12a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V9l2.758.689A1 1 0 0 0 22 8.719V5.003a.992.992 0 0 0-.684-.948z"></path></svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-black dark:text-white"> Chaquetas </h3>
+                    </a>
+                    <a href="{{route('catalogo_categoria', ['categoria'=>'Vestidos'])}}"
+                        class="w-full p-8 text-center transition-all bg-white rounded shadow dark:bg-gray-700 hover:shadow-lg">
+                        <div class="inline-block p-4 mb-4 bg-indigo-400 rounded-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="#fff"><path d="M21.316 4.055C19.556 3.478 15 1.985 15 2a3 3 0 1 1-6 0c0-.015-4.556 1.478-6.317 2.055A.992.992 0 0 0 2 5.003v3.716a1 1 0 0 0 1.242.97L6 9v12a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V9l2.758.689A1 1 0 0 0 22 8.719V5.003a.992.992 0 0 0-.684-.948z"></path></svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-black dark:text-white"> Vestidos </h3>
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
-    </div>
-  </div>
+</section>

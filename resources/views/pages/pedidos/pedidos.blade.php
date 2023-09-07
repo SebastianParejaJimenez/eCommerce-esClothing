@@ -57,9 +57,8 @@
                             <span>#{{ $orden->id }}</span>
                         </div>
                     </td>
-                    <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{{
-                        \Carbon\Carbon::parse($orden->created_at)->formatLocalized('%d %B %Y %I:%M %p');}}
-
+                    <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
+                    {{ \Carbon\Carbon::parse($orden->created_at)->formatLocalized('%d %B %Y %I:%M %p') }}
                     </td>
                     <td class="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                         <div class="inline-flex items-center px-3 py-1 rounded-full gap-x-2
