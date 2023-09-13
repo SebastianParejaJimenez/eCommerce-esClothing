@@ -132,7 +132,7 @@
                                 Ver Detalles
                             </button>
                         </form>
-                        <button class="text-blue-500 transition-colors duration-200 hover:text-indigo-500 focus:outline-none" onclick="onclickexample({{$orden->id}})">
+                        <button class="text-blue-500 transition-colors duration-200 hover:text-indigo-500 focus:outline-none" onclick="cambiarEstado({{$orden->id}})">
                             Cambiar Estado
                         </button>
                         </div>
@@ -150,7 +150,7 @@
     <x-slot:js>
 <script>
 
-function onclickexample(id_pedido){
+function cambiarEstado(id_pedido){
 
     (async() => {
         const {value: estado} = await Swal.fire({
@@ -181,8 +181,8 @@ function onclickexample(id_pedido){
                     .replace(':estado', estadoNuevo),
                 error: () => {
                     Swal.fire(
-                        'Something went wrong!',
-                        'record was not deleted.',
+                        'Algo va mal!',
+                        'No han habido cambios.',
                         'error',
                     );
                 },

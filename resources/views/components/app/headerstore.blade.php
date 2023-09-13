@@ -1,17 +1,22 @@
 <header>
     <section class="relative bg-gray-50 border-b font-poppins dark:bg-gray-800 dark:border-gray-800">
-        <div class="container mx-auto py-5" x-data="{ open: false }">
+        <div class="container mx-auto py-3" x-data="{ open: false }">
             <nav class="flex justify-between ">
                 <div class="flex items-center justify-between w-full px-4 py-2 lg:px-2 ">
                     <a href="{{route('tienda')}}" class="text-2xl text-gray-700 dark:text-gray-400">esClothing.</a>
                     <div class="flex items-center lg:hidden ">
-                        <a href="" class="mr-4 dark:text-gray-400 hover:text-indigo-500">
+
+                        @if (Auth::user())
+                        <x-dropdown-profile  />
+                        @endif
+                        <a href="" class="mx-4 dark:text-gray-400 hover:text-indigo-500">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                                 class="bi bi-heart" viewBox="0 0 16 16">
                                 <path
                                     d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
                             </svg>
                         </a>
+
                         <button @click="cartOpen = !cartOpen" class="flex items-center mr-4 dark:text-gray-400 hover:text-indigo-500">
                             <div class="relative mr-5">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
@@ -28,6 +33,7 @@
                                 @endif
                             </div>
                         </button>
+
                         <button
                             class="flex items-center px-3 py-2 text-blue-600 border border-blue-200 rounded dark:text-gray-400 hover:text-blue-800 hover:border-blue-300 lg:hidden"
                             @click="open =true">
@@ -120,6 +126,11 @@
                         <a href="{{route('pedidos_hechos')}}"
                             class="text-sm text-gray-700 hover:text-blue-400 dark:text-gray-400">Historial de Pedidos</a>
                     </li>
+                    @if (!Auth::user())
+                    <a href="{{ route('login') }}"
+                        class="text-sm text-gray-700 hover:text-blue-400 dark:text-gray-400">Inicia
+                        Sesión</a>
+                    @endif
                 </ul>
             </div>
         </div>

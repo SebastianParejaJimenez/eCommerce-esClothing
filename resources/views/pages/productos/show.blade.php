@@ -7,7 +7,7 @@
         <style>
             @import url(https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.min.css);
         </style>
-        <div class="min-w-screen min-h-screen bg-gray-300 flex items-center p-5 lg:p-10 overflow-hidden relative">
+        <div class="min-w-screen min-h-screen bg-gray-100 flex items-center p-5 lg:p-10 overflow-hidden relative">
 
             <x-productos.carrito-header />
 
@@ -78,7 +78,7 @@
                                 @if (Auth::user())
                                     <div class="inline-block align-bottom mt-5">
                                         <button type="submite"
-                                            class="tracking-wide text-white capitalize transition-colors duration-200 transform bg-gray-800 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-700 px-10 py-2 font-semibold"><i
+                                            class="tracking-wide mt-2 text-white capitalize transition-colors duration-200 transform bg-green-500 rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600 px-10 py-2 font-semibold"><i
                                                 class="mdi mdi-cart -ml-2 mr-2"></i> Añadir al Carrito </button>
                                     </div>
                                 @endif

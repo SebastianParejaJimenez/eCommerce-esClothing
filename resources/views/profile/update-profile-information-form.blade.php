@@ -65,11 +65,34 @@
             <x-jet-input id="email" type="email" class="mt-1 block w-full" wire:model.defer="state.email" />
             <x-jet-input-error for="email" class="mt-2" />
         </div>
+
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label for="ciudad" value="{{ __('Numero de Telefono') }}" />
+            <x-jet-input id="ciudad" type="text" class="mt-1 block w-full" wire:model.defer="state.numero_telefono" />
+            <x-jet-input-error for="ciudad" class="mt-2" />
+        </div>
         <!-- Ciudad -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label for="ciudad" value="{{ __('Pais') }}" />
+            <x-jet-input id="ciudad" type="text" class="mt-1 block w-full" wire:model.defer="state.pais" />
+            <x-jet-input-error for="ciudad" class="mt-2" />
+        </div>
 
         <div class="col-span-6 sm:col-span-4">
             <x-jet-label for="ciudad" value="{{ __('Ciudad') }}" />
             <x-jet-input id="ciudad" type="text" class="mt-1 block w-full" wire:model.defer="state.ciudad" />
+            <x-jet-input-error for="ciudad" class="mt-2" />
+        </div>
+
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label for="ciudad" value="{{ __('Codigo Postal') }}" />
+            <x-jet-input id="ciudad" type="text" class="mt-1 block w-full" wire:model.defer="state.codigo_postal" />
+            <x-jet-input-error for="ciudad" class="mt-2" />
+        </div>
+
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label for="ciudad" value="{{ __('Direccion') }}" />
+            <x-jet-input id="ciudad" type="text" class="mt-1 block w-full" wire:model.defer="state.direccion" />
             <x-jet-input-error for="ciudad" class="mt-2" />
         </div>
     </x-slot>

@@ -22,6 +22,11 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             'name' => ['required', 'string', 'max:255'],
             'ciudad' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
+            'codigo_postal'=> ['required', 'string', 'max:255'],
+            'direccion'=> ['required', 'string', 'max:255'],
+            'numero_telefono'=> ['required', 'string', 'max:255'],
+            'pais'=> ['required', 'string', 'max:255'],
+            'ciudad'=> ['required', 'string', 'max:255'],
             'photo' => ['nullable', 'mimes:jpg,jpeg,png', 'max:1024'],
         ])->validateWithBag('updateProfileInformation');
 
@@ -37,6 +42,10 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
                 'name' => $input['name'],
                 'email' => $input['email'],
                 'ciudad' => $input['ciudad'],
+                'pais'=> $input['pais'],
+                'codigo_postal'=> $input['codigo_postal'],
+                'direccion'=> $input['direccion'],
+                'numero_telefono'=> $input['numero_telefono'],
             ])->save();
         }
     }

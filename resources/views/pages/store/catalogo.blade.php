@@ -34,6 +34,8 @@
                 <x-tienda.no-existe />
             @endif
     </section>
+    <x-footers.footer-store />
+
     </div>
 
 

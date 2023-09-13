@@ -1,6 +1,8 @@
 @if (count(Cart::content()))
-    <div :class="cartOpen ? 'translate-x-0 ease-out' : 'translate-x-full ease-in'"
-        class="z-50 fixed right-0 top-0 max-w-md w-screen h-full px-6 py-4 transition duration-300 transform overflow-y-auto bg-white border-2 border-gray-300">
+    <div
+    :class="cartOpen ? 'translate-x-0 ease-out' : 'translate-x-full ease-in'"
+
+     class="z-50 fixed right-0 top-0 max-w-md w-screen h-full px-6 py-4 transition duration-300 transform overflow-y-auto bg-white border-2 border-gray-300">
 
         <div class="fixed inset-0 overflow-hidden">
             <div class="absolute inset-0 ">
@@ -12,6 +14,7 @@
                                     <h2 class="text-lg font-medium text-gray-900" id="slide-over-title">Resumen de Compra</h2>
                                     <div class="ml-3 flex h-7 items-center">
                                         <button  @click="cartOpen = !cartOpen"
+
                                             class="relative -m-2 p-2 text-gray-400 hover:text-gray-500">
                                             <span class="absolute -inset-0.5"></span>
                                             <span class="sr-only">Close panel</span>
