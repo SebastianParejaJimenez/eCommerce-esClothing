@@ -26,7 +26,7 @@
                 @endif
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  w-full gap-4">
                     @foreach ($pedidos as $pedido)
-                        <div class="p-4 mb-6 rounded-md bg-gray-50 dark:bg-gray-900">
+                        <div class="p-4 mb-6 rounded-md shadow-lg border border-gray-300 bg-gray-50 dark:bg-gray-900">
                             <div class="flex items-center justify-between">
                                 <a href="{{ route('pedido.informacion', $pedido->id) }}"
                                     class="inline-block mb-2 text-xs font-semibold text-blue-500 uppercase hover:text-blue-600 dark:text-gray-400">

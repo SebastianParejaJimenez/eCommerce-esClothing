@@ -20,7 +20,7 @@ class ProductosController extends Controller
     public function index(Request $request)
     {
 
-        $productos = Producto::where('estado', 'Activo')->paginate(5);
+        $productos = Producto::get();
         $rol = Auth::user()->rol_id;
         if ($rol == 1) {
         return view('pages/productos/productos', compact('productos'));
@@ -29,12 +29,6 @@ class ProductosController extends Controller
 
     }
 
-
-    public function inactivos(){
-        $productos = Producto::where('estado', 'inactivo')->paginate(5);
-        return view('pages/productos/inactivos', compact('productos'));
-
-    }
 
     public function activar($id){
         $producto = Producto::findOrFail($id);

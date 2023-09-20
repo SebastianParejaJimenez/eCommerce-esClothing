@@ -26,6 +26,7 @@ Route::redirect('/', 'tienda');
 
 Route::post('/session', [CarritoController::class, 'session'])->name('session');
 Route::get('/success', [CarritoController::class, 'success'])->name('success');
+Route::post('/webhook', [CarritoController::class, 'webhook'])->name('webhook');
 Route::get('/cancel', [CarritoController::class, 'cancel'])->name('cancel');
 
 Route::post('logout', [LoginController::class, 'logout'])->name('cierre_sesion');
@@ -67,7 +68,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     //Rutas Productos
     Route::get('/estadisticas/productos', [ProductosController::class, 'estadisticas'])->name('productos.estadisticas');
-    Route::get('/productos/inactivos', [ProductosController::class, 'inactivos'])->name('productos.inactivos');
     Route::get('productos/restore/{id}', [ProductosController::class, 'activar'])->name('productos.restore');
     Route::get('usuarios/activarAll', [ProductosController::class, 'activarAll'])->name('productos.activarAll');
 

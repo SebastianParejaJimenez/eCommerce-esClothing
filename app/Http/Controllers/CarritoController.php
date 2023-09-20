@@ -131,6 +131,7 @@ class CarritoController extends Controller
             'cancel_url' => route('cancel'),
         ]);
 
+        /* dd($checkoutSession->id); */
 
 
         $orden = new Orden();
@@ -173,4 +174,9 @@ class CarritoController extends Controller
     {
         return redirect()->back()->with("canceled", "cancelado");
     }
+
+    public function webhook(){
+
+    }
+
 }

@@ -18,19 +18,37 @@
                 }
             </style>
 
-            <body>
-                @if (session('success'))
+                <!-- component -->
+            @if (session('success'))
 
-                @endif
+                <div class="bg-gray-100 h-screen p-32 z-50">
+                    <div class="bg-white p-6  md:mx-auto">
+                      <svg viewBox="0 0 24 24" class="text-green-500 w-16 h-16 mx-auto my-6">
+                          <path fill="currentColor"
+                              d="M12,0A12,12,0,1,0,24,12,12.014,12.014,0,0,0,12,0Zm6.927,8.2-6.845,9.289a1.011,1.011,0,0,1-1.43.188L5.764,13.769a1,1,0,1,1,1.25-1.562l4.076,3.261,6.227-8.451A1,1,0,1,1,18.927,8.2Z">
+                          </path>
+                      </svg>
+                        <div class="text-center">
+                            <h3 class="md:text-2xl text-base text-gray-900 font-semibold text-center">¡Pago Realizado!</h3>
+                            <p class="text-gray-600 my-2">Gracias por realizar tu compra, te contactaremos via tu correo para mas informacion sobre tu pedido.</p>
+                            <p> Ten un buen dia!  </p>
+                            <div class="py-10 text-center">
+                                <a href="{{route('pedidos_hechos')}}" class="px-12 bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-3">
+                                    Ir a ver tus Pedidos
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 
-                @if (session('canceled'))
+                 @elseif (session('canceled'))
                     <div class=" mt-5 px-4 py-3 leading-normal text-red-100 bg-red-700 rounded-lg" role="alert">
                         <p>El Pago ha sido cancelado o ha ocurrido algun error!</p>
                     </div>
-                @endif
-
+                @else
                 <div class="h-screen bg-gray-100 pt-10">
+
                     <h1 class="mb-10 text-center text-2xl font-bold">Carrito de Compras</h1>
                     <div class="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
                         <div class="rounded-lg md:w-2/3">
@@ -117,11 +135,16 @@
                                     <p class="text-gray-700">Subtotal</p>
                                     <p class="text-gray-700">${{ Cart::subtotal() }}</p>
                                 </div>
+                                <div class="mb-2 flex justify-between">
+                                    <p class="text-gray-700">IVA 19%</p>
+                                    <p class="text-gray-700">{{ Cart::tax() }}</p>
+                                </div>
                                 <hr class="my-4" />
                                 <div class="flex justify-between">
                                     <p class="text-lg font-bold">Total</p>
                                     <div class="">
-                                        <p class="mb-1 text-lg font-bold">${{ Cart::subtotal() }}</p>
+                                        <p class="mb-1 text-lg font-bold text-right	 ">${{ Cart::total() }}</p>
+                                        <p class="text-sm text-gray-700">Incluyendo IVA</p>
                                     </div>
                                 </div>
 
@@ -156,7 +179,8 @@
                     </div>
 
                 </div>
-            </body>
+                 @endif
+
 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"
                 integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>

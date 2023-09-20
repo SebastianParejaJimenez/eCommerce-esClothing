@@ -57,6 +57,7 @@
 
                 @if(Auth::user()->rol_id == 1 )
                 <x-app.header />
+
                 @else
                 <x-app.headerstore />
                 @endif

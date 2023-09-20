@@ -1,57 +1,57 @@
 <x-app-layout>
     <style>
-		/*Overrides for Tailwind CSS */
+        /*Overrides for Tailwind CSS */
 
-		/*Form fields*/
-		.dataTables_wrapper select,
-		.dataTables_wrapper .dataTables_filter input:hover {
+        /*Form fields*/
+        .dataTables_wrapper select,
+        .dataTables_wrapper .dataTables_filter input:hover {
             border-color: #6366F1;
-		}
+            margin-bottom: 5%;
+        }
 
 
-		/*Pagination Buttons*/
-		.dataTables_wrapper .dataTables_paginate .paginate_button {
-			font-weight: 700;
-			/*font-bold*/
-			border-radius: .25rem;
-			/*rounded*/
-			border: 1px solid transparent;
-			/*border border-transparent*/
-		}
+        /*Pagination Buttons*/
+        .dataTables_wrapper .dataTables_paginate .paginate_button {
+            font-weight: 700;
+            /*font-bold*/
+            border-radius: .25rem;
+            /*rounded*/
+            border: 1px solid transparent;
+            /*border border-transparent*/
+        }
 
-		/*Pagination Buttons - Current selected */
-		.dataTables_wrapper .dataTables_paginate .paginate_button.current {
-			color: #fff !important;
-			/*text-white*/
-			box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
-			/*shadow*/
-			font-weight: 700;
-			/*font-bold*/
-			border-radius: .25rem;
-			/*rounded*/
-			background: #667eea !important;
-			/*bg-indigo-500*/
-			border: 1px solid transparent;
-			/*border border-transparent*/
-		}
+        /*Pagination Buttons - Current selected */
+        .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+            color: #fff !important;
+            /*text-white*/
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
+            /*shadow*/
+            font-weight: 700;
+            /*font-bold*/
+            border-radius: .25rem;
+            /*rounded*/
+            background: #667eea !important;
+            /*bg-indigo-500*/
+            border: 1px solid transparent;
+            /*border border-transparent*/
+        }
 
-		/*Pagination Buttons - Hover */
-		.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-			color: #fff !important;
-			/*text-white*/
-			box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
-			/*shadow*/
-			font-weight: 700;
-			/*font-bold*/
-			border-radius: .25rem;
-			/*rounded*/
-			background: #667eea !important;
-			/*bg-indigo-500*/
-			border: 1px solid transparent;
-			/*border border-transparent*/
-		}
-
-	</style>
+        /*Pagination Buttons - Hover */
+        .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+            color: #fff !important;
+            /*text-white*/
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
+            /*shadow*/
+            font-weight: 700;
+            /*font-bold*/
+            border-radius: .25rem;
+            /*rounded*/
+            background: #667eea !important;
+            /*bg-indigo-500*/
+            border: 1px solid transparent;
+            /*border border-transparent*/
+        }
+    </style>
     <div class="px-4 sm:px-6 lg:px-8 py-4 w-full max-w-9xl mx-auto">
         <x-dashboard.banners.products-banner />
 
@@ -69,12 +69,13 @@
         @endif
 
         @if ($productos->count())
-            <div id="content-table" class=" relative overflow-x-auto shadow-md sm:rounded-lg">
+            <div id="content-table" class="overflow-x-auto  sm:rounded-lg">
 
-                <table id="productos_lista" class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <table id="productos_lista"
+                    class="mt-3 w-full bg-gray-50 text-sm text-left text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
-                            <th scope="col" class="px-6 py-3">
+                            <th class="px-6 py-3">
                                 <span class="sr-only">Imagen</span>
                             </th>
                             <th scope="col" class="px-6 py-3">
@@ -93,6 +94,9 @@
                                 Tallas
                             </th>
                             <th scope="col" class="px-6 py-3">
+                                Estado
+                            </th>
+                            <th scope="col" class="px-6 py-3">
                                 Acción
                             </th>
                         </tr>
@@ -101,7 +105,7 @@
 
                         @foreach ($productos as $producto)
                             <tr
-                                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                class="bg-gray-50 border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                 <td class="w-32 p-4">
                                     <img src="{{ url('productos_subidos') }}/{{ $producto->imagen }}" alt="Image">
                                 </td>
@@ -128,10 +132,7 @@
                                         </form>
 
                                         <div>
-                                            <input disabled type="number" id="first_product"
-                                                value="{{ $producto->cantidad }}"
-                                                class="bg-gray-50 w-16 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block px-2.5 py-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-center"
-                                                placeholder="1" required>
+                                            {{ $producto->cantidad }}
                                         </div>
                                         <form action="{{ route('productos.sumar', ['id' => $producto->id]) }}"
                                             method="POST" style="display: inline-block;">
@@ -162,63 +163,109 @@
 
                                 <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white producto_precio">
 
-                                    <span
-                                        class="bg-green-100 text-gray-900 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-gray-700 dark:text-gray-300">{{ $producto->talla_s ? 'S' : '' }}</span>
+                                    @if ($producto->talla_s == true)
+                                        <span
+                                            class="bg-green-100 text-gray-900 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-gray-700 dark:text-gray-300">S</span>
+                                    @endif
+                                    @if ($producto->talla_m == true)
+                                        <span
+                                            class="bg-green-100 text-gray-900 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-gray-700 dark:text-gray-300">M</span>
+                                    @endif
 
-                                    <span
-                                        class="bg-green-100 text-gray-900 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-gray-700 dark:text-gray-300">{{ $producto->talla_m ? 'M' : '' }}</span>
+                                    @if ($producto->talla_l == true)
+                                        <span
+                                            class="bg-green-100 text-gray-900 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-gray-700 dark:text-gray-300">L</span>
+                                    @endif
 
-                                    <span
-                                        class="bg-green-100 text-gray-900 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-gray-700 dark:text-gray-300">{{ $producto->talla_l ? 'L' : '' }}</span>
+                                    @if ($producto->talla_xl == true)
+                                        <span
+                                            class="bg-green-100 text-gray-900 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-gray-700 dark:text-gray-300">XL</span>
+                                    @endif
 
-                                    <span
-                                        class="bg-green-100 text-gray-900 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-gray-700 dark:text-gray-300">{{ $producto->talla_xl ? 'XL' : '' }}</span>
+                                </td>
+                                <td class="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
+                                    <div
+                                        class="inline-flex items-center px-3 py-1 rounded-full gap-x-2
+                                dark:bg-gray-800
+                                @switch(true)
+                                    @case($producto->estado == 'Activo')
+                                        text-green-500 bg-green-100/60
+                                        @break
 
+                                    @case($producto->estado == 'Inactivo')
+                                        text-red-500 bg-red-200
+                                        @break
+                                    @endswitch
+                                    ">
+
+                                        @switch(true)
+                                            @case($producto->estado == 'Activo')
+                                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M10 3L4.5 8.5L2 6" stroke="currentColor" stroke-width="1.5"
+                                                        stroke-linecap="round" stroke-linejoin="round" />
+                                                </svg>
+                                            @break
+
+                                            @case($producto->estado == 'Inactivo')
+                                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M9 3L3 9M3 3L9 9" stroke="currentColor" stroke-width="1.5"
+                                                        stroke-linecap="round" stroke-linejoin="round" />
+                                                </svg>
+                                            @break
+                                        @endswitch
+
+                                        <h2 class="text-sm font-normal">{{ $producto->estado }}</h2>
+                                    </div>
                                 </td>
                                 <td class="px-6 py-4">
 
                                     <div class="flex items-center space-x-4 p-3">
 
-                                        <form method="POST"
-                                            action="{{ route('productos.destroy', ['id' => $producto->id]) }}">
-                                            @method('DELETE')
-                                            @csrf
-                                            <button type="submit"
-                                                class="flex space-x-2 items-center px-3 py-2 bg-rose-500 hover:bg-rose-800 rounded-md drop-shadow-md">
-                                                <svg class="fill-white" xmlns="http://www.w3.org/2000/svg"
-                                                    x="0px" y="0px" width="20" height="20"
-                                                    viewBox="0 0 24 24">
-                                                    <path
-                                                        d="M 10 2 L 9 3 L 3 3 L 3 5 L 21 5 L 21 3 L 15 3 L 14 2 L 10 2 z M 4.3652344 7 L 5.8925781 20.263672 C 6.0245781 21.253672 6.877 22 7.875 22 L 16.123047 22 C 17.121047 22 17.974422 21.254859 18.107422 20.255859 L 19.634766 7 L 4.3652344 7 z">
-                                                    </path>
-                                                </svg>
-                                                <span class="text-white">Desactivar</span>
-                                            </button>
-                                        </form>
+                                        @if ($producto->estado == 'Inactivo')
+                                            <div class="flex items-center gap-x-6">
+                                                <input type="hidden" value="">
+                                                <a href="{{ route('productos.restore', $producto->id) }}"
+                                                    type="submit"
+                                                    class="text-green-500 transition-colors duration-200 dark:hover:text-green-500 dark:text-gray-300 hover:text-green-500 focus:outline-none">
+                                                    ACTIVAR
+                                                </a>
+                                            </div>
+                                        @else
+                                            <form method="POST"
+                                                action="{{ route('productos.destroy', ['id' => $producto->id]) }}">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button type="submit"
+                                                    class="text-red-500 transition-colors duration-200 hover:text-indigo-500 focus:outline-none dark:hover:text-red-500 dark:text-red-300">
+                                                    Desactivar
+                                                </button>
+                                            </form>
+                                        @endif
 
                                         <a href="{{ route('productos.edit', ['id' => $producto->id]) }}"
-                                            class="flex space-x-2 items-center px-4 py-2 bg-cyan-600 hover:bg-cyan-800 rounded-md drop-shadow-md">
-                                            <svg class="fill-white" xmlns="http://www.w3.org/2000/svg" x="0px"
-                                                y="0px" width="20" height="20" viewBox="0 0 50 50">
-                                                <path
-                                                    d="M 46.574219 3.425781 C 45.625 2.476563 44.378906 2 43.132813 2 C 41.886719 2 40.640625 2.476563 39.691406 3.425781 C 39.691406 3.425781 39.621094 3.492188 39.53125 3.585938 C 39.523438 3.59375 39.511719 3.597656 39.503906 3.605469 L 4.300781 38.804688 C 4.179688 38.929688 4.089844 39.082031 4.042969 39.253906 L 2.035156 46.742188 C 1.941406 47.085938 2.039063 47.453125 2.292969 47.707031 C 2.484375 47.898438 2.738281 48 3 48 C 3.085938 48 3.171875 47.988281 3.257813 47.964844 L 10.746094 45.957031 C 10.917969 45.910156 11.070313 45.820313 11.195313 45.695313 L 46.394531 10.5 C 46.40625 10.488281 46.410156 10.472656 46.417969 10.460938 C 46.507813 10.371094 46.570313 10.308594 46.570313 10.308594 C 48.476563 8.40625 48.476563 5.324219 46.574219 3.425781 Z M 45.160156 4.839844 C 46.277344 5.957031 46.277344 7.777344 45.160156 8.894531 C 44.828125 9.222656 44.546875 9.507813 44.304688 9.75 L 40.25 5.695313 C 40.710938 5.234375 41.105469 4.839844 41.105469 4.839844 C 41.644531 4.296875 42.367188 4 43.132813 4 C 43.898438 4 44.617188 4.300781 45.160156 4.839844 Z M 5.605469 41.152344 L 8.847656 44.394531 L 4.414063 45.585938 Z">
-                                                </path>
-                                            </svg>
-                                            <span class="text-white text-md">Editar</span>
+                                            class="px-2 text-blue-500 transition-colors duration-200 dark:hover:text-indigo-500 dark:text-gray-300 hover:text-indigo-500 focus:outline-nones">
+                                            Editar
                                         </a>
                                         <a href="{{ route('productos.show', ['id' => $producto->id, 'slug' => $producto->slug]) }}"
-                                            class="flex space-x-2 items-center px-4 py-2 rounded-md drop-shadow-md  btn bg-indigo-500 hover:bg-indigo-600 text-white">
-                                            <span class="">Ver Producto</span>
+                                            class=" items-center px-2 py-2 rounded-md drop-shadow-md hover:text-indigo-600 text-gray-500">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                class="w-6 h-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                            </svg>
+
                                         </a>
 
                             </tr>
                         @endforeach
 
                     </tbody>
-
                 </table>
-                {{ $productos->links() }}
-
             </div>
         @endif
     </div>
@@ -232,8 +279,8 @@
                     language: {
                         "lengthMenu": "Mostrar _MENU_ registros por página",
                         "zeroRecords": "No se encontraron resultados",
-                        "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
-                        "infoEmpty": "Mostrando 0 a 0 de 0 registros",
+                        "info": "Mostrando _START_ a _END_ de un total de _TOTAL_ registros",
+                        "infoEmpty": "Mostrando 0 a 0 de 0 en total registros",
                         "infoFiltered": "(filtrado de _MAX_ registros)",
                         "search": "Buscar:",
                         "paginate": {
@@ -243,7 +290,10 @@
                             "last": "Última"
                         }
                     },
-                    lengthMenu: [[3, 5, 10, -1], [3, 5, 10, "Mostrar todos"]],
+                    lengthMenu: [
+                        [3, 5, 10, -1],
+                        [3, 5, 10, "Mostrar todos"]
+                    ],
                 });
             });
         </script>

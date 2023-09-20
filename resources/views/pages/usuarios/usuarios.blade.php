@@ -1,15 +1,70 @@
     <x-app-layout>
+        <style>
+            /*Overrides for Tailwind CSS */
+
+            /*Form fields*/
+            .dataTables_wrapper select,
+            .dataTables_wrapper .dataTables_filter input:hover {
+                border-color: #6366F1;
+                margin-bottom: 5%;
+            }
+
+
+            /*Pagination Buttons*/
+            .dataTables_wrapper .dataTables_paginate .paginate_button {
+                font-weight: 700;
+                /*font-bold*/
+                border-radius: .25rem;
+                /*rounded*/
+                border: 1px solid transparent;
+                /*border border-transparent*/
+            }
+
+            /*Pagination Buttons - Current selected */
+            .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+                color: #fff !important;
+                /*text-white*/
+                box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
+                /*shadow*/
+                font-weight: 700;
+                /*font-bold*/
+                border-radius: .25rem;
+                /*rounded*/
+                background: #667eea !important;
+                /*bg-indigo-500*/
+                border: 1px solid transparent;
+                /*border border-transparent*/
+            }
+
+            /*Pagination Buttons - Hover */
+            .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+                color: #fff !important;
+                /*text-white*/
+                box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
+                /*shadow*/
+                font-weight: 700;
+                /*font-bold*/
+                border-radius: .25rem;
+                /*rounded*/
+                background: #667eea !important;
+                /*bg-indigo-500*/
+                border: 1px solid transparent;
+                /*border border-transparent*/
+            }
+
+        </style>
+
         <section class="container px-4 mx-auto">
             <div class="flex flex-col">
                 <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
                         <x-dashboard.banners.usuarios-inactivo-banner />
 
-                        <div class="overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg">
+                        <div class="overflow-hidden  dark:border-gray-700 md:rounded-lg">
                             <x-dashboard.spinner-loading />
 {{--                             <input placeholder="Buscar" name="q" class="appearance-none rounded-r rounded-l sm:rounded-l-none border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none" />
  --}}
-                            <table class="min-w-full divide-y datatable  divide-gray-200 dark:divide-gray-700" id="dataTable" >
+                            <table class="min-w-full divide-y datatable  divide-gray-200 dark:divide-gray-700" id="usuarios" >
                                 <thead class="bg-gray-50 dark:bg-gray-800">
                                     <tr>
 
@@ -134,27 +189,27 @@
     <x-slot:js>
 
     <script>
-   $(document).ready(function() {
-  // Create a DataTable object
-  var dataTable = $('#dataTable').DataTable({
-    // Set the language to Spanish
-    language: {
-      "lengthMenu": "Mostrar _MENU_ registros por página",
-      "zeroRecords": "No se encontraron resultados",
-      "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
-      "infoEmpty": "Mostrando 0 a 0 de 0 registros",
-      "infoFiltered": "(filtrado de _MAX_ registros)",
-      "search": "Buscar:",
-      "paginate": {
-        "first": "Primera",
-        "previous": "Anterior",
-        "next": "Siguiente",
-        "last": "Última"
-      }
-    },
-
-  });
-});
+        $(document).ready(function() {
+            // Create a DataTable object
+            var dataTable = $('#usuarios').DataTable({
+                // Set the language to Spanish
+                language: {
+                    "lengthMenu": "Mostrar _MENU_ registros por página",
+                    "zeroRecords": "No se encontraron resultados",
+                    "info": "Mostrando _START_ a _END_ de un total de _TOTAL_ registros",
+                    "infoEmpty": "Mostrando 0 a 0 de 0 en total registros",
+                    "infoFiltered": "(filtrado de _MAX_ registros)",
+                    "search": "Buscar:",
+                    "paginate": {
+                        "first": "Primera",
+                        "previous": "Anterior",
+                        "next": "Siguiente",
+                        "last": "Última"
+                    }
+                },
+                lengthMenu: [[3, 5, 10, -1], [3, 5, 10, "Mostrar todos"]],
+            });
+        });
     </script>
 
 

@@ -75,7 +75,7 @@
                                     <p>Total</p>
                                     <p>${{Cart::subtotal()}}</p>
                                 </div>
-                                <p class="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
+                                <p class="mt-0.5 text-sm text-gray-500">Total con Impuestos se veran reflejados al continuar la compra.</p>
                                 <div class="mt-6">
                                     <a href="{{route('carrito_detalles')}}"
                                         class="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700">Continuar Compra</a>
