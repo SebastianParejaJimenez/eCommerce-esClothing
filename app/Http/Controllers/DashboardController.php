@@ -27,14 +27,14 @@ class DashboardController extends Controller
             ->whereDay('created_at', Carbon::now()->day)
             ->paginate('3');
 
-        $total_ventas = Orden::sum('subtotal');
+        $total_ventas = Orden::sum('total');
 
         $ventas = Orden::all();
 
         $data = [];
         foreach ($ventas as $venta) {
             $data['label'][] = $venta->created_at->format('F');
-            $data['data'][] = $venta->subtotal;
+            $data['data'][] = $venta->total;
         }
 
         $data['data'] = json_encode($data);

@@ -85,7 +85,7 @@
                             </div>
                             <p>Precio:</p>
                             <div class="border-1 flex items-center p-2 rounded justify-between font-semibold">
-                                {{$producto->pivot->precio}}
+                                ${{ number_format($producto->pivot->precio, 0, ',', '.') }}
                             </div>
                             <p>Cantidad:</p>
                             <div class="border-1 flex items-center p-2 rounded justify-between font-semibold">
@@ -103,7 +103,7 @@
                         Total Facturado
                     </p>
                     <b>
-                        ${{$pedido->total}}
+                        ${{ number_format($pedido->total, 0, ',', '.') }}
                     </b>
                 </div>
 

@@ -19,7 +19,7 @@
                         <div class="grow flex justify-between">
                             <div class="self-center"><a class="font-medium text-slate-800 hover:text-slate-900 dark:text-slate-100 dark:hover:text-white" href="{{route('detalles.pedidos', ['id' => $venta->id, ])}}">Venta</a>  <p class="underline"> {{ $venta->user->name }}</p></div>
                             <div class="shrink-0 self-start ml-2">
-                                <span class="font-medium text-emerald-500">+{{ $venta->subtotal }}</span>
+                                <span class="font-medium text-emerald-500">+{{ number_format($venta->total, 0, ',', '.')  }}</span>
                             </div>
 
                         </div>
@@ -29,6 +29,6 @@
             </ul>
         </div>
         {{ $ventasRecientes->links() }}
-    
+
     </div>
 </div>

@@ -128,8 +128,12 @@ class CarritoController extends Controller
                 'price_data' => [
                     'product_data' => [
                         'name' => $product_name,
+                        'metadata' => [
+                            'talla_elegida' => $item->talla,
+                            'imagen' => $item->urlfoto
+                        ],
                     ],
-                    'currency' => 'USD',
+                    'currency' => 'COP',
                     'unit_amount' => $unit_amount,
                 ],
                 'quantity' => $quantity
@@ -173,7 +177,6 @@ class CarritoController extends Controller
                 $orden->estado = "PAGADO";
                 $orden->save();
             }
-            
         } catch (\Throwable $th) {
             throw new NotFoundHttpException();
         }

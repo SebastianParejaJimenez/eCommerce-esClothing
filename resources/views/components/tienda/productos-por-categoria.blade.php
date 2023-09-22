@@ -6,14 +6,16 @@
                 alt="{{ $producto->nombre }}">
             <div class="mt-4">
                 <h1 class="text-2xl font-bold text-gray-700">{{ $producto->nombre }}</h1>
-                <p class="text-sm mt-2 text-gray-700">Seleccionar Talla:</p>
                 <form class="mx-2 -mb-4" action="{{ route('agregaritem') }}"
                     method="POST" id="">
-                    <div class="mt-3 space-x-4 flex p-1">
+                    <p class="text-sm mt-2 text-gray-700">Seleccionar Talla:</p>
+
+                    <div class="mt-3 space-x-4 flex ">
+
                         <div class="flex items-center">
                             <div class="relative">
                                 <select name="talla"
-                                    class=" w-full rounded border appearance-none border-gray-400 py-2 hover:border-green-400 focus:outline-none focus:border-green-400 text-sm">
+                                    class=" w-full rounded border appearance-none border-gray-400 py-1 hover:border-green-400 focus:outline-none focus:border-green-400 text-sm">
                                     @foreach ($producto->tallas as $talla)
                                         <option value="{{$talla->talla}}">{{$talla->talla}}</option>
                                     @endforeach
@@ -29,6 +31,7 @@
                                 </span>
                             </div>
                         </div>
+
                     </div>
 
                     <div class="mt-4 mb-2 flex justify-between pl-4 pr-2">

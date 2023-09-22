@@ -33,7 +33,7 @@
                             <div class="inline-block align-bottom mr-5 mb-5">
                                 <span class="text-2xl leading-none align-baseline">$</span>
                                 <span
-                                    class="font-bold text-5xl leading-none align-baseline">{{ number_format($producto->precio, 2, ',', '.') }}</span>
+                                    class="font-bold text-5xl leading-none align-baseline">{{ number_format($producto->precio, 0, ',', '.') }}</span>
                             </div>
 
                             <form action="{{ route('agregaritem') }}" method="POST">
@@ -44,7 +44,7 @@
                                         @foreach ($producto->tallas as $talla)
                                         <div>
                                             <input type="radio" name="talla" id="{{$talla->talla}}" value="{{$talla->talla}}" class="peer hidden" />
-                                            <label for="{{$talla->talla}}" class=" cursor-pointer select-none border-solid border-2 border-indigo-200  rounded-md p-2 mx-2 text-center peer-checked:bg-gray-200 peer-checked:font-bold peer-checked:text-gray-600  hover:bg-indigo-200">{{$talla->talla}}</label>
+                                            <label for="{{$talla->talla}}" class=" cursor-pointer select-none border-solid border-2 border-indigo-200  rounded-md p-2 mx-2 text-center peer-checked:bg-gray-300 peer-checked:font-bold peer-checked:text-gray-600  hover:bg-indigo-200">{{$talla->talla}}</label>
                                         </div>
                                         @endforeach
                                     </div>

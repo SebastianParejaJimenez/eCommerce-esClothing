@@ -114,7 +114,7 @@
                                         <span>Total</span>
                                         <span class="flex items-center text-blue-500 dark:text-blue-400">
                                             <span class="ml-3 mr-1 text-sm">$</span>
-                                            <span class="text-base">{{ $pedido->subtotal }}</span>
+                                            <span class="text-base">{{ number_format($pedido->total, 0, ',', '.') }}</span>
                                         </span>
                                     </div>
                                 </div>

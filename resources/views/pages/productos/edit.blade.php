@@ -84,7 +84,7 @@
                                     <label
                                         for="image"class="inline-block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tallas
                                         Disponibles</label>
-                                    <div class='flex flex-col gap-6'>
+                                    <div class='flex  gap-6'>
                                         @foreach ($tallas as $talla)
 
                                         <div class='flex flex-row'>
@@ -95,7 +95,7 @@
                                                     transition-all duration-200 peer'
                                                     {{ in_array($talla->id, $tallasSeleccionadas) ? 'checked="checked"' : '' }}
                                                     />
-                                                
+
                                             <div
                                                 class='h-6 w-6 absolute rounded-full pointer-events-none
                                                 peer-checked:border-green-300 peer-checked:border-2

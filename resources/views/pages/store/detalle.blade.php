@@ -51,7 +51,7 @@
                             </p>
                             <p class="text-sm font-medium dark:text-gray-400">
                                 <span>Total Unitario:</span>
-                                <span class="ml-2 text-gray-400">${{$producto->pivot->precio}}</span>
+                                <span class="ml-2 text-gray-400">${{number_format($producto->pivot->precio, 0, ',', '.')}}</span>
                             </p>
                         </div>
                     </div>
@@ -77,7 +77,7 @@
                         <span>Total</span>
                         <span class="flex items-center text-indigo-500 dark:text-indigo-400">
                             <span class="ml-3 mr-1 text-sm">$</span>
-                            <span class="text-xl">{{$pedido->subtotal}}</span>
+                            <span class="text-xl">{{ number_format($pedido->total, 0, ',', '.') }}</span>
                         </span>
                     </div>
                 </div>

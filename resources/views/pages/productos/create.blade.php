@@ -30,7 +30,7 @@
 
                                 <div class="md:col-span-5 dark:text-white mb-3">
                                     <label for="email">Precio</label>
-                                    <input type="number" id="precio" name="precio"
+                                    <input type="number" id="price" name="precio"
                                         placeholder="Ingrese el Precio que tendra este Producto"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
 
@@ -78,23 +78,23 @@
                                         for="image"class="inline-block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tallas
                                         Disponibles</label>
 
-                                    <div class='flex flex-col gap-6'>
+                                    <div class='flex gap-6'>
                                         @foreach ($tallas as $talla)
-
                                             <div class='flex flex-row'>
-                                                <input type="checkbox" name="tallas[]" id="{{$talla->talla}}" value="{{$talla->id}}"
+                                                <input type="checkbox" name="tallas[]" id="{{ $talla->talla }}"
+                                                    value="{{ $talla->id }}"
                                                     class='
                                                         appearance-none h-6 w-6 bg-gray-400 rounded-full
                                                         checked:bg-green-300 checked:scale-75
                                                         transition-all duration-200 peer
-                                                    '/>
+                                                    ' />
                                                 <div
                                                     class='h-6 w-6 absolute rounded-full pointer-events-none
                                                     peer-checked:border-green-300 peer-checked:border-2
                                                     '>
                                                 </div>
-                                                <label for='{{$talla->talla}}'
-                                                    class='flex flex-col justify-center px-2 peer-checked:text-green-400  select-none'>{{$talla->talla}}</label>
+                                                <label for='{{ $talla->talla }}'
+                                                    class='flex flex-col justify-center px-2 peer-checked:text-green-400  select-none'>{{ $talla->talla }}</label>
                                             </div>
                                         @endforeach
 
@@ -126,36 +126,7 @@
     </div>
 
     <x-slot:js>
-        <script>
-            $('form').submit(function(e) {
-                e.preventDefault();
 
-
-                let hayAlMenosUnCheckboxCheckeado = false;
-
-                $('input[type="checkbox"]:checked').each(function(index, checkbox) {
-                    if (checkbox.checked) {
-                        hayAlMenosUnCheckboxCheckeado = true;
-                        return;
-                    }
-                });
-
-                console.log(hayAlMenosUnCheckboxCheckeado)
-
-                if (!hayAlMenosUnCheckboxCheckeado) {
-                    Swal.fire({
-                        title: 'Faltan Datos',
-                        text: "Necesitas seleccionar una talla para poder agregar al Carrito!",
-                        icon: 'warning',
-                        showCancelButton: false,
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: 'Aceptar'
-                    })
-                } else {
-                    this.submit();
-                }
-            });
-        </script>
     </x-slot:js>
 
 </x-app-layout>

@@ -51,7 +51,7 @@
                                 </div>
                             </td>
                             <td class="p-2">
-                                <div class="text-center text-emerald-500">${{ $productoTopMes->precio }}
+                                <div class="text-center text-emerald-500">${{ number_format($productoTopMes->precio, 0, ',', '.')   }}
                                 </div>
                             </td>
                             <td class="p-2">
