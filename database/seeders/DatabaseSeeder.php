@@ -31,6 +31,7 @@ class DatabaseSeeder extends Seeder
             'rol_id' => '1',
             'created_at' => now(),
         ]);
+
         DB::table('users')->insert([
             'name'  => 'Administrador 2',
             'email'     => 'admin2@gmail.com',
@@ -46,6 +47,18 @@ class DatabaseSeeder extends Seeder
             'created_at' => now(),
         ]);
 
+        DB::table('tallas')->insert([
+            'talla'  => 'S',
+        ]);
+        DB::table('tallas')->insert([
+            'talla'  => 'M',
+        ]);
+        DB::table('tallas')->insert([
+            'talla'  => 'L',
+        ]);
+        DB::table('tallas')->insert([
+            'talla'  => 'XL',
+        ]);
 /*         DB::table('productos')->insert([
             'nombre'  => 'Camisa',
             'categoria'     => 'Camisas',

@@ -9,6 +9,8 @@ use App\Models\Orden;
 use App\Models\OrdenProducto;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Illuminate\Support\Facades\Auth;
+use App\Events\OrdenEvent;
+use App\Notifications\OrdenNotification;
 
 class CarritoController extends Controller
 {
@@ -17,7 +19,7 @@ class CarritoController extends Controller
 
         $producto = Producto::find($request->producto_id);
         if (!$request->talla) {
-           return redirect()->back()->with('error', 'talla');
+            return redirect()->back()->with('error', 'talla');
         }
         Cart::add([
             'id' => $producto->id,
@@ -65,30 +67,46 @@ class CarritoController extends Controller
         return redirect()->back()->with("eliminarCarrito", "carrito eliminao");
     }
 
-   /*  public function confirmarCarrito(Request $request)
+    public function guardarCarrito($session_id)
     {
-
         $orden = new Orden();
 
         $orden->subtotal = str_replace(',', '', Cart::subtotal());
+        $orden->total = str_replace(',', '', Cart::total());
+
         $orden->user_id = auth()->user()->id;
+        $orden->session_id = $session_id;
+        $orden->ciudad_envio = auth()->user()->ciudad;
+        $orden->codigo_postal = auth()->user()->codigo_postal;
+        $orden->direccion_envio = auth()->user()->direccion;
+
         $orden->save();
-        dd(Cart::content());
+
         foreach (Cart::content() as $item) {
             $orden_productos = new OrdenProducto();
             $orden_productos->precio = $item->price;
             $orden_productos->cantidad = $item->qty;
             $orden_productos->producto_id = $item->id;
             $orden_productos->orden_id = $orden->id;
+            $orden_productos->talla = $item->options->talla;
 
             $orden_productos->save();
         }
-
+        self::ordenMakeNotification($orden);
         Cart::destroy();
-        return redirect()->back()->with("success", "confirmado");
     }
- */
 
+    static function ordenMakeNotification($orden)
+    {
+
+        //Ejemplo para conocer si las notificaciones llegan a bd o no
+        /*         User::where('rol_id', 1)
+        ->each(function(User $user) use ($orden){
+            $user->notify(new OrdenNotification($orden));
+        }); */
+
+        event(new OrdenEvent($orden));
+    }
     public function session()
     {
         $productItems = [];
@@ -127,19 +145,14 @@ class CarritoController extends Controller
                 'user_id' => $user->id
             ],
             'customer_email' => $user->email,
-            'success_url' => route('success')."?session_id={CHECKOUT_SESSION_ID}",
+            'success_url' => route('success') . "?session_id={CHECKOUT_SESSION_ID}",
             'cancel_url' => route('cancel'),
         ]);
 
+        $this->guardarCarrito($checkoutSession->id);
         /* dd($checkoutSession->id); */
 
-
-        $orden = new Orden();
-        $orden->guardarCarritoNoPagado($checkoutSession->id);
-
-
         return redirect()->away($checkoutSession->url);
-
     }
     public function success(Request $request)
     {
@@ -148,7 +161,7 @@ class CarritoController extends Controller
 
         try {
             $session = \Stripe\Checkout\Session::retrieve($sessionId);
-            if(!$session){
+            if (!$session) {
                 throw new NotFoundHttpException;
             }
             $orden = Orden::where('session_id', $session->id)->first();
@@ -157,10 +170,10 @@ class CarritoController extends Controller
             }
 
             if ($orden->estado == "PENDIENTE") {
-                    $orden->estado = "PAGADO";
-                    $orden->save();
+                $orden->estado = "PAGADO";
+                $orden->save();
             }
-
+            
         } catch (\Throwable $th) {
             throw new NotFoundHttpException();
         }
@@ -175,8 +188,7 @@ class CarritoController extends Controller
         return redirect()->back()->with("canceled", "cancelado");
     }
 
-    public function webhook(){
-
+    public function webhook()
+    {
     }
-
 }

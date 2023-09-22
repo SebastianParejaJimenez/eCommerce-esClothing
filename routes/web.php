@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DataFeedController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductosController;
 use App\Http\Controllers\CarritoController;
@@ -24,14 +23,11 @@ use App\Http\Controllers\UsuariosController;
 
 Route::redirect('/', 'tienda');
 
-Route::post('/session', [CarritoController::class, 'session'])->name('session');
-Route::get('/success', [CarritoController::class, 'success'])->name('success');
-Route::post('/webhook', [CarritoController::class, 'webhook'])->name('webhook');
-Route::get('/cancel', [CarritoController::class, 'cancel'])->name('cancel');
+
 
 Route::post('logout', [LoginController::class, 'logout'])->name('cierre_sesion');
-/* Route::get('/json-data-feed', [DataFeedController::class, 'getDataFeed'])->name('json_data_feed');
- */
+
+
 //Routes Carrito
 Route::post('/agregaritem', [App\Http\Controllers\CarritoController::class, 'agregaritem'])->name('agregaritem');
 Route::get('/carrito', [App\Http\Controllers\CarritoController::class, 'vercarrito'])->name('carrito_detalles');
@@ -43,17 +39,22 @@ Route::get('/confirmarcarrito', [App\Http\Controllers\CarritoController::class, 
 
 
 //Routes Vistas Tienda
-Route::controller(StoreController::class)->group(function(){
+Route::controller(StoreController::class)->group(function () {
     Route::get('/tienda', 'index')->name('tienda');
     Route::get('/catalogo', 'catalogoVista')->name('catalogo');
     Route::get('/catalogo/{categoria}', 'catalogoVista')->name('catalogo_categoria');
-
 });
 
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
-    Route::fallback(function() {
+    //Rutas para el Carrito
+    Route::post('/session', [CarritoController::class, 'session'])->name('session');
+    Route::get('/success', [CarritoController::class, 'success'])->name('success');
+    Route::post('/webhook', [CarritoController::class, 'webhook'])->name('webhook');
+    Route::get('/cancel', [CarritoController::class, 'cancel'])->name('cancel');
+
+    Route::fallback(function () {
         return view('pages/utility/404');
     })->name('404');
 
@@ -72,7 +73,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('usuarios/activarAll', [ProductosController::class, 'activarAll'])->name('productos.activarAll');
 
     Route::resource('productos', ProductosController::class);
-    Route::controller(ProductosController::class)->group(function(){
+    Route::controller(ProductosController::class)->group(function () {
 
         Route::get('/productos', 'index')->name('productos');
 
@@ -88,7 +89,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
         Route::put('/productos/{id}/sumar', [ProductosController::class, 'sumar'])->name('productos.sumar');
         Route::put('/productos/{id}/restar', [ProductosController::class, 'restar'])->name('productos.restar');
-
     });
     Route::get('/pedidos', [PedidosController::class, 'index'])->name('pedidos');
     Route::get('/pedidos/detalles/{id}', [PedidosController::class, 'show'])->name('detalles.pedidos');
@@ -104,8 +104,4 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::put('/usuarios/{id}', [UsuariosController::class, 'update'])->name('user.update');
     Route::get('/usuarios', [UsuariosController::class, 'index'])->name('usuarios');
-
-
-
-
 });

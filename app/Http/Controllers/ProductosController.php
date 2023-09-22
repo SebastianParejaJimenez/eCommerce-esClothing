@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Producto;
+use App\Models\Talla;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -20,7 +21,8 @@ class ProductosController extends Controller
     public function index(Request $request)
     {
 
-        $productos = Producto::get();
+        $productos = Producto::with(['tallas'])->get();
+
         $rol = Auth::user()->rol_id;
         if ($rol == 1) {
         return view('pages/productos/productos', compact('productos'));
@@ -97,10 +99,13 @@ class ProductosController extends Controller
 
     public function create(Request $request){
         $rol = Auth::user()->rol_id;
+        $tallas = Talla::get();
 
         if ($rol == 1) {
-        return view('pages/productos/create');
+        return view('pages/productos/create', compact('tallas'));
         }
+
+
         return redirect()->route('tienda');
 
     }
@@ -111,25 +116,19 @@ class ProductosController extends Controller
             'cantidad' => 'required|numeric|min:1',
             'categoria' => 'required',
             'imagen' => 'required|image|mimes:jpg,png,gif',
-            'talla_s' => 'boolean',
-            'talla_l'=> 'boolean',
-            'talla_m'=> 'boolean',
-            'talla_xl'=> 'boolean',
+            'tallas'=> 'required',
         ]);
-        $user_creador = Auth::user()->id;
-
         $producto = new Producto();
 
-        $producto->talla_s = $request->has('talla_s');
+/*         $producto->talla_s = $request->has('talla_s');
         $producto->talla_l = $request->has('talla_l');
         $producto->talla_m = $request->has('talla_m');
-        $producto->talla_xl = $request->has('talla_xl');
+        $producto->talla_xl = $request->has('talla_xl'); */
         $producto->nombre = $request->input('nombre');
         $producto->slug = Str::slug($request->input('nombre'));
         $producto->precio = $request->input('precio');
         $producto->cantidad = $request->input('cantidad');
         $producto->categoria = $request->input('categoria');
-        $producto->created_by = $user_creador;
 
         if ($request->hasFile('imagen')) {
             $imagen = $request->file('imagen');
@@ -141,13 +140,20 @@ class ProductosController extends Controller
 
         }
 
+        $tallasSeleccionada = $request->input('tallas');
         $producto->save();
+        $producto->tallas()->attach($tallasSeleccionada);
+
+
+
+
+
         return redirect()->route('productos');
 
     }
 
     public function show($id){
-        $producto = Producto::where('estado','activo')->findOrFail($id);
+        $producto = Producto::with(['tallas'])->where('estado','activo')->findOrFail($id);
 
         return view('pages.productos.show', compact( 'producto'));
 
@@ -177,21 +183,21 @@ class ProductosController extends Controller
 
         $producto = Producto::findOrFail($id);
         $producto->estado = "Inactivo";
-        $producto->deleted_by = Auth::user()->id;
         $producto->save();
         return redirect()->route('productos');
 
     }
 
     public function edit($id){
-        $producto = Producto::findOrFail($id);
+        $producto = Producto::with(['tallas'])->findOrFail($id);
         $rol = Auth::user()->rol_id;
+        $tallasSeleccionadas = $producto->tallas->pluck('id')->toArray();
+
+        $tallas = Talla::get();
 
         if ($rol == 1) {
-
-            return view('pages/productos/edit', compact( 'producto'));
-
-    }
+            return view('pages/productos/edit', compact('producto', 'tallas', 'tallasSeleccionadas'));
+        }
 
         return redirect()->route('tienda');
 
@@ -200,7 +206,7 @@ class ProductosController extends Controller
 
     public function update(Request $request, $id){
 
-        $producto = Producto::findOrFail($id);
+        $producto = Producto::with(['tallas'])->findOrFail($id);
 
         $request->validate([
             'nombre' => 'required',
@@ -208,16 +214,15 @@ class ProductosController extends Controller
             'cantidad' => 'required|numeric|min:1',
             'categoria' => 'required',
             'imagen' => 'image|mimes:jpg,png,gif',
+            'tallas' => 'required',
         ]);
 
-        $user_edit = Auth::user()->id;
         $imagenAnterior = $producto->imagen;
 
         $producto->nombre = $request->input('nombre');
         $producto->precio = $request->input('precio');
         $producto->cantidad = $request->input('cantidad');
         $producto->categoria = $request->input('categoria');
-        $producto->updated_by = $user_edit;
 
         if ($request->hasFile('imagen')) {
 
@@ -236,6 +241,9 @@ class ProductosController extends Controller
             $producto['imagen'] = $imgGuardado;
         }
 
+        $tallasSeleccionadas =$request->input('tallas');;
+        $producto->tallas()->sync($tallasSeleccionadas);
+        
         $producto->save();
 
         return redirect()->route('productos');

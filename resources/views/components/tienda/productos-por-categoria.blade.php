@@ -14,18 +14,9 @@
                             <div class="relative">
                                 <select name="talla"
                                     class=" w-full rounded border appearance-none border-gray-400 py-2 hover:border-green-400 focus:outline-none focus:border-green-400 text-sm">
-                                    @if ($producto->talla_s)
-                                        <option value="S">S</option>
-                                    @endif
-                                    @if ($producto->talla_m)
-                                        <option value="M">M</option>
-                                    @endif
-                                    @if ($producto->talla_l)
-                                        <option value="L">L</option>
-                                    @endif
-                                    @if ($producto->talla_xl)
-                                        <option value="XL">XL</option>
-                                    @endif
+                                    @foreach ($producto->tallas as $talla)
+                                        <option value="{{$talla->talla}}">{{$talla->talla}}</option>
+                                    @endforeach
                                 </select>
                                 <span
                                     class="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">

@@ -75,96 +75,52 @@
 
                                 <div class="md:col-span-5 mb-3">
                                     <label
-                                        for="image"class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tallas
+                                        for="image"class="inline-block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tallas
                                         Disponibles</label>
 
                                     <div class='flex flex-col gap-6'>
-                                        <div class='flex flex-row'>
-                                            <input type="checkbox" name="talla_s" id="S" value="1"
-                                                class='
-                                                    appearance-none h-6 w-6 bg-gray-400 rounded-full
-                                                    checked:bg-green-300 checked:scale-75
-                                                    transition-all duration-200 peer
-                                                '
-                                                {{ old('talla_s') ? 'checked="checked"' : '' }} />
-                                            <div
-                                                class='h-6 w-6 absolute rounded-full pointer-events-none
-                                                peer-checked:border-green-300 peer-checked:border-2
-                                                '>
-                                            </div>
-                                            <label for='S'
-                                                class='flex flex-col justify-center px-2 peer-checked:text-green-400  select-none'>S</label>
-                                        </div>
+                                        @foreach ($tallas as $talla)
 
-                                        <div class='flex flex-row'>
-                                            <input type="checkbox" name="talla_m" id="M" value="1"
-                                                class='
-                                                    appearance-none h-6 w-6 bg-gray-400 rounded-full
-                                                    checked:bg-green-300 checked:scale-75
-                                                    transition-all duration-200 peer
-                                                '
-                                                {{ old('talla_m') ? 'checked="checked"' : '' }} />
-                                            <div
-                                                class='h-6 w-6 absolute rounded-full pointer-events-none
-                                                peer-checked:border-green-300 peer-checked:border-2
-                                                '>
+                                            <div class='flex flex-row'>
+                                                <input type="checkbox" name="tallas[]" id="{{$talla->talla}}" value="{{$talla->id}}"
+                                                    class='
+                                                        appearance-none h-6 w-6 bg-gray-400 rounded-full
+                                                        checked:bg-green-300 checked:scale-75
+                                                        transition-all duration-200 peer
+                                                    '/>
+                                                <div
+                                                    class='h-6 w-6 absolute rounded-full pointer-events-none
+                                                    peer-checked:border-green-300 peer-checked:border-2
+                                                    '>
+                                                </div>
+                                                <label for='{{$talla->talla}}'
+                                                    class='flex flex-col justify-center px-2 peer-checked:text-green-400  select-none'>{{$talla->talla}}</label>
                                             </div>
-                                            <label for='M'
-                                                class='flex flex-col justify-center px-2 peer-checked:text-green-400  select-none'>M</label>
-                                        </div>
+                                        @endforeach
 
-                                        <div class='flex flex-row'>
-                                            <input type="checkbox" name="talla_l" id="L" value="1"
-                                                class='
-                                                    appearance-none h-6 w-6 bg-gray-400 rounded-full
-                                                    checked:bg-green-300 checked:scale-75
-                                                    transition-all duration-200 peer'
-                                                {{ old('talla_l') ? 'checked="checked"' : '' }} />
-                                            <div
-                                                class='h-6 w-6 absolute rounded-full pointer-events-none
-                                                peer-checked:border-green-300 peer-checked:border-2
-                                                '>
-                                            </div>
-                                            <label for='L'
-                                                class='flex flex-col justify-center px-2 peer-checked:text-green-400  select-none'>L</label>
-                                        </div>
 
-                                        <div class='flex flex-row'>
-                                            <input type="checkbox" name="talla_xl" id="XL" value="1"
-                                                class='
-                                                    appearance-none h-6 w-6 bg-gray-400 rounded-full
-                                                    checked:bg-green-300 checked:scale-75
-                                                    transition-all duration-200 peer'
-                                                {{ old('talla_xl') ? 'checked="checked"' : '' }} />
-                                            <div
-                                                class='h-6 w-6 absolute rounded-full pointer-events-none
-                                                peer-checked:border-green-300 peer-checked:border-2
-                                                '>
-                                            </div>
-                                            <label for='XL'
-                                                class='flex flex-col justify-center px-2 peer-checked:text-green-400  select-none'>XL</label>
-                                        </div>
                                     </div>
                                 </div>
-
-
                         </div>
 
 
-                        <div class="md:col-span-5 text-right">
-                            <div class="inline-flex items-end">
-                                <button type="submit"
-                                    class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded mx-3">Guardar</button>
-                                <a href="{{ route('productos') }}"
-                                    class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mx-3">Cancelar</a>
-                            </div>
-                        </div>
-
-                        </form>
                     </div>
+
+
+                    <div class="md:col-span-5 text-right">
+                        <div class="inline-flex items-end">
+                            <button type="submit"
+                                class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded mx-3">Guardar</button>
+                            <a href="{{ route('productos') }}"
+                                class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mx-3">Cancelar</a>
+                        </div>
+                    </div>
+
+                    </form>
                 </div>
             </div>
         </div>
+    </div>
 
     </div>
     </div>

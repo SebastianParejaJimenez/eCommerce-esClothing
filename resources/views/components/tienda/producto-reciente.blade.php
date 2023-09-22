@@ -22,34 +22,13 @@
             <div class="mt-3">
                 <label class="text-gray-700 text-sm" for="count">Seleccionar una talla:</label>
                 <div class="flex items-center mt-3">
-                    @if ($productoReciente->talla_s)
+                    @foreach ($productoReciente->tallas as $talla)
                     <div>
-                        <input type="radio" name="talla" id="S" value="S" class="peer hidden" />
-                        <label for="S" class=" border-solid border-2 border-indigo-200 cursor-pointer select-none rounded-md p-2 mx-2 text-center peer-checked:bg-indigo-300 peer-checked:font-bold peer-checked:text-gray-600  hover:bg-indigo-200">S</label>
+                        <input type="radio" name="talla" id="{{$talla->talla}}" value="{{$talla->talla}}" class="peer hidden" />
+                        <label for="{{$talla->talla}}" class=" border-solid border-2 border-indigo-200 cursor-pointer select-none rounded-md p-2 mx-2 text-center peer-checked:bg-indigo-300 peer-checked:font-bold peer-checked:text-gray-600  hover:bg-indigo-200">{{$talla->talla}}</label>
                     </div>
-                    @endif
-                    @if ($productoReciente->talla_m)
-                    <div>
-                        <input type="radio" name="talla" id="M" value="M" class="peer hidden" />
-                        <label for="M" class=" border-solid border-2 border-indigo-200 cursor-pointer select-none rounded-md p-2 mx-2 text-center peer-checked:bg-indigo-300 peer-checked:font-bold peer-checked:text-gray-600 hover:bg-indigo-200">M</label>
-                    </div>
-                    @endif
-
-
-                    @if ($productoReciente->talla_l)
-                    <div>
-                        <input type="radio" name="talla" id="L" value="L" class="peer hidden" />
-                        <label for="L" class=" border-solid border-2 border-indigo-200 cursor-pointer select-none rounded-md p-2 mx-2 text-center peer-checked:bg-indigo-300 peer-checked:font-bold peer-checked:text-gray-600 hover:bg-indigo-200">L</label>
-                    </div>
-
-                    @endif
-
-                    @if ($productoReciente->talla_xl)
-                    <div>
-                        <input type="radio" name="talla" id="XL" value="XL" class="peer hidden" />
-                        <label for="XL" class=" border-solid border-2 border-indigo-200 cursor-pointer select-none rounded-md p-2 mx-2 text-center peer-checked:bg-indigo-300 peer-checked:font-bold peer-checked:text-gray-600 hover:bg-indigo-200">XL</label>
-                    </div>
-                    @endif
+                    @endforeach
+        
                 </div>
             </div>
 

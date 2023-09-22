@@ -15,11 +15,11 @@ class StoreController extends Controller
     public function index(Request $request){
 
 
-        $producto_randoms = Producto::where('estado', 'Activo')->inRandomOrder()
+        $producto_randoms = Producto::with(['tallas'])->where('estado', 'Activo')->inRandomOrder()
         ->limit(4)
         ->get();
 
-        $productos_top  = Producto::where('estado', 'Activo')->inRandomOrder()
+        $productos_top  = Producto::with(['tallas'])->where('estado', 'Activo')->inRandomOrder()
         ->limit(4)
         ->get();
 
@@ -30,12 +30,13 @@ class StoreController extends Controller
     public function catalogoVista(Request $request){
 
         $categoria = $request->categoria;
-        $productos_categoria = Producto::where('categoria', $categoria)->where('estado', 'activo')->paginate(12);
-        $productoReciente = Producto::latest('created_at')->where('categoria', $categoria)->where('estado', 'activo')->first();
+
+        $productos_categoria = Producto::with(['tallas'])->where('categoria', $categoria)->where('estado', 'activo')->paginate(12);
+        $productoReciente = Producto::with(['tallas'])->latest('created_at')->where('categoria', $categoria)->where('estado', 'activo')->first();
 
         if (!$request->categoria) {
-        $productos_categoria = Producto::where('estado', 'activo')->paginate(12);
-        $productoReciente = Producto::latest('created_at')->where('estado', 'activo')->first();
+        $productos_categoria = Producto::with(['tallas'])->where('estado', 'activo')->paginate(12);
+        $productoReciente = Producto::with(['tallas'])->latest('created_at')->where('estado', 'activo')->first();
         }
 
         return view('pages/store/catalogo', compact('productos_categoria', 'productoReciente'));

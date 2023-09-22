@@ -22,8 +22,8 @@
 
     <div id="content-main" class="grid grid-cols-12 gap-8">
 
-    <x-dashboard.dashboard-card-03 :data="$data" />
-    <x-dashboard.dashboard-card-04 :data="$data_barras"/>
+    <x-dashboard.estadisticas-productos :data="$data" />
+    <x-dashboard.estadisticas-productos-barras :data="$data_barras"/>
 
 
     </div>

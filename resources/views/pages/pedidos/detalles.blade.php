@@ -103,7 +103,7 @@
                         Total Facturado
                     </p>
                     <b>
-                        ${{$pedido->subtotal}}
+                        ${{$pedido->total}}
                     </b>
                 </div>
 

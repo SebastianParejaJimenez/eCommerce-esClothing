@@ -8,11 +8,11 @@
 
         <!-- Cards -->
         <div id="content-main" class="grid grid-cols-12 gap-6">
-            <x-dashboard.dashboard-card-13 :ventasRecientes="$ordenes_recientes" />
+            <x-dashboard.ventas-recientes :ventasRecientes="$ordenes_recientes" />
 
-            <x-dashboard.dashboard-card-02 :data="$data" :ventasTotales="$total_ventas" />
+            <x-dashboard.ventas-totales-grafico :data="$data" :ventasTotales="$total_ventas" />
 
-            <x-dashboard.dashboard-card-07 :productoTopMes="$productosConVentas" />
+            <x-dashboard.producto-top-mes :productoTopMes="$productosConVentas" />
         </div>
 
     </div>

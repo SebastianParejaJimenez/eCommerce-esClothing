@@ -158,30 +158,13 @@
 
                                 </td>
                                 <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white producto_precio">
-                                    {{ $producto->precio }}
+                                    {{ number_format($producto->precio, 2, '.', ',') }}
                                 </td>
 
                                 <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white producto_precio">
-
-                                    @if ($producto->talla_s == true)
-                                        <span
-                                            class="bg-green-100 text-gray-900 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-gray-700 dark:text-gray-300">S</span>
-                                    @endif
-                                    @if ($producto->talla_m == true)
-                                        <span
-                                            class="bg-green-100 text-gray-900 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-gray-700 dark:text-gray-300">M</span>
-                                    @endif
-
-                                    @if ($producto->talla_l == true)
-                                        <span
-                                            class="bg-green-100 text-gray-900 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-gray-700 dark:text-gray-300">L</span>
-                                    @endif
-
-                                    @if ($producto->talla_xl == true)
-                                        <span
-                                            class="bg-green-100 text-gray-900 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-gray-700 dark:text-gray-300">XL</span>
-                                    @endif
-
+                                    @foreach ($producto->tallas as $talla)
+                                        <span class="bg-green-100 text-gray-900 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-gray-700 dark:text-gray-300">{{$talla->talla}}</span>
+                                    @endforeach
                                 </td>
                                 <td class="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                                     <div
