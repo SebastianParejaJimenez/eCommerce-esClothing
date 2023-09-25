@@ -11,7 +11,7 @@ class NotificationController extends Controller
 
     public function markAllNotifications(){
         Auth()->user()->unreadNotifications->markAsRead();
-        return redirect()->route('pedidos');
+        return redirect()->back();
     }
 
 

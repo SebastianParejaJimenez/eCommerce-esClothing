@@ -37,7 +37,7 @@
                                 </div>
 
                                 <div class="md:col-span-3 dark:text-white mb-3">
-                                    <label for="address">Cantidad</label>
+                                    <label for="address">Cantidades Disponibles</label>
                                     <input type="number" id="cantidad" name="cantidad"
                                         placeholder="Ingrese las Cantidades que tenga del Producto"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">

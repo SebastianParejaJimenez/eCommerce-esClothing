@@ -12,59 +12,59 @@
             <x-productos.carrito-header />
 
             <div class="w-full max-w-6xl rounded bg-white shadow-xl p-10 lg:p-20 mx-auto text-gray-800 md:text-left">
-                <div class="md:flex items-center -mx-10">
-                    <div class="w-full md:w-1/2 px-10 mb-10 md:mb-0">
-                        <div class="">
-                            <img src="{{ url('productos_subidos') }}/{{ $producto->imagen }}" class="w-full z-10"
-                                alt="">
-                        </div>
-                    </div>
-                    <div class="w-full md:w-1/2 px-10">
-                        <div class="mb-10">
-                            <h1 class="font-bold uppercase text-2xl mb-4 ">
-                                {{ $producto->nombre }} </h1>
-                            <p class="text-l mb-2 font-bold">Categoria: {{ $producto->categoria }}</p>
-                            <p class="text-sm">Lorem ipsum dolor sit, amet consectetur adipisicing, elit. Eos, voluptatum
-                                dolorum! Laborum blanditiis consequatur, voluptates, sint enim fugiat saepe, dolor fugit,
-                                magnam explicabo eaque quas id quo porro dolorum facilis...
-                            </p>
-                        </div>
-                        <div>
-                            <div class="inline-block align-bottom mr-5 mb-5">
-                                <span class="text-2xl leading-none align-baseline">$</span>
-                                <span
-                                    class="font-bold text-5xl leading-none align-baseline">{{ number_format($producto->precio, 0, ',', '.') }}</span>
+                <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex flex-col md:flex-row -mx-4">
+                        <div class="md:flex-1 px-4">
+                            <div class="h-[490px] rounded-lg bg-gray-300 mb-4">
+                                <img class="w-full h-full object-cover"
+                                    src="{{ url('productos_subidos') }}/{{ $producto->imagen }}" alt="Producto Imagen">
                             </div>
-
-                            <form action="{{ route('agregaritem') }}" method="POST">
-
-                                <div class="mt-3">
-                                    <label class="text-gray-700 text-sm" for="count">Seleccionar una talla:</label>
-                                    <div class="flex items-center mt-2">
-                                        @foreach ($producto->tallas as $talla)
-                                        <div>
-                                            <input type="radio" name="talla" id="{{$talla->talla}}" value="{{$talla->talla}}" class="peer hidden" />
-                                            <label for="{{$talla->talla}}" class=" cursor-pointer select-none border-solid border-2 border-indigo-200  rounded-md p-2 mx-2 text-center peer-checked:bg-gray-300 peer-checked:font-bold peer-checked:text-gray-600  hover:bg-indigo-200">{{$talla->talla}}</label>
-                                        </div>
-                                        @endforeach
-                                    </div>
+                        </div>
+                        <div class="md:flex-1 px-4 m-auto">
+                            <h2 class="text-2xl font-bold mb-2">{{ $producto->nombre }}</h2>
+                            <span class="font-bold text-gray-700">Categoria:</span>
+                            <p class="text-gray-600 text-sm mb-4">{{ $producto->categoria }}</p>
+                            <div class="flex mb-4">
+                                <div class="mr-4">
+                                    <span class="font-bold text-gray-700">Precio:</span>
+                                    <span class="text-gray-600">${{ number_format($producto->precio, 0, ',', '.') }}</span>
                                 </div>
-
+                                <div>
+                                    <span class="font-bold text-gray-700">Disponibilidad:</span>
+                                    <span class="bg-green-400 text-white py-1 px-3 font-semibold rounded-full text-sm">Disponible</span>
+                                </div>
+                            </div>
+                            <form action="{{ route('agregaritem') }}" method="POST">
                                 @csrf
                                 <input name="producto_id" type="hidden" value="{{ $producto->id }}">
 
-                                @if (Auth::user())
-                                    <div class="inline-block align-bottom mt-5">
-                                        <button type="submite"
-                                            class="tracking-wide mt-2 text-white capitalize transition-colors duration-200 transform bg-green-500 rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600 px-10 py-2 font-semibold"><i
-                                                class="mdi mdi-cart -ml-2 mr-2"></i> Añadir al Carrito </button>
+                                <div class="mb-4">
+                                    <span class="font-bold text-gray-700">Seleccionar Talla:</span>
+                                    <div class="flex items-center my-3">
+                                        @foreach ($producto->tallas as $talla)
+                                            <div>
+                                                <input type="radio" name="talla" id="{{ $talla->talla }}"
+                                                    value="{{ $talla->talla }}" class="peer hidden" />
+                                                <label for="{{ $talla->talla }}"
+                                                    class=" bg-gray-300 text-gray-700 py-2 px-4 rounded-full font-bold mr-2 hover:bg-gray-400 cursor-pointer select-none border-solid border-2 border-indigo-200   p-2 mx-2 text-center  peer-checked:font-bold peer-checked:border-green-400  peer-checked:bg-green-300">{{ $talla->talla }}</label>
+                                            </div>
+                                        @endforeach
                                     </div>
-                                @endif
+                                </div>
+                                <div>
 
-
+                                    @if (Auth::user())
+                                        <div class="inline-block align-bottom mt-4">
+                                            <button type="submite"
+                                                class="tracking-wide mt-2 text-white capitalize transition-colors duration-200 transform bg-green-500 rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600 px-10 py-2 font-semibold"><i
+                                                    class="mdi mdi-cart -ml-2 mr-2"></i> Añadir al Carrito </button>
+                                        </div>
+                                    @endif
+                                </div>
                             </form>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -75,16 +75,17 @@
 
 @section('scripts')
 
-@if(session('error')== "talla")
-<script>
-    Swal.fire({
-        title: 'Faltan Datos',
-        text: "Necesitas seleccionar una talla para poder agregar al Carrito!",
-        icon: 'warning',
-        showCancelButton: false,
-        confirmButtonColor: '#3085d6',
-        confirmButtonText: 'Aceptar'
-        })
-</script>
-@endif
+    @if (session('error') == 'talla')
+        <script>
+            Swal.fire({
+                title: 'Faltan Datos',
+                text: "Necesitas seleccionar una talla para poder agregar al Carrito!",
+                icon: 'warning',
+                showCancelButton: false,
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Aceptar'
+            })
+        </script>
+    @endif
 @endsection
+

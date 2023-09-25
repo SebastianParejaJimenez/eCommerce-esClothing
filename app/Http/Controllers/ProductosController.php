@@ -22,10 +22,10 @@ class ProductosController extends Controller
     {
 
         $productos = Producto::with(['tallas'])->get();
-
+        $tallas = Talla::get();
         $rol = Auth::user()->rol_id;
         if ($rol == 1) {
-        return view('pages/productos/productos', compact('productos'));
+        return view('pages/productos/productos', compact('productos', 'tallas'));
         }
         return redirect()->route('tienda');
 
@@ -243,7 +243,7 @@ class ProductosController extends Controller
 
         $tallasSeleccionadas =$request->input('tallas');;
         $producto->tallas()->sync($tallasSeleccionadas);
-        
+
         $producto->save();
 
         return redirect()->route('productos');

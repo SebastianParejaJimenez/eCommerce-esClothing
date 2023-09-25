@@ -1,5 +1,46 @@
 <x-app-layout>
     <style>
+        		.animated {
+			-webkit-animation-duration: 1s;
+			animation-duration: 1s;
+			-webkit-animation-fill-mode: both;
+			animation-fill-mode: both;
+		}
+
+		.animated.faster {
+			-webkit-animation-duration: 500ms;
+			animation-duration: 500ms;
+		}
+
+		.fadeIn {
+			-webkit-animation-name: fadeIn;
+			animation-name: fadeIn;
+		}
+
+		.fadeOut {
+			-webkit-animation-name: fadeOut;
+			animation-name: fadeOut;
+		}
+
+		@keyframes fadeIn {
+			from {
+				opacity: 0;
+			}
+
+			to {
+				opacity: 1;
+			}
+		}
+
+		@keyframes fadeOut {
+			from {
+				opacity: 1;
+			}
+
+			to {
+				opacity: 0;
+			}
+		}
         /*Overrides for Tailwind CSS */
 
         /*Form fields*/
@@ -82,7 +123,7 @@
                                 Producto
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Cantidad
+                                Disponibles
                             </th>
                             <th scope="col" class="px-6 py-3">
                                 Categoria
@@ -113,63 +154,25 @@
                                     {{ $producto->nombre }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    <div class="flex items-center space-x-3">
-                                        <form action="{{ route('productos.restar', ['id' => $producto->id]) }}"
-                                            method="POST" style="display: inline-block;">
-                                            @method('PUT')
-                                            @csrf
-                                            <button
-                                                class="inline-flex items-center justify-center p-1 text-sm font-medium h-6 w-6 text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
-                                                type="submit">
-                                                <span class="sr-only">Cantidad Boton</span>
-                                                <svg class="w-3 h-3" aria-hidden="true"
-                                                    xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                    viewBox="0 0 18 2">
-                                                    <path stroke="currentColor" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="2" d="M1 1h16" />
-                                                </svg>
-                                            </button>
-                                        </form>
-
-                                        <div>
-                                            {{ $producto->cantidad }}
-                                        </div>
-                                        <form action="{{ route('productos.sumar', ['id' => $producto->id]) }}"
-                                            method="POST" style="display: inline-block;">
-                                            @method('PUT')
-                                            @csrf
-                                            <button
-                                                class="inline-flex items-center justify-center h-6 w-6 p-1 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
-                                                type="submit">
-                                                <span class="sr-only">Cantidad Boton</span>
-                                                <svg class="w-3 h-3" aria-hidden="true"
-                                                    xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                    viewBox="0 0 18 18">
-                                                    <path stroke="currentColor" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
-                                                </svg>
-                                            </button>
-                                        </form>
-
-                                    </div>
+                                    {{ $producto->cantidad }}
                                 </td>
                                 <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white producto_categoria">
                                     {{ $producto->categoria }}
 
                                 </td>
                                 <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white producto_precio">
-                                    {{ number_format($producto->precio, 2, '.', ',') }}
+                                    ${{ number_format($producto->precio, 2, '.', ',') }}
                                 </td>
 
                                 <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white producto_precio">
                                     @foreach ($producto->tallas as $talla)
-                                        <span class="bg-green-100 text-gray-900 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-gray-700 dark:text-gray-300">{{$talla->talla}}</span>
+                                        <span
+                                            class="bg-green-100 text-gray-900 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-gray-700 dark:text-gray-300">{{ $talla->talla }}</span>
                                     @endforeach
                                 </td>
                                 <td class="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                                     <div
-                                        class="inline-flex items-center px-3 py-1 rounded-full gap-x-2
-                                dark:bg-gray-800
+                                        class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 dark:bg-gray-800
                                 @switch(true)
                                     @case($producto->estado == 'Activo')
                                         text-green-500 bg-green-100/60
@@ -209,8 +212,7 @@
                                         @if ($producto->estado == 'Inactivo')
                                             <div class="flex items-center gap-x-6">
                                                 <input type="hidden" value="">
-                                                <a href="{{ route('productos.restore', $producto->id) }}"
-                                                    type="submit"
+                                                <a href="{{ route('productos.restore', $producto->id) }}" type="submit"
                                                     class="text-green-500 transition-colors duration-200 dark:hover:text-green-500 dark:text-gray-300 hover:text-green-500 focus:outline-none">
                                                     ACTIVAR
                                                 </a>
@@ -233,9 +235,8 @@
                                         </a>
                                         <a href="{{ route('productos.show', ['id' => $producto->id, 'slug' => $producto->slug]) }}"
                                             class=" items-center px-2 py-2 rounded-md drop-shadow-md hover:text-indigo-600 text-gray-500">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                                class="w-6 h-6">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                     d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
                                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -252,7 +253,30 @@
             </div>
         @endif
     </div>
-
+	<div class="main-modal fixed w-full h-100 inset-0 z-50 overflow-hidden flex justify-center items-center animated fadeIn faster"
+		style="background: rgba(0,0,0,.7);">
+		<div
+			class="border border-teal-500 shadow-lg modal-container bg-white w-8/12 mx-auto rounded shadow-lg z-50 overflow-y-auto">
+			<div class="modal-content py-4 text-left px-6">
+				<!--Title-->
+				<div class="flex justify-between items-center pb-3">
+					<p class="text-xl font-bold">Crear Producto</p>
+					<div class="modal-close cursor-pointer z-50">
+						<svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+							viewBox="0 0 18 18">
+							<path
+								d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z">
+							</path>
+						</svg>
+					</div>
+				</div>
+				<!--Body-->
+				<div class="my-5">
+                    <x-productos.crear-producto :tallas="$tallas" />
+				</div>
+			</div>
+		</div>
+	</div>
     <x-slot:js>
         <script>
             $(document).ready(function() {
@@ -279,6 +303,36 @@
                     ],
                 });
             });
+
+            const modal = document.querySelector('.main-modal');
+            const closeButton = document.querySelectorAll('.modal-close');
+
+            const modalClose = () => {
+                modal.classList.remove('fadeIn');
+                modal.classList.add('fadeOut');
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                }, 500);
+            }
+
+            const openModal = () => {
+                modal.classList.remove('fadeOut');
+                modal.classList.add('fadeIn');
+                modal.style.display = 'flex';
+            }
+
+            for (let i = 0; i < closeButton.length; i++) {
+
+                const elements = closeButton[i];
+
+                elements.onclick = (e) => modalClose();
+
+                modal.style.display = 'none';
+
+                window.onclick = function(event) {
+                    if (event.target == modal) modalClose();
+                }
+            }
         </script>
     </x-slot:js>
 

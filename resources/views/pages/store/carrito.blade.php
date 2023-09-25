@@ -372,6 +372,14 @@
                         } ,300);
                     }
 
+                    const modalOff = () => {
+                        modal.classList.remove('fadeIn');
+                        modal.classList.add('fadeOut');
+                        setTimeout(() => {
+                            modal.style.display = 'none';
+                        }, 500);
+                    }
+
                     const openModal = () => {
                         modal.classList.remove('fadeOut');
                         modal.classList.add('fadeIn');
@@ -387,7 +395,7 @@
                         modal.style.display = 'none';
 
                         window.onclick = function (event) {
-                            if (event.target == modal) modalClose();
+                            if (event.target == modal) modalOff();
                         }
                     }
                 </script>
