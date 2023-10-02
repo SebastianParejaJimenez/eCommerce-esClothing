@@ -1,46 +1,47 @@
 <x-app-layout>
     <style>
-        		.animated {
-			-webkit-animation-duration: 1s;
-			animation-duration: 1s;
-			-webkit-animation-fill-mode: both;
-			animation-fill-mode: both;
-		}
+        .animated {
+            -webkit-animation-duration: 1s;
+            animation-duration: 1s;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+        }
 
-		.animated.faster {
-			-webkit-animation-duration: 500ms;
-			animation-duration: 500ms;
-		}
+        .animated.faster {
+            -webkit-animation-duration: 500ms;
+            animation-duration: 500ms;
+        }
 
-		.fadeIn {
-			-webkit-animation-name: fadeIn;
-			animation-name: fadeIn;
-		}
+        .fadeIn {
+            -webkit-animation-name: fadeIn;
+            animation-name: fadeIn;
+        }
 
-		.fadeOut {
-			-webkit-animation-name: fadeOut;
-			animation-name: fadeOut;
-		}
+        .fadeOut {
+            -webkit-animation-name: fadeOut;
+            animation-name: fadeOut;
+        }
 
-		@keyframes fadeIn {
-			from {
-				opacity: 0;
-			}
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
 
-			to {
-				opacity: 1;
-			}
-		}
+            to {
+                opacity: 1;
+            }
+        }
 
-		@keyframes fadeOut {
-			from {
-				opacity: 1;
-			}
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
 
-			to {
-				opacity: 0;
-			}
-		}
+            to {
+                opacity: 0;
+            }
+        }
+
         /*Overrides for Tailwind CSS */
 
         /*Form fields*/
@@ -212,13 +213,13 @@
                                         @if ($producto->estado == 'Inactivo')
                                             <div class="flex items-center gap-x-6">
                                                 <input type="hidden" value="">
-                                                <a href="{{ route('productos.restore', $producto->id) }}" type="submit"
+                                                <a href="{{ route('productos.restore', $producto->id) }}" type="submit" onclick="habilitarProducto(event)"
                                                     class="text-green-500 transition-colors duration-200 dark:hover:text-green-500 dark:text-gray-300 hover:text-green-500 focus:outline-none">
                                                     ACTIVAR
                                                 </a>
                                             </div>
                                         @else
-                                            <form method="POST"
+                                            <form method="POST" id="deshabilitar"
                                                 action="{{ route('productos.destroy', ['id' => $producto->id]) }}">
                                                 @method('DELETE')
                                                 @csrf
@@ -253,30 +254,30 @@
             </div>
         @endif
     </div>
-	<div class="main-modal fixed w-full h-100 inset-0 z-50 overflow-hidden flex justify-center items-center animated fadeIn faster"
-		style="background: rgba(0,0,0,.7);">
-		<div
-			class="border border-teal-500 shadow-lg modal-container bg-white w-8/12 mx-auto rounded shadow-lg z-50 overflow-y-auto">
-			<div class="modal-content py-4 text-left px-6">
-				<!--Title-->
-				<div class="flex justify-between items-center pb-3">
-					<p class="text-xl font-bold">Crear Producto</p>
-					<div class="modal-close cursor-pointer z-50">
-						<svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-							viewBox="0 0 18 18">
-							<path
-								d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z">
-							</path>
-						</svg>
-					</div>
-				</div>
-				<!--Body-->
-				<div class="my-5">
+    <div class="main-modal fixed w-full h-100 inset-0 z-50 overflow-hidden flex justify-center items-center animated fadeIn faster"
+        style="background: rgba(0,0,0,.7);">
+        <div
+            class="border border-teal-500 shadow-lg modal-container bg-white w-8/12 mx-auto rounded shadow-lg z-50 overflow-y-auto">
+            <div class="modal-content py-4 text-left px-6">
+                <!--Title-->
+                <div class="flex justify-between items-center pb-3">
+                    <p class="text-xl font-bold">Crear Producto</p>
+                    <div class="modal-close cursor-pointer z-50">
+                        <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18"
+                            height="18" viewBox="0 0 18 18">
+                            <path
+                                d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z">
+                            </path>
+                        </svg>
+                    </div>
+                </div>
+                <!--Body-->
+                <div class="my-5">
                     <x-productos.crear-producto :tallas="$tallas" />
-				</div>
-			</div>
-		</div>
-	</div>
+                </div>
+            </div>
+        </div>
+    </div>
     <x-slot:js>
         <script>
             $(document).ready(function() {
@@ -332,6 +333,46 @@
                 window.onclick = function(event) {
                     if (event.target == modal) modalClose();
                 }
+            }
+
+            $('#deshabilitar').submit(function(e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'Estas Seguro de Inhabilitar el Producto?',
+                    text: 'Podras activarlo nuevamente en dado caso que sea necesario".',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#15803d',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Confirmar',
+                    cancelButtonText: 'Cancelar',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.submit();
+                    }
+                })
+
+            });
+
+            function habilitarProducto(event) {
+                event.preventDefault();
+
+                Swal.fire({
+                    title: 'Estas Seguro de Habilitar el Producto?',
+                    text: 'Podras inhabilitarlo nuevamente en dado caso que sea necesario".',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#15803d',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Confirmar',
+                    cancelButtonText: 'Cancelar',
+                    reverseButtons: true
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = event.target.href;
+                        }
+                    })
             }
         </script>
     </x-slot:js>

@@ -41,7 +41,7 @@ class DashboardController extends Controller
 
         $rol = Auth::user()->rol_id;
         if ($rol == 1) {
-            return view('pages/dashboard/dashboard', $data, compact('total_ventas', 'productosConVentas', 'ordenes_recientes'));
+                return view('pages/dashboard/dashboard', $data, compact('total_ventas', 'productosConVentas', 'ordenes_recientes'));
         }
         return redirect()->route('tienda');
     }

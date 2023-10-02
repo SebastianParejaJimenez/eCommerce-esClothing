@@ -31,7 +31,14 @@
                                 </div>
                                 <div>
                                     <span class="font-bold text-gray-700">Disponibilidad:</span>
-                                    <span class="bg-green-400 text-white py-1 px-3 font-semibold rounded-full text-sm">Disponible</span>
+
+                                    @if ($producto->estado == 'Activo')
+                                        <span
+                                            class="bg-green-400 text-white py-1 px-3 font-semibold rounded-full text-sm">Disponible</span>
+                                    @else
+                                        <span
+                                            class="bg-red-400 text-white py-1 px-3 font-semibold rounded-full text-sm">Agotado</span>
+                                    @endif
                                 </div>
                             </div>
                             <form action="{{ route('agregaritem') }}" method="POST">
@@ -53,12 +60,15 @@
                                 </div>
                                 <div>
 
-                                    @if (Auth::user())
+                                    @if (Auth::user() && $producto->estado == 'Activo')
                                         <div class="inline-block align-bottom mt-4">
                                             <button type="submite"
                                                 class="tracking-wide mt-2 text-white capitalize transition-colors duration-200 transform bg-green-500 rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600 px-10 py-2 font-semibold"><i
                                                     class="mdi mdi-cart -ml-2 mr-2"></i> Añadir al Carrito </button>
                                         </div>
+                                    @else
+                                    <div class="hover:red-yellow-500 w-full my-4  select-none rounded-l-lg border-l-4 border-red-400 bg-red-100 p-4 font-medium">El producto actualmente se encuenta Agotado!</div>
+
                                     @endif
                                 </div>
                             </form>
@@ -88,4 +98,3 @@
         </script>
     @endif
 @endsection
-

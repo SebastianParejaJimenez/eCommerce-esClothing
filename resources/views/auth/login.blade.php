@@ -1,4 +1,6 @@
 <x-authentication-layout>
+
+
     @if (session('status'))
         <div class="mb-4 font-medium text-sm text-green-600">
             {{ session('status') }}
@@ -138,9 +140,4 @@
             </div>
         </div>
     </div>
-
-
-
-
-
 </x-authentication-layout>

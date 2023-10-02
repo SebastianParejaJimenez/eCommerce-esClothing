@@ -74,7 +74,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::resource('productos', ProductosController::class);
     Route::controller(ProductosController::class)->group(function () {
-
         Route::get('/productos', 'index')->name('productos');
 
         Route::get('/products/search', 'search')->name('productos.search');

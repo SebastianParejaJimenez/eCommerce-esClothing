@@ -20,8 +20,6 @@ return new class extends Migration
             $table->string('name');
             $table->string('estado')->default('Activo');
             $table->string('deleted_by')->nullable();
-            $table->string('updated_by')->nullable();
-            $table->string('created_by')->nullable();
             $table->string('email')->unique();
             $table->string('ciudad')->nullable();
             $table->string('pais')->nullable();

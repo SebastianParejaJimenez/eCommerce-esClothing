@@ -153,7 +153,7 @@ class ProductosController extends Controller
     }
 
     public function show($id){
-        $producto = Producto::with(['tallas'])->where('estado','activo')->findOrFail($id);
+        $producto = Producto::with(['tallas'])->findOrFail($id);
 
         return view('pages.productos.show', compact( 'producto'));
 
