@@ -98,9 +98,8 @@
                                     class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
                                     <i class="mdi mdi-account-outline text-gray-400 text-lg"></i>
                                 </div>
-                                <input type="text"
-                                    class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
-                                    placeholder="Nombre" name="name">
+                                <x-jet-input id="name" class="block mt-1 w-full" type="text" name="name" placeholder="Nombre"
+                                :value="old('name')" required autofocus />
                             </div>
                         </div>
                         <div class="w-1/2 px-3 mb-5">
@@ -112,8 +111,8 @@
                                 </div>
                                 <x-jet-input
                                     class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
-                                    id="numero_telefonico" type="text" name="numero_telefono" :value="old('numero_telefono')"
-                                    autocomplete="numero_telefonico" placeholder="Numero Telefonico"/>
+                                    id="numero_telefono" type="number" name="numero_telefono" :value="old('numero_telefono')"
+                                    autocomplete="numero_telefono" placeholder="Numero Telefonico"/>
                             </div>
                         </div>
                     </div>

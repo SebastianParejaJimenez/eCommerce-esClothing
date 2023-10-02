@@ -46,7 +46,7 @@ class StoreController extends Controller
     public function pedidos_hechos(){
         $user_id = Auth::user()->id;
 
-        $pedidos = Orden::with('productos', 'user')->where('user_id', $user_id)->orderByDesc('created_at')->get();
+        $pedidos = Orden::with('productos', 'user')->where('user_id', $user_id)->orderByDesc('created_at')->paginate(2);
 
 
         return view('pages/store/pedidos', compact('pedidos'));

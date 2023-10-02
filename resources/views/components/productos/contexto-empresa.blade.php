@@ -6,9 +6,9 @@
                     <div class="relative">
                         <h1 class="absolute -top-12 -left-44 text-[120px] font-bold opacity-5"> esClothing
                         </h1>
-                        <h1 class="text-5xl font-bold dark:text-white"> Nuestros <span class="text-indigo-500">
+                        <h2 class="text-5xl font-bold dark:text-white"> Nuestros <span class="text-indigo-500">
                                 Productos
-                            </span> </h1>
+                            </span> </h2>
                         <div class="flex w-24 mt-1 mb-10 overflow-hidden rounded">
                             <div class="flex-1 h-2 bg-indigo-200">
                             </div>

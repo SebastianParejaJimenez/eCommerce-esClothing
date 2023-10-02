@@ -5,7 +5,7 @@
 @section('content')
 
     <div class="bg-gray-100 dark:bg-slate-700">
-        <div class="mx-auto max-w-2xl px-3 py-0.5 sm:px-6 sm:py-0.5 lg:max-w-7xl lg:px-5">
+        <div class="mx-auto max-w-4xl px-3 py-0.5 sm:px-6 sm:py-0.5 lg:max-w-7xl lg:px-5">
 
             <style>
                 @layer utilities {
@@ -61,344 +61,364 @@
             </style>
 
             <!-- component -->
-            @if (session('success'))
+            @if (session('canceled'))
+                <!-- This example requires Tailwind CSS v2.0+ -->
+                <div x-data="{ open: true }" class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title"
+                    role="dialog" aria-modal="true">
+                    <div x-show="open" @click.outside="open = false" @keydown.escape.window="open = false" x-show="open"
+                        x-transition:enter="ease-out duration-300"
+                        x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                        x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
+                        x-transition:leave="ease-in duration-200"
+                        x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                        x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" x-cloak
+                        class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
 
-                <div class="bg-gray-100 h-screen p-32 z-50">
-                    <div class="bg-white p-6  md:mx-auto">
-                        <svg viewBox="0 0 24 24" class="text-green-500 w-16 h-16 mx-auto my-6">
-                            <path fill="currentColor"
-                                d="M12,0A12,12,0,1,0,24,12,12.014,12.014,0,0,0,12,0Zm6.927,8.2-6.845,9.289a1.011,1.011,0,0,1-1.43.188L5.764,13.769a1,1,0,1,1,1.25-1.562l4.076,3.261,6.227-8.451A1,1,0,1,1,18.927,8.2Z">
-                            </path>
-                        </svg>
-                        <div class="text-center">
-                            <h3 class="md:text-2xl text-base text-gray-900 font-semibold text-center">¡Pago Realizado!</h3>
-                            <p class="text-gray-600 my-2">Gracias por realizar tu compra, te contactaremos via tu correo
-                                para mas informacion sobre tu pedido.</p>
-                            <p> Ten un buen dia! </p>
-                            <div class="py-10 text-center">
-                                <a href="{{ route('pedidos_hechos') }}"
-                                    class="px-12 bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-3">
-                                    Ir a ver tus Pedidos
-                                </a>
+                        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+
+                        <!-- This element is to trick the browser into centering the modal contents. -->
+                        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+
+                        <div
+                            class="relative inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
+                            <div class="hidden sm:block absolute top-0 right-0 pt-4 pr-4">
+                                <button @click="open = false" type="button"
+                                    class="bg-white rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                    <span class="sr-only">Close</span>
+                                    <!-- Heroicon name: outline/x -->
+                                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="sm:flex sm:items-start">
+                                <div
+                                    class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                                    <!-- Heroicon name: outline/exclamation -->
+                                    <svg class="h-6 w-6 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                    </svg>
+                                </div>
+                                <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                                    <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">Ha ocurrido un
+                                        Error</h3>
+                                    <div class="mt-2">
+                                        <p class="text-sm text-gray-500">El pago no se ha procesado correctamente, En dado
+                                            caso que de su cuenta se haya hecho el pago por favor contacte con nosotros.</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            @elseif (session('canceled'))
-                <div class=" mt-5 px-4 py-3 leading-normal text-red-100 bg-red-700 rounded-lg" role="alert">
-                    <p>El Pago ha sido cancelado o ha ocurrido algun error!</p>
-                </div>
-            @else
-                <div class="h-screen bg-gray-100 pt-10">
-
-                    <h1 class="mb-10 text-center text-2xl font-bold">Carrito de Compras</h1>
-                    <div class="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
-                        <div class="rounded-lg md:w-2/3">
-                            @foreach (Cart::content() as $item)
-                                <div
-                                    class=" relative justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start">
-                                    <a href="{{ route('eliminaritem', ['id' => $item->rowId]) }}"
-                                        class="absolute top-2 right-2 text-gray-300  hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-200">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            fill="currentColor" class="w-6 h-6 bi bi-x-circle" viewBox="0 0 16 16">
-                                            <path
-                                                d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                                            <path
-                                                d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
-                                        </svg>
-                                    </a>
-
-                                    <img src="{{ url('productos_subidos') }}/{{ $item->options->urlfoto }}" width="100"
-                                        height="100" alt="IMAGEN" class="w-full rounded-lg sm:w-20 sm:h-30" />
-                                    <div class="sm:ml-4 sm:flex sm:w-full sm:justify-between">
-                                        <div class="w-full px-4 mb-6 md:w-auto xl:mb-0">
-                                            <a href=""
-                                                class="block mb-5 text-xl font-medium dark:text-gray-400 hover:underline"
-                                                href="#">
-                                                {{ $item->name }}</a>
-                                            <div class="flex flex-wrap">
-                                                <p class="mr-4 text-sm font-medium">
-                                                    <span class="dark:text-gray-400">Categoria:</span>
-                                                    <span
-                                                        class="ml-2 text-gray-400 dark:text-gray-400">{{ $item->options->categoria }}</span>
-                                                </p>
-                                                <p class="text-sm font-medium dark:text-gray-400">
-                                                    <span>Talla:</span>
-                                                    <span class="ml-2 text-gray-400"> {{ $item->options->talla }}</span>
-                                                </p>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="mt-4 flex justify-between  sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
-                                            <div class="mt-4 flex items-center border-gray-100">
-                                                <a href="{{ route('decrementarcantidad', ['id' => $item->rowId]) }}"
-                                                    class="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50">
-                                                    - </a>
-                                                <input disabled
-                                                    class="h-8 w-10 border bg-white text-center text-xs outline-none"
-                                                    type="number" value="{{ $item->qty }}" min="1" />
-                                                <a href="{{ route('incrementarcantidad', ['id' => $item->rowId]) }}"
-                                                    class="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50">
-                                                    + </a>
-
-                                            </div>
-                                            <div class="flex items-center space-x-5">
-                                                <span class="text-lg font-medium text-gray-500 dark:text-gray-400 ">
-                                                    <span class="text-sm">$</span>
-                                                    <span>{{ number_format($item->qty * $item->price, 2) }}</span>
-                                                </span>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-
-                            @if (!Cart::content()->count())
-                                <div
-                                    class="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start">
-                                    <div class="sm:ml-4 sm:flex sm:w-full sm:justify-between">
-                                        <div class="mt-5 sm:mt-0 ">
-                                            <h2 class="text-xl font-bold text-gray-900 ">No existen productos dentro del
-                                                Carrito.</h2>
-                                            <p class=" mt-1 text-s text-gray-700">¡Ve a la <a href="{{ route('tienda') }}"
-                                                    class="underline text-sky-400/100">Tienda</a> y empieza a agregar
-                                                productos a tu carrito!</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
-                        </div>
-
-
-                        <!-- Sub total -->
-                        @if (Cart::content()->count())
-                            <div class="mt-6 h-full rounded-lg border bg-white p-6 shadow-md md:mt-0 md:w-1/3">
-                                <div class="mb-2 flex justify-between">
-                                    <p class="text-gray-700">Subtotal</p>
-                                    <p class="text-gray-700">${{ Cart::subtotal() }}</p>
-                                </div>
-                                <div class="mb-2 flex justify-between">
-                                    <p class="text-gray-700">IVA 19%</p>
-                                    <p class="text-gray-700">{{ Cart::tax() }}</p>
-                                </div>
-                                <hr class="my-4" />
-                                <div class="flex justify-between">
-                                    <p class="text-lg font-bold">Total</p>
-                                    <div class="">
-                                        <p class="mb-1 text-lg font-bold text-right	 ">${{ Cart::total() }}</p>
-                                        <p class="text-sm text-gray-700">Incluyendo IVA</p>
-                                    </div>
-                                </div>
-
-                                @auth
-                                    <form action="{{ url('/session') }}" method="POST">
-                                        @csrf
-                                        <button
-                                            class="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">Continuar
-                                            Compra
-                                        </button>
-                                    </form>
-
-                                    <form action="{{ route('eliminarcarrito') }}">
-                                        <button
-                                            class="mt-6 w-full rounded-md bg-gray-500 py-1.5 font-medium text-blue-50 hover:bg-gray-600">Vaciar
-                                            Carrito
-                                        </button>
-                                    </form>
-                                @else
-                                    <form action="{{ route('login') }}">
-                                        <button
-                                            class="bg-white w-full mt-2 hover:bg-gray-100 text-gray-800 font-semibold py-2 px-3 border border-gray-400 rounded shadow">
-                                            Inicia Sesión
-                                        </button>
-                                    </form>
-                                    <p class="text-sm mt-2 text-gray-700">¡Para hacer un pedido debes antes Iniciar Sesión!</p>
-                                @endauth
-
-                                <div class="grid grid-cols-1 mt-3 sm:grid-cols-4 md:grid-cols-2">
-                                    <div class="flex flex-col col-span-4">
-                                        <div class="flex flex-col space-y-4  p-6 text-gray-600">
-                                            <span class="font-semibold mr-2 text-xs uppercase text-center">Datos de
-                                                Envio:</span>
-                                            <div class="flex flex-row text-sm">
-                                                <span class="mr-3">
-                                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                                        enable-background="new 0 0 24 24" height="20px" viewBox="0 0 24 24"
-                                                        width="20px" fill="#64748b">
-                                                        <g>
-                                                            <rect fill="none" height="24" width="24" />
-                                                        </g>
-                                                        <g>
-                                                            <path
-                                                                d="M20,7h-5V4c0-1.1-0.9-2-2-2h-2C9.9,2,9,2.9,9,4v3H4C2.9,7,2,7.9,2,9v11c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V9 C22,7.9,21.1,7,20,7z M9,12c0.83,0,1.5,0.67,1.5,1.5S9.83,15,9,15s-1.5-0.67-1.5-1.5S8.17,12,9,12z M12,18H6v-0.75c0-1,2-1.5,3-1.5 s3,0.5,3,1.5V18z M13,9h-2V4h2V9z M18,16.5h-4V15h4V16.5z M18,13.5h-4V12h4V13.5z" />
-                                                        </g>
-                                                    </svg>
-                                                </span>
-                                                <p class="flex items-center  text-gray-500">
-                                                    <span class="font-semibold mr-2 text-xs uppercase">Nombre:</span>
-                                                    <span>{{ auth()->user()->name }}</span>
-                                                </p>
-                                            </div>
-
-                                            <div class="flex flex-row text-sm">
-                                                <span class="mr-3">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                        viewBox="0 0 24 24" fill="#64748b">
-                                                        <path
-                                                            d="M12 14c2.206 0 4-1.794 4-4s-1.794-4-4-4-4 1.794-4 4 1.794 4 4 4zm0-6c1.103 0 2 .897 2 2s-.897 2-2 2-2-.897-2-2 .897-2 2-2z">
-                                                        </path>
-                                                        <path
-                                                            d="M11.42 21.814a.998.998 0 0 0 1.16 0C12.884 21.599 20.029 16.44 20 10c0-4.411-3.589-8-8-8S4 5.589 4 9.995c-.029 6.445 7.116 11.604 7.42 11.819zM12 4c3.309 0 6 2.691 6 6.005.021 4.438-4.388 8.423-6 9.73-1.611-1.308-6.021-5.294-6-9.735 0-3.309 2.691-6 6-6z">
-                                                        </path>
-                                                    </svg>
-                                                </span>
-                                                <p class="flex items-center  text-gray-500">
-                                                    <span class="font-semibold mr-2 text-xs uppercase">Ciudad:</span>
-                                                    <span>{{ auth()->user()->ciudad }}</span>
-                                                </p>
-                                            </div>
-
-                                            <div class="flex flex-row text-sm">
-                                                <span class="mr-3">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                        viewBox="0 0 24 24" fill="#64748b">
-                                                        <path
-                                                            d="M12 14c2.206 0 4-1.794 4-4s-1.794-4-4-4-4 1.794-4 4 1.794 4 4 4zm0-6c1.103 0 2 .897 2 2s-.897 2-2 2-2-.897-2-2 .897-2 2-2z">
-                                                        </path>
-                                                        <path
-                                                            d="M11.42 21.814a.998.998 0 0 0 1.16 0C12.884 21.599 20.029 16.44 20 10c0-4.411-3.589-8-8-8S4 5.589 4 9.995c-.029 6.445 7.116 11.604 7.42 11.819zM12 4c3.309 0 6 2.691 6 6.005.021 4.438-4.388 8.423-6 9.73-1.611-1.308-6.021-5.294-6-9.735 0-3.309 2.691-6 6-6z">
-                                                        </path>
-                                                    </svg>
-                                                </span>
-                                                <p class="flex items-center  text-gray-500">
-                                                    <span class="font-semibold mr-2 text-xs uppercase">Codigo
-                                                        Postal:</span>
-                                                    <span>{{ auth()->user()->codigo_postal }}</span>
-                                                </p>
-                                            </div>
-
-                                            <div class="flex flex-row text-sm">
-                                                <span class="mr-3">
-
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                        viewBox="0 0 24 24" fill="#64748b">
-                                                        <path
-                                                            d="M12 14c2.206 0 4-1.794 4-4s-1.794-4-4-4-4 1.794-4 4 1.794 4 4 4zm0-6c1.103 0 2 .897 2 2s-.897 2-2 2-2-.897-2-2 .897-2 2-2z">
-                                                        </path>
-                                                        <path
-                                                            d="M11.42 21.814a.998.998 0 0 0 1.16 0C12.884 21.599 20.029 16.44 20 10c0-4.411-3.589-8-8-8S4 5.589 4 9.995c-.029 6.445 7.116 11.604 7.42 11.819zM12 4c3.309 0 6 2.691 6 6.005.021 4.438-4.388 8.423-6 9.73-1.611-1.308-6.021-5.294-6-9.735 0-3.309 2.691-6 6-6z">
-                                                        </path>
-                                                    </svg>
-                                                </span>
-                                                <p class="flex items-center  text-gray-500">
-                                                    <span class="font-semibold mr-2 text-xs uppercase">Direccion:</span>
-                                                    <span>{{ auth()->user()->direccion }}</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="flex flex-col w-full relative bottom-0">
-                                            <div
-                                                class="grid grid-cols-2 border-t divide-x text-indigo-600  bg-gray-50 dark:bg-transparent py-3">
-                                                <p class="flex items-center  text-gray-500">
-                                                    ¿Deseas Cambiar los Datos de Envio?
-                                                </p>
-                                               <a onclick="openModal()"
-                                                    class=" cursor-pointer uppercase text-xs flex flex-row items-center justify-center font-semibold">
-                                                    <div class="mr-2">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" height="20px"
-                                                            viewBox="0 0 24 24" width="20px" fill="rgb(79 70 229)">
-                                                            <path d="M0 0h24v24H0z" fill="none" />
-                                                            <path
-                                                                d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
-                                                        </svg>
-                                                    </div>
-                                                    Actualizar
-                                                </a>
-
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        @endif
-                    </div>
-
                 </div>
             @endif
 
-            <div class="main-modal fixed w-full h-100 inset-0 z-50 overflow-auto flex justify-center items-center animated fadeIn faster"
-            style="background: rgba(0,0,0,.7);">
-            <div
-                class="border border-teal-500 shadow-lg modal-container bg-white w-7/12 h-auto  mx-auto rounded shadow-lg z-50 overflow-auto	">
-                <div class="modal-content py-4 text-left px-6">
-                    <!--Title-->
-                    <div class="flex justify-between items-center pb-3">
-                        <p class="text-2xl font-bold">Cambiar Informacion de Usuario</p>
-                        <div class="modal-close cursor-pointer z-50">
-                            <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                viewBox="0 0 18 18">
-                                <path
-                                    d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z">
-                                </path>
-                            </svg>
+            @if (session('success'))
+                <div x-data="{ open: true }" class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title"
+                    role="dialog" aria-modal="true">
+                    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+
+                        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+
+                        <div x-show="open" x-show="open" x-transition:enter="ease-out duration-300"
+                            x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+                            x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100"
+                            x-transition:leave-end="opacity-0" x-cloak
+                            class="relative inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
+                            <div>
+                                <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
+                                    <!-- Heroicon name: outline/check -->
+                                    <svg class="h-6 w-6 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <div class="mt-3 text-center sm:mt-5">
+                                    <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">Pago Exitoso
+                                    </h3>
+                                    <div class="mt-2">
+                                        <p class="text-sm text-gray-500">A continuacion recibiras un correo con la
+                                            información de tu pedido.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-5 sm:mt-6">
+                                <a @click="open = false" href="{{ route('pedidos_hechos') }}" type="button"
+                                    class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm">Ir
+                                    a ver tus Pedidos</a>
+                            </div>
                         </div>
                     </div>
-                    <!--Body-->
-                    <div class="my-5">
-                        @livewire('profile.update-profile-information-form')
+                </div>
+            @else
+                <div class="bg-white">
+                    <div class="max-w-2xl mx-auto pt-16 pb-24 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+                        <h1 class="text-xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">Carrito de Compras </h1>
+                        <div class="mt-12 lg:grid lg:grid-cols-12 lg:gap-x-12 lg:items-start xl:gap-x-16">
+                            <section aria-labelledby="cart-heading" class="lg:col-span-7">
+                                <h2 id="cart-heading" class="sr-only">Items del carrito de Compras</h2>
 
+                                <ul role="list" class="border-t border-b border-gray-200 divide-y divide-gray-200">
+                                    @foreach (Cart::content() as $item)
+                                        <li class="flex py-6 sm:py-10">
+                                            <div class="flex-shrink-0">
+                                                <img src="{{ url('productos_subidos') }}/{{ $item->options->urlfoto }}"
+                                                    alt="imagen."
+                                                    class="w-24 h-24 rounded-md object-center object-cover sm:w-48 sm:h-48">
+                                            </div>
+
+                                            <div class="ml-4 flex-1 flex flex-col justify-between sm:ml-6">
+                                                <div class="relative pr-9 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:pr-0">
+                                                    <div>
+                                                        <div class="flex justify-between">
+                                                            <h3 class="text-sm">
+                                                                <a href="#"
+                                                                    class="font-medium text-gray-700 hover:text-gray-800">
+                                                                    {{ $item->name }} </a>
+                                                            </h3>
+                                                        </div>
+                                                        <div class="mt-1 flex text-sm">
+                                                            <p class="text-gray-500">{{ $item->options->categoria }}</p>
+
+                                                            <p class="ml-4 pl-4 border-l border-gray-200 text-gray-500">
+                                                                {{ $item->options->talla }}</p>
+                                                        </div>
+                                                        <p class="mt-1 text-sm font-medium text-gray-900">
+                                                            ${{ number_format($item->qty * $item->price, 2) }}</p>
+                                                    </div>
+
+                                                    <div class="mt-4 sm:mt-0 sm:pr-9">
+                                                        <label for="quantity-0" class="sr-only">Quantity, Basic
+                                                            Tee</label>
+
+                                                        <a href="{{ route('decrementarcantidad', ['id' => $item->rowId]) }}"
+                                                            class="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50">
+                                                            - </a>
+                                                        <input disabled
+                                                            class="h-8 w-12  bg-white text-center text-xs outline-none rounded-md border border-gray-300 text-base focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                                            type="number" value="{{ $item->qty }}" min="1" />
+                                                        <a href="{{ route('incrementarcantidad', ['id' => $item->rowId]) }}"
+                                                            class="cursor-pointer rounded-r bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50">
+                                                            + </a>
+
+                                                        <div class="absolute top-0 right-0">
+                                                            <a href="{{ route('eliminaritem', ['id' => $item->rowId]) }}"
+                                                                type="button"
+                                                                class="-m-2 p-2 inline-flex text-gray-400 hover:text-gray-500">
+                                                                <span class="sr-only">Remove</span>
+                                                                <!-- Heroicon name: solid/x -->
+                                                                <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg"
+                                                                    viewBox="0 0 20 20" fill="currentColor"
+                                                                    aria-hidden="true">
+                                                                    <path fill-rule="evenodd"
+                                                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                                        clip-rule="evenodd" />
+                                                                </svg>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <p class="mt-4 flex text-sm text-gray-700 space-x-2">
+                                                    <!-- Heroicon name: solid/check -->
+                                                    <svg class="flex-shrink-0 h-5 w-5 text-green-500"
+                                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                                                        fill="currentColor" aria-hidden="true">
+                                                        <path fill-rule="evenodd"
+                                                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                                            clip-rule="evenodd" />
+                                                    </svg>
+                                                    <span>In stock</span>
+                                                </p>
+                                            </div>
+                                        </li>
+                                    @endforeach
+                                    @if (!Cart::content()->count())
+                                        <div
+                                            class="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start">
+                                            <div class="sm:ml-4 sm:flex sm:w-full sm:justify-between">
+                                                <div class="mt-5 sm:mt-0 ">
+                                                    <h2 class="text-xl font-bold text-gray-900 ">No existen productos
+                                                        dentro
+                                                        del
+                                                        Carrito.</h2>
+                                                    <p class=" mt-1 text-s text-gray-700">¡Ve a la <a
+                                                            href="{{ route('tienda') }}"
+                                                            class="underline text-sky-400/100">Tienda</a> y empieza a
+                                                        agregar
+                                                        productos a tu carrito!</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
+                                </ul>
+                            </section>
+
+                            <!-- Order summary -->
+                            @if (Cart::content()->count())
+                                <section aria-labelledby="summary-heading"
+                                    class="mt-16 bg-gray-50 rounded-lg px-4 py-6 sm:p-6 lg:p-8 lg:mt-0 lg:col-span-5">
+                                    <h2 id="summary-heading" class="text-lg font-medium text-gray-900">Resumen Compra</h2>
+
+                                    <dl class="mt-6 space-y-4">
+                                        <div class="flex items-center justify-between">
+                                            <dt class="text-sm text-gray-600">Subtotal</dt>
+                                            <dd class="text-sm font-medium text-gray-900">${{ Cart::subtotal() }}</dd>
+                                        </div>
+
+                                        <div class="border-t border-gray-200 pt-4 flex items-center justify-between">
+                                            <dt class="flex text-sm text-gray-600">
+                                                <span>IVA 19%</span>
+                                                <a href="#"
+                                                    class="ml-2 flex-shrink-0 text-gray-400 hover:text-gray-500">
+                                                    <span class="sr-only">Learn more about how tax is calculated</span>
+                                                </a>
+                                            </dt>
+                                            <dd class="text-sm font-medium text-gray-900">${{ Cart::tax() }}</dd>
+                                        </div>
+                                        <div class="border-t border-gray-200 pt-4 flex items-center justify-between">
+                                            <dt class="text-base font-medium text-gray-900">Total de la Compra</dt>
+                                            <dd class="text-base font-medium text-gray-900">${{ Cart::total() }}</dd>
+                                        </div>
+                                    </dl>
+
+
+                                    @switch(True)
+                                        @case(Auth::check())
+                                            @if (auth()->user()->direccion &&
+                                                    auth()->user()->ciudad &&
+                                                    auth()->user()->pais &&
+                                                    auth()->user()->codigo_postal &&
+                                                    auth()->user()->numero_telefono)
+                                                <form action="{{ url('/session') }}" method="POST">
+                                                    @csrf
+                                                    <button
+                                                        class="mt-6 w-full bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-50 focus:ring-indigo-500">Continuar
+                                                        Compra
+                                                    </button>
+                                                </form>
+                                                <form action="{{ route('eliminarcarrito') }}">
+                                                    <button
+                                                        class="mt-6 w-full bg-gray-600 border border-transparent rounded-md shadow-sm py-2 px-4 text-base font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-gray-500">Vaciar
+                                                        Carrito
+                                                    </button>
+                                                </form>
+
+                                                <x-tienda.datos-envio />
+                                            @else
+                                                <button onclick="openModal()"
+                                                    class="bg-white w-full mt-3 hover:bg-gray-100 text-gray-800 font-medium py-2 px-3 border border-gray-400 rounded shadow">
+                                                    Completa tu Informacion de Usuario
+                                                </button>
+                                                <p class="text-sm mt-2 text-gray-700">¡Para hacer un pedido debes tener todos tus
+                                                    datos
+                                                    de
+                                                    usuarios!</p>
+
+                                                <x-tienda.datos-envio />
+                                            @endif
+                                        @break
+
+                                        @default
+                                            <form action="{{ route('login') }}">
+                                                <button
+                                                    class="bg-white w-full mt-3 hover:bg-gray-100 text-gray-800 font-semibold py-2 px-3 border border-gray-400 rounded shadow">
+                                                    Inicia Sesión
+                                                </button>
+                                            </form>
+                                            <p class="text-sm mt-2 text-gray-700">¡Para hacer un pedido debes antes Iniciar Sesión!
+                                            </p>
+                                    @endswitch
+
+                                </section>
+                            @endif
+
+                        </div>
+                    </div>
+                </div>
+
+            @endif
+
+            <div class="main-modal fixed w-full h-100 inset-0 z-50 overflow-auto flex justify-center items-center animated fadeIn faster"
+                style="background: rgba(0,0,0,.7);">
+                <div
+                    class="border border-teal-500 shadow-lg modal-container bg-white w-7/12 h-auto  mx-auto rounded shadow-lg z-50 overflow-auto	">
+                    <div class="modal-content py-4 text-left px-6">
+                        <!--Title-->
+                        <div class="flex justify-between items-center pb-3">
+                            <p class="text-2xl font-bold">Cambiar Informacion de Usuario</p>
+                            <div class="modal-close cursor-pointer z-50">
+                                <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18"
+                                    height="18" viewBox="0 0 18 18">
+                                    <path
+                                        d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z">
+                                    </path>
+                                </svg>
+                            </div>
+                        </div>
+                        <!--Body-->
+                        <div class="my-5">
+                            @if (Auth::user())
+                                @livewire('profile.update-profile-information-form')
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"
                 integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
-                <script>
-                    const modal = document.querySelector('.main-modal');
-                    const closeButton = document.querySelectorAll('.modal-close');
+            <script>
+                const modal = document.querySelector('.main-modal');
+                const closeButton = document.querySelectorAll('.modal-close');
 
-                    const modalClose = () => {
-                        modal.classList.remove('fadeIn');
-                        modal.classList.add('fadeOut');
-                        setTimeout(() => {
-                            modal.style.display = 'none';
-                        }, 500);
-                        window.setTimeout(function(){
-                        location.reload();
-                        } ,300);
-                    }
-
-                    const modalOff = () => {
-                        modal.classList.remove('fadeIn');
-                        modal.classList.add('fadeOut');
-                        setTimeout(() => {
-                            modal.style.display = 'none';
-                        }, 500);
-                    }
-
-                    const openModal = () => {
-                        modal.classList.remove('fadeOut');
-                        modal.classList.add('fadeIn');
-                        modal.style.display = 'flex';
-                    }
-
-                    for (let i = 0; i < closeButton.length; i++) {
-
-                        const elements = closeButton[i];
-
-                        elements.onclick = (e) => modalClose();
-
+                const modalClose = () => {
+                    modal.classList.remove('fadeIn');
+                    modal.classList.add('fadeOut');
+                    setTimeout(() => {
                         modal.style.display = 'none';
+                    }, 500);
+                    window.setTimeout(function() {
+                        location.reload();
+                    }, 300);
+                }
 
-                        window.onclick = function (event) {
-                            if (event.target == modal) modalOff();
-                        }
+                const modalOff = () => {
+                    modal.classList.remove('fadeIn');
+                    modal.classList.add('fadeOut');
+                    setTimeout(() => {
+                        modal.style.display = 'none';
+                    }, 500);
+                    window.setTimeout(function() {
+                        location.reload();
+                    }, 300);
+                }
+
+                const openModal = () => {
+                    modal.classList.remove('fadeOut');
+                    modal.classList.add('fadeIn');
+                    modal.style.display = 'flex';
+                }
+
+                for (let i = 0; i < closeButton.length; i++) {
+
+                    const elements = closeButton[i];
+
+                    elements.onclick = (e) => modalClose();
+
+                    modal.style.display = 'none';
+
+                    window.onclick = function(event) {
+                        if (event.target == modal) modalOff();
                     }
-                </script>
+                }
+            </script>
 
         </div>
     </div>

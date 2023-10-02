@@ -1,6 +1,5 @@
 @if (count(Cart::content()))
-    <div
-    :class="cartOpen ? 'translate-x-0 ease-out' : 'translate-x-full ease-in'"
+    <div :class="cartOpen ? 'translate-x-0 ease-out' : 'translate-x-full ease-in'"
 
      class="z-50 fixed right-0 top-0 max-w-md w-screen h-full px-6 py-4 transition duration-300 transform overflow-y-auto bg-white border-2 border-gray-300">
 

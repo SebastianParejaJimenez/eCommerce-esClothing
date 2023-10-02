@@ -5,131 +5,159 @@
     @section('content')
         <x-productos.carrito-header />
         <!-- component -->
-        <section class="flex items-center  bg-gray-100  font-poppins dark:bg-gray-800 ">
-            <div class=" flex-1 max-w-full px-4 py-4 mx-auto text-left lg:py-10 ">
-                <div class="mb-10 text-center">
-                    <span
-                        class="block mb-4 text-xs font-semibold leading-4 tracking-widest text-center text-blue-500 uppercase dark:text-gray-400">
-                        Tus pedidos
-                    </span>
-                    <h1 class="text-3xl font-bold capitalize dark:text-white"> Lista de Pedidos</h1>
-                </div>
-
-                @if (!$pedidos->count())
-                    <div class="w-full grid place-items-center">
-                        <div
-                            class="w-9/12 overflow-hidden rounded-lg bg-white shadow-md duration-300 hover:scale-105 hover:shadow-xl">
-                            <h1 class="mt-3 text-center text-2xl font-bold text-gray-500">¡No existen Pedidos!</h1>
-                            <p class="my-4 text-center text-sm text-gray-500">Actualmente no haz realizado algun pedido.</p>
-                        </div>
+        <section class="bg-white">
+            <div class="py-8 sm:py-16">
+                <div class="max-w-7xl mx-auto sm:px-2 lg:px-8">
+                    <div class="max-w-2xl mx-auto px-4 lg:max-w-4xl lg:px-0">
+                        <h1 class="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">Historial de Ordenes</h1>
+                        <p class="mt-2 text-sm text-gray-500">Acá podras consultar tus ordenes hechas</p>
                     </div>
-                @endif
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  w-full gap-4">
-                    @foreach ($pedidos as $pedido)
-                        <div class="p-4 mb-6 rounded-md shadow-lg border border-gray-300 bg-gray-50 dark:bg-gray-900">
-                            <div class="flex items-center justify-between">
-                                <a href="{{ route('pedido.informacion', $pedido->id) }}"
-                                    class="inline-block mb-2 text-xs font-semibold text-blue-500 uppercase hover:text-blue-600 dark:text-gray-400">
-                                    Pedido #{{ $pedido->id }}
-                                </a>
-                                <span
-                                    class="mb-2 text-xs text-gray-500 dark:text-gray-400">{{ \Carbon\Carbon::parse($pedido->created_at)->diffForHumans() }}</span>
-                            </div>
-                            <div class="flex flex-wrap items-center mb-4 ">
-                                <a href="#"
-                                    class="flex items-center mb-2 mr-4 text-sm md:mb-0
-                                @switch($pedido->estado)
-                                    @case('PAGADO')
-                                        text-blue-500 hover:text-blue-600
-                                        @break
-                                    @case('COMPLETADO')
-                                       text-green-500  hover:text-green-600
-                                        @break
-                                    @case('PENDIENTE')
-                                        text-gray-500  dark:bg-gray-800
-                                        @break
-                                    @case('CANCELADO')
-                                        text-red-500  dark:bg-gray-800
-                                        @break
-                                @endswitch
-                                dark:text-gray-400 dark:hover:text-gray-100">
-
-                                    @switch($pedido->estado)
-                                        @case('CANCELADO')
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                            </svg>
-                                        @break
-
-                                        @case('PAGADO')
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                            </svg>
-                                        @break
-
-                                        @case('COMPLETADO')
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                            </svg>
-                                        @break
-
-                                        @default
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
-                                            </svg>
-                                        @break
-                                    @endswitch
-                                    {{ $pedido->estado }}
-                                </a>
-                                <a href="#"
-                                    class="flex items-center mb-2 mr-4 text-sm text-green-500 md:mb-0 hover:text-green-700 dark:text-gray-400 dark:hover:text-gray-100">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                        fill="currentColor" class="w-4 h-4 mr-1 bi bi-geo-alt" viewBox="0 0 16 16">
-                                        <path
-                                            d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z" />
-                                        <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-                                    </svg>{{$pedido->ciudad_envio}}
-                                </a>
-                            </div>
-                            <div class="max-w-lg mx-auto ">
-                                <h2 class="mb-2 text-lg font-medium dark:text-gray-400 ">Orden:</h2>
-                                <div class="grid grid-cols-2 gap-3 mb-10 lg:grid-cols-2">
-                                    <div
-                                        class="flex items-center justify-between px-10 py-3 font-normal leading-8 bg-gray-50 rounded-md shadow-md dark:text-gray-400 dark:bg-gray-800 font-heading">
-                                        <span>Productos:</span>
-                                        <span class="flex items-center rounded-full shadow-lg p-1">
-                                            <span class="text-base text-blue-500 ">{{ $pedido->productos->count() }}</span>
-                                        </span>
-                                    </div>
-                                    <div
-                                        class="flex items-center justify-between px-10 py-3 font-medium leading-8 bg-gray-50 rounded-md shadow-md dark:text-gray-400 dark:bg-gray-800 font-heading">
-                                        <span>Total</span>
-                                        <span class="flex items-center text-blue-500 dark:text-blue-400">
-                                            <span class="ml-3 mr-1 text-sm">$</span>
-                                            <span class="text-base">{{ number_format($pedido->total, 0, ',', '.') }}</span>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="{{ route('pedido.informacion', $pedido->id) }}"
-                                class='flex items-center px-2 py-2 mb-2  text-sm text-gray-100 bg-blue-500 rounded-md md:mb-0 hover:bg-blue-600 dark:text-gray-100 dark:hover:bg-blue-500 dark:bg-blue-400'>
-                                <div class='mx-3'>
-                                    <div class="hover:underline">Ver Detalles</div>
-                                </div>
-                            </a>
-                        </div>
-                    @endforeach
-
                 </div>
 
+                <div class="mt-16">
+                    <h2 class="sr-only">Recent orders</h2>
+
+
+                    <div class="max-w-7xl mx-auto sm:px-2 lg:px-8">
+
+                        <div class="max-w-2xl mx-auto space-y-8 sm:px-4 lg:max-w-4xl lg:px-0">
+
+                            @foreach ($pedidos as $pedido)
+
+                            <div class="bg-white border-t border-b border-gray-200 shadow-sm sm:rounded-lg sm:border">
+                                <h3 class="sr-only">Order placed on <time datetime="2021-07-06">Jul 6, 2021</time></h3>
+
+                                <div
+                                    class="flex items-center p-4 border-b border-gray-200 sm:p-6 sm:grid sm:grid-cols-4 sm:gap-x-6">
+                                    <dl
+                                        class="flex-1 grid grid-cols-2 gap-x-6 text-sm sm:col-span-3 sm:grid-cols-3 lg:col-span-2">
+                                        <div>
+                                            <dt class="font-medium text-gray-900">Orden</dt>
+                                            <dd class="mt-1 text-gray-500">#{{$pedido->id}}</dd>
+                                        </div>
+                                        <div class="hidden sm:block">
+                                            <dt class="font-medium text-gray-900">Fecha</dt>
+                                            <dd class="mt-1 text-gray-500">
+                                                <time datetime="2021-07-06">{{ \Carbon\Carbon::parse($pedido->created_at)->diffForHumans() }}</time>
+                                            </dd>
+                                        </div>
+                                        <div>
+                                            <dt class="font-medium text-gray-900">Total amount</dt>
+                                            <dd class="mt-1 font-medium text-gray-900">${{ number_format($pedido->total, 0, ',', '.')}}</dd>
+                                        </div>
+                                    </dl>
+
+                                    <div x-data="{ open: false }" class="relative flex justify-end lg:hidden">
+                                        <div class="flex items-center">
+
+                                            <button @click="open = true" type="button"
+                                                class="-m-2 p-2 flex items-center text-gray-400 hover:text-gray-500"
+                                                id="menu-0-button" aria-expanded="false" aria-haspopup="true">
+                                                <span class="sr-only">Options for order WU88191111</span>
+                                                <!-- Heroicon name: outline/dots-vertical -->
+                                                <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
+                                                </svg>
+                                            </button>
+
+                                        </div>
+
+                                        <div @click.outside="open = false" x-show="open"
+                                            x-transition:enter="transition ease-out duration-100"
+                                            x-transition:enter-start="transform opacity-0 scale-95"
+                                            x-transition:enter-end="transform opacity-100 scale-100"
+                                            x-transition:leave="transition ease-in duration-75"
+                                            x-transition:leave-start="transform opacity-100 scale-100"
+                                            x-transition:leave-end="transform opacity-0 scale-95" x-cloak
+                                            class="origin-bottom-right absolute right-0 mt-2 w-40 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                                            role="menu" aria-orientation="vertical" aria-labelledby="menu-0-button"
+                                            tabindex="-1">
+                                            <div class="py-1" role="none">
+                                                <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
+                                                <a href="{{ route('pedido.informacion', $pedido->id) }}" class="text-gray-700 block px-4 py-2 text-sm"
+                                                    role="menuitem" tabindex="-1" id="menu-0-item-0"> Detalles </a>
+                                                <a href="#" class="text-gray-700 block px-4 py-2 text-sm"
+                                                    role="menuitem" tabindex="-1" id="menu-0-item-1"> Invoice </a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="hidden lg:col-span-2 lg:flex lg:items-center lg:justify-end lg:space-x-4">
+
+                                        <a href="{{ route('pedido.informacion', $pedido->id) }}"
+                                            class="flex items-center justify-center bg-white py-2 px-2.5 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                            <span>Ver Orden </span>
+                                            <span class="sr-only">WU88191111</span>
+                                        </a>
+                                        <a href="#"
+                                            class="flex items-center justify-center bg-white py-2 px-2.5 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                            <span>View Invoice</span>
+                                            <span class="sr-only">for order WU88191111</span>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <!-- Products -->
+                                <h4 class="sr-only">Items</h4>
+                                <ul role="list" class="divide-y divide-gray-200">
+                                    <li class="p-4 sm:p-6">
+                                        @foreach ($pedido->productos as $producto )
+                                        <div class="flex items-center sm:items-start">
+
+                                            <div class="flex-1 ml-6 text-sm">
+                                                <div class="font-medium text-gray-900 sm:flex sm:justify-between">
+                                                    <h5>{{$producto->nombre}}</h5>
+                                                    <p class="mt-2 sm:mt-0">${{ number_format($producto->precio, 0, ',', '.') }}</p>
+                                                </div>
+                                                <p class="hidden text-gray-500 sm:block sm:mt-2">Talla: {{$producto->pivot->talla}}.</p>
+                                            </div>
+                                        </div>
+                                        @endforeach
+
+                                        <div class="mt-6 sm:flex sm:justify-between">
+                                            <div class="flex items-center">
+                                                <!-- Heroicon name: solid/check-circle -->
+                                                <svg class="w-5 h-5
+                                                @switch($pedido->estado)
+                                                @case('PAGADO')
+                                                    text-blue-500 hover:text-blue-600
+                                                    @break
+                                                @case('COMPLETADO')
+                                                   text-green-500  hover:text-green-600
+                                                    @break
+                                                @case('PENDIENTE')
+                                                    text-gray-500  dark:bg-gray-800
+                                                    @break
+                                                @case('CANCELADO')
+                                                    text-red-500  dark:bg-gray-800
+                                                    @break
+                                            @endswitch
+                                                " xmlns="http://www.w3.org/2000/svg"
+                                                    viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                    <path fill-rule="evenodd"
+                                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                                        clip-rule="evenodd" />
+                                                </svg>
+                                                <p class="ml-2 text-sm font-medium text-gray-500">Estado de su Pedido: {{ $pedido->estado }}</p>
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                    <!-- More products... -->
+                                </ul>
+                            </div>
+                            @endforeach
+                            <!-- More orders... -->
+
+                        </div>
+                        {{ $pedidos->links() }}
+
+                    </div>
+
+
+                </div>
             </div>
         </section>
 

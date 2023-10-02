@@ -93,7 +93,6 @@ class CarritoController extends Controller
             $orden_productos->save();
         }
         self::ordenMakeNotification($orden);
-        Cart::destroy();
     }
 
     static function ordenMakeNotification($orden)
@@ -176,6 +175,8 @@ class CarritoController extends Controller
             if ($orden->estado == "PENDIENTE") {
                 $orden->estado = "PAGADO";
                 $orden->save();
+                Cart::destroy();
+
             }
         } catch (\Throwable $th) {
             throw new NotFoundHttpException();

@@ -90,7 +90,7 @@
             </div>
             <div class="w-full md:w-1/2 py-10 px-5 md:px-10">
                 <div class="text-center mb-10">
-                    <h1 class="font-bold text-3xl text-gray-900">Inicio de Sesíon</h1>
+                    <h1 class="font-bold text-3xl text-gray-900">Inicio de Sesión</h1>
                     <p>Ingresa la informacion de tu usuario para ingresar</p>
                 </div>
                 <x-jet-validation-errors class="mt-4" />

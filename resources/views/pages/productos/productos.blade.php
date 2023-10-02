@@ -230,7 +230,7 @@
                                             </form>
                                         @endif
 
-                                        <a href="{{ route('productos.edit', ['id' => $producto->id]) }}"
+                                        <a onclick="idProduct({{$producto->id}})"
                                             class="px-2 text-blue-500 transition-colors duration-200 dark:hover:text-indigo-500 dark:text-gray-300 hover:text-indigo-500 focus:outline-nones">
                                             Editar
                                         </a>
@@ -247,13 +247,15 @@
                                         </a>
 
                             </tr>
-                        @endforeach
+                        @endforeach 
 
                     </tbody>
                 </table>
             </div>
         @endif
     </div>
+
+
     <div class="main-modal fixed w-full h-100 inset-0 z-50 overflow-hidden flex justify-center items-center animated fadeIn faster"
         style="background: rgba(0,0,0,.7);">
         <div
@@ -278,6 +280,8 @@
             </div>
         </div>
     </div>
+
+
     <x-slot:js>
         <script>
             $(document).ready(function() {
@@ -373,6 +377,10 @@
                             window.location.href = event.target.href;
                         }
                     })
+            }
+
+            function idProduct(id){
+                console.log(id)
             }
         </script>
     </x-slot:js>

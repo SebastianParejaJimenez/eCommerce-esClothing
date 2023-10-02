@@ -7,34 +7,175 @@
 
 @section('title', 'Catalogo')
 
-<!-- tailwind.config.js -->
-
-
 <div x-data="{ cartOpen: false, isOpen: false }" class="bg-white">
     @section('content')
         <x-productos.carrito-header />
-        <!-- component -->
 
+        <div class="bg-white">
+            <div x-data="{ open: false }">
+                <div class="fixed inset-0 flex z-40 lg:hidden" role="dialog" aria-modal="true" x-show="open"
+                    @click.outside="open = false" x-transition:enter="transition-opacity ease-linear duration-300"
+                    x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+                    x-transition:leave="transition-opacity ease-linear duration-300" x-transition:leave-start="opacity-100"
+                    x-transition:leave-end="opacity-0" x-cloak class="py-1" role="none">
 
-        <section class="bg-white dark:bg-gray-900">
-            @if ($cont_prod)
-                <div class="container px-6 py-8 mx-auto">
-                    <div class="lg:flex lg:-mx-2">
-                        <x-tienda.categorias />
-                        <div class="mt-6 lg:mt-0 lg:px-2 lg:w-4/5 ">
-                            <x-dashboard.spinner-loading />
-                            <div id="content-main">
-                                <x-tienda.producto-reciente :productoReciente='$productoReciente' />
-                                <x-tienda.productos-por-categoria :productos='$productos_categoria' />
-                            </div>
+                    <div class="fixed inset-0 bg-black bg-opacity-25" aria-hidden="true"></div>
+
+                    <div
+                        class="ml-auto relative max-w-xs w-full h-full bg-white shadow-xl py-4 pb-12 flex flex-col overflow-y-auto">
+                        <div class="px-4 flex items-center justify-between">
+                            <h2 class="text-lg font-medium text-gray-900">Filters</h2>
+                            <button @click="open = false" type="button"
+                                class="-mr-2 w-10 h-10 bg-white p-2 rounded-md flex items-center justify-center text-gray-400">
+                                <span class="sr-only">Close menu</span>
+                                <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="mt-4 border-t border-gray-200">
+                            <h3 class="sr-only">Categorias</h3>
+                            <ul role="list" class="font-medium text-gray-900 px-2 py-3">
+                                <li>
+                                    <a href="#" class="block px-2 py-3"> Todos los Productos </a>
+                                </li>
+
+                                <li>
+                                    <a href="{{ route('catalogo_categoria', ['categoria' => 'Chaquetas-Buzos']) }}"
+                                        class="block @if (Request::segment(2) === 'Chaquetas-Buzos') {{ 'text-blue-600 ' }} @endif px-2 py-3">
+                                        Chaquetas y Buzos </a>
+                                </li>
+
+                                <li>
+                                    <a href="{{ route('catalogo_categoria', ['categoria' => 'Camisas']) }}"
+                                        class="block px-2 py-3 @if (Request::segment(2) === 'Camisas') {{ 'text-blue-600 ' }} @endif">
+                                        Camisas </a>
+                                </li>
+
+                                <li>
+                                    <a href="{{ route('catalogo_categoria', ['categoria' => 'Vestidos']) }}"
+                                        class="block px-2 py-3 @if (Request::segment(2) === 'Vestidos') {{ 'text-blue-600 ' }} @endif">
+                                        Vestidos </a>
+                                </li>
+
+                                <li>
+                                    <a href="{{ route('catalogo_categoria', ['categoria' => 'Shorts']) }}"
+                                        class="block px-2 py-3 @if (Request::segment(2) === 'Shorts') {{ 'text-blue-600 ' }} @endif">
+                                        Shorts </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('catalogo_categoria', ['categoria' => 'Pantalones']) }}"
+                                        class="block px-2 py-3 @if (Request::segment(2) === 'Pantalones') {{ 'text-blue-600 ' }} @endif">
+                                        Pantalones </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('catalogo_categoria', ['categoria' => 'Conjuntos']) }}"
+                                        class="block px-2 py-3 @if (Request::segment(2) === 'Conjuntos') {{ 'text-blue-600 ' }} @endif">
+                                        Conjuntos </a>
+                                </li>
+                            </ul>
+
                         </div>
                     </div>
                 </div>
-            @else
-                <x-tienda.no-existe />
-            @endif
-    </section>
-    <x-footers.footer-store />
+
+                <main class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="relative flex items-baseline justify-between pt-16 pb-6 border-b border-gray-200">
+                        <p class="text-3xl font-extrabold tracking-tight text-gray-700">Nuestros Productos</p>
+
+                        <div class="flex items-center">
+
+
+                            <button type="button" class="p-2 -m-2 ml-5 sm:ml-7 text-gray-400 hover:text-gray-500">
+                                <span class="sr-only">View grid</span>
+                                <!-- Heroicon name: solid/view-grid -->
+                                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 20 20" fill="currentColor">
+                                    <path
+                                        d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                                </svg>
+                            </button>
+
+                            <button @click="open = true" type="button"
+                                class="p-2 -m-2 ml-4 sm:ml-6 text-gray-400 hover:text-gray-500 lg:hidden">
+                                <span class="sr-only">Filters</span>
+                                <!-- Heroicon name: solid/filter -->
+                                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <section aria-labelledby="products-heading" class="pt-6 pb-24">
+                        <h2 id="products-heading" class="sr-only">Productos</h2>
+
+                        <div class="grid grid-cols-1 lg:grid-cols-4 gap-x-8 gap-y-10">
+                            <!-- Filters -->
+                            <form class="hidden lg:block">
+                                <h3 class="sr-only">Categorias</h3>
+                                <ul role="list"
+                                    class="text-sm font-medium text-gray-900 space-y-4 pb-6 border-b border-gray-200">
+                                    <li>
+                                        <a href="#" class="block px-2 py-3"> Todos los Productos </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="{{ route('catalogo_categoria', ['categoria' => 'Chaquetas-Buzos']) }}"
+                                            class="block @if (Request::segment(2) === 'Chaquetas-Buzos') {{ 'text-blue-600 ' }} @endif px-2 py-3">
+                                            Chaquetas y Buzos </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="{{ route('catalogo_categoria', ['categoria' => 'Camisas']) }}"
+                                            class="block px-2 py-3 @if (Request::segment(2) === 'Camisas') {{ 'text-blue-600 ' }} @endif">
+                                            Camisas </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="{{ route('catalogo_categoria', ['categoria' => 'Vestidos']) }}"
+                                            class="block px-2 py-3 @if (Request::segment(2) === 'Vestidos') {{ 'text-blue-600 ' }} @endif">
+                                            Vestidos </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="{{ route('catalogo_categoria', ['categoria' => 'Shorts']) }}"
+                                            class="block px-2 py-3 @if (Request::segment(2) === 'Shorts') {{ 'text-blue-600 ' }} @endif">
+                                            Shorts </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('catalogo_categoria', ['categoria' => 'Pantalones']) }}"
+                                            class="block px-2 py-3 @if (Request::segment(2) === 'Pantalones') {{ 'text-blue-600 ' }} @endif">
+                                            Pantalones </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('catalogo_categoria', ['categoria' => 'Conjuntos']) }}"
+                                            class="block px-2 py-3 @if (Request::segment(2) === 'Conjuntos') {{ 'text-blue-600 ' }} @endif">
+                                            Conjuntos </a>
+                                    </li>
+                                </ul>
+
+                            </form>
+
+                            <!-- Product grid -->
+                            <div class="lg:col-span-3">
+                                <div class="w-full rounded-lg h-96 lg:h-full">
+                                    <x-tienda.producto-reciente :productoReciente='$productoReciente' />
+                                    <x-tienda.productos-por-categoria :productos='$productos_categoria' />
+                                </div>
+                            </div>
+
+                        </div>
+                    </section>
+                </main>
+            </div>
+        </div>
 
     </div>
 
@@ -42,18 +183,18 @@
 
 @endsection
 @section('scripts')
-@if(session('error')== "talla")
-<script>
-    Swal.fire({
-        title: 'Faltan Datos',
-        text: "Necesitas seleccionar una talla para poder agregar al Carrito!",
-        icon: 'warning',
-        showCancelButton: false,
-        confirmButtonColor: '#3085d6',
-        confirmButtonText: 'Aceptar'
-        })
-</script>
-@endif
+    @if (session('error') == 'talla')
+        <script>
+            Swal.fire({
+                title: 'Faltan Datos',
+                text: "Necesitas seleccionar una talla para poder agregar al Carrito!",
+                icon: 'warning',
+                showCancelButton: false,
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Aceptar'
+            })
+        </script>
+    @endif
 
 
 
