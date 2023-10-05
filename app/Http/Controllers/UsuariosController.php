@@ -29,7 +29,7 @@ class UsuariosController extends Controller
     }
     public function edit($id){
 
-        $usuario = User::findOrFail($id);
+        $usuario = User::withTrashed()->findOrFail($id);
 
 
         return view('pages/usuarios/edit', compact('usuario'));
@@ -37,7 +37,7 @@ class UsuariosController extends Controller
     }
 
     public function update(Request $request, $id){
-        $usuario = User::findOrFail($id);
+        $usuario = User::withTrashed()->findOrFail($id);
 
         $request->validate([
             'email'=>'required|email|unique:users,email,'.$id,
@@ -61,7 +61,7 @@ class UsuariosController extends Controller
     }
 
     public function destroy(Request $request, $id){
-        
+
         $usuario = User::findOrFail($id);
         $usuario->estado = 'Inactivo';
         $usuario->save();
@@ -70,7 +70,7 @@ class UsuariosController extends Controller
 
     }
 
-    public function restore($id){  
+    public function restore($id){
         $user = User::withTrashed()->find($id);
         $user->estado = 'Activo';
         $user->save();
@@ -79,10 +79,10 @@ class UsuariosController extends Controller
         return redirect()->back();
 
     }
-    
+
     public function restoreAll(){
         $users = User::onlyTrashed()->get();
-        
+
         $users->each(function ($user) {
             $user->estado = 'Activo';
             $user->save();

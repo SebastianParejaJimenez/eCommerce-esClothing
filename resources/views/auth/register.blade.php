@@ -94,11 +94,11 @@
                         <div class="w-1/2 px-3 mb-5">
                             <label for="" class="text-xs font-semibold px-1">Usuario</label>
                             <div class="flex">
-                                <div
+                                    <div
                                     class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
                                     <i class="mdi mdi-account-outline text-gray-400 text-lg"></i>
                                 </div>
-                                <x-jet-input id="name" class="block mt-1 w-full" type="text" name="name" placeholder="Nombre"
+                                <x-jet-input id="name" class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" type="text" name="name" placeholder="Nombre"
                                 :value="old('name')" required autofocus />
                             </div>
                         </div>

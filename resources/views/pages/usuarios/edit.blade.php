@@ -7,7 +7,7 @@
         <div class="container max-w-screen-xl">
           <div>
 
-            <div class="rounded shadow-lg p-4 px-4 md:p-8 mb-6 ">
+            <div class="rounded shadow-lg p-4 px-4 md:p-8 mb-6 bg-white">
               <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
                 <div class="text-gray-600 dark:text-white">
                   <p class="font-medium text-lg">Datos Personales</p>
@@ -65,4 +65,8 @@
 
         </div>
     </div>
+
+
+    <x-slot:js>
+    </x-slot:js>
 </x-app-layout>

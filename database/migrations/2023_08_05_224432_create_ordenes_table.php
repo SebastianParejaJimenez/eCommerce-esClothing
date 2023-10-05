@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('ordenes', function (Blueprint $table) {
-            $table->id();
+            $table->id()->startingFrom(100);
             $table->decimal('subtotal', 10, 2);
             $table->decimal('total', 10, 2);
             $table->unsignedBigInteger('user_id');

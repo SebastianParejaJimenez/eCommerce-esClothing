@@ -65,7 +65,7 @@
                 <!-- This example requires Tailwind CSS v2.0+ -->
                 <div x-data="{ open: true }" class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title"
                     role="dialog" aria-modal="true">
-                    <div x-show="open" @click.outside="open = false" @keydown.escape.window="open = false" x-show="open"
+                    <div x-show="open"
                         x-transition:enter="ease-out duration-300"
                         x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                         x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
@@ -82,7 +82,7 @@
                         <div
                             class="relative inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
                             <div class="hidden sm:block absolute top-0 right-0 pt-4 pr-4">
-                                <button @click="open = false" type="button"
+                                <a href="{{route('carrito_detalles')}}" type="button"
                                     class="bg-white rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                     <span class="sr-only">Close</span>
                                     <!-- Heroicon name: outline/x -->
@@ -91,7 +91,7 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M6 18L18 6M6 6l12 12" />
                                     </svg>
-                                </button>
+                                </a>
                             </div>
                             <div class="sm:flex sm:items-start">
                                 <div
@@ -120,16 +120,15 @@
             @if (session('success'))
                 <div x-data="{ open: true }" class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title"
                     role="dialog" aria-modal="true">
-                    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                    <div x-show="open" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0"
+                        x-transition:enter-end="opacity-100" x-transition:leave="ease-in duration-200"
+                        x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" x-cloak
+                        class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
                         <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
 
                         <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
 
-                        <div x-show="open" x-show="open" x-transition:enter="ease-out duration-300"
-                            x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
-                            x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100"
-                            x-transition:leave-end="opacity-0" x-cloak
-                            class="relative inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
+                        <div class="relative inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
                             <div>
                                 <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
                                     <!-- Heroicon name: outline/check -->
@@ -158,8 +157,8 @@
                 </div>
             @else
                 <div class="bg-white">
-                    <div class="max-w-2xl mx-auto pt-16 pb-24 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-                        <h1 class="text-xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">Carrito de Compras </h1>
+                    <div class="max-w-2xl mx-auto pt-10 pb-24 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+                        <h1 class="text-xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">Carrito de Compras </h1>
                         <div class="mt-12 lg:grid lg:grid-cols-12 lg:gap-x-12 lg:items-start xl:gap-x-16">
                             <section aria-labelledby="cart-heading" class="lg:col-span-7">
                                 <h2 id="cart-heading" class="sr-only">Items del carrito de Compras</h2>
@@ -194,8 +193,7 @@
                                                     </div>
 
                                                     <div class="mt-4 sm:mt-0 sm:pr-9">
-                                                        <label for="quantity-0" class="sr-only">Quantity, Basic
-                                                            Tee</label>
+                                                        <label for="quantity-0" class="sr-only">Cantidad</label>
 
                                                         <a href="{{ route('decrementarcantidad', ['id' => $item->rowId]) }}"
                                                             class="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50">
@@ -211,7 +209,7 @@
                                                             <a href="{{ route('eliminaritem', ['id' => $item->rowId]) }}"
                                                                 type="button"
                                                                 class="-m-2 p-2 inline-flex text-gray-400 hover:text-gray-500">
-                                                                <span class="sr-only">Remove</span>
+                                                                <span class="sr-only">Eliminar</span>
                                                                 <!-- Heroicon name: solid/x -->
                                                                 <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg"
                                                                     viewBox="0 0 20 20" fill="currentColor"

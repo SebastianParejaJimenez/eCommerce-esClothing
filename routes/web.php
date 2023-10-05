@@ -58,9 +58,12 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         return view('pages/utility/404');
     })->name('404');
 
+    //Rutas para Pedidos
     Route::get('/tienda/pedidos', [StoreController::class, 'pedidos_hechos'])->name('pedidos_hechos');
-    Route::get('/tienda/pedidos/{id}', [StoreController::class, 'pedidoInformacion'])->name('pedido.informacion');
+    Route::post('tienda/pedidos', [StoreController::class, 'buscarPedido'])->name('buscar-pedido');
+    Route::get('tienda/pedidos/{id}', [StoreController::class, 'pdf'])->name('pedido-pdf');
 
+    //Ruta Dshboard y Notificaciones
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/marcar_Notificaciones', [NotificationController::class, 'markAllNotifications'])->name('marcar.notificaciones');
     Route::get('/marcar_notificacion/{notification_id}/{orden_id}', [NotificationController::class, 'markOneNotification'])->name('marcar.notificacion');
@@ -89,18 +92,19 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::put('/productos/{id}/sumar', [ProductosController::class, 'sumar'])->name('productos.sumar');
         Route::put('/productos/{id}/restar', [ProductosController::class, 'restar'])->name('productos.restar');
     });
+
+    //Rutas Pedidos Dashboard
     Route::get('/pedidos', [PedidosController::class, 'index'])->name('pedidos');
     Route::get('/pedidos/detalles/{id}', [PedidosController::class, 'show'])->name('detalles.pedidos');
     Route::get('/pedidos/estado/{id}/{estado}', [PedidosController::class, 'updateEstado'])->name('pedido.estado');
 
+    //Rutas Usuarios Dashboard
     Route::get('/usuarios/inactivos', [UsuariosController::class, 'inactivos'])->name('usuarios.inactivos');
     Route::get('/usuarios/{id}/editar', [UsuariosController::class, 'edit'])->name('edit');
     Route::delete('/usuarios/{id}', [UsuariosController::class, 'destroy'])->name('usuarios.destroy');
     Route::get('usuarios/restore/{id}', [UsuariosController::class, 'restore'])->name('users.restore');
     Route::get('usuarios/restoreAll', [UsuariosController::class, 'restoreAll'])->name('users.restore.all');
     Route::get('/usuarios/search', [UsuariosController::class, 'search'])->name('usuarios.search');
-
-
     Route::put('/usuarios/{id}', [UsuariosController::class, 'update'])->name('user.update');
     Route::get('/usuarios', [UsuariosController::class, 'index'])->name('usuarios');
 });

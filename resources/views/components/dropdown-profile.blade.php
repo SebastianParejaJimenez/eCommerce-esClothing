@@ -43,7 +43,7 @@
                 <form method="POST" action="{{ route('cierre_sesion') }}" x-data>
                     @csrf
 
-                    <a class=" font-medium text-sm text-black hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center  px-3"
+                    <button class=" font-medium text-sm text-black hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center  px-3"
                         @click.prevent="$root.submit();" @focus="open = true" @focusout="open = false">
                         <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -53,7 +53,7 @@
                             <line x1="21" y1="12" x2="9" y2="12"></line>
                         </svg>
                         {{ __('Cerrar Sesión') }}
-                    </a>
+                    </button>
                 </form>
             </li>
         </ul>

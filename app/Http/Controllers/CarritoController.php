@@ -143,7 +143,7 @@ class CarritoController extends Controller
         $checkoutSession = \Stripe\Checkout\Session::create([
             'line_items' => [$productItems],
             'mode' => 'payment',
-            'allow_promotion_codes' => true,
+            'allow_promotion_codes' => false,
             'metadata' => [
                 'user_id' => $user->id
             ],
@@ -151,9 +151,6 @@ class CarritoController extends Controller
             'success_url' => route('success') . "?session_id={CHECKOUT_SESSION_ID}",
             'cancel_url' => route('cancel'),
         ]);
-
-        $this->guardarCarrito($checkoutSession->id);
-        /* dd($checkoutSession->id); */
 
         return redirect()->away($checkoutSession->url);
     }
@@ -167,6 +164,7 @@ class CarritoController extends Controller
             if (!$session) {
                 throw new NotFoundHttpException;
             }
+            $this->guardarCarrito($session->id);
             $orden = Orden::where('session_id', $session->id)->first();
             if (!$orden) {
                 throw new NotFoundHttpException;

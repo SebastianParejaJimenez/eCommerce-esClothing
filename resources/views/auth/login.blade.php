@@ -1,11 +1,7 @@
 <x-authentication-layout>
 
 
-    @if (session('status'))
-        <div class="mb-4 font-medium text-sm text-green-600">
-            {{ session('status') }}
-        </div>
-    @endif
+
     <!-- Form -->
     <div class="bg-gray-100 text-gray-500 rounded-3xl shadow-xl w-full overflow-hidden" style="max-width:1000px">
         <div class="md:flex w-full">
@@ -94,7 +90,11 @@
                     <p>Ingresa la informacion de tu usuario para ingresar</p>
                 </div>
                 <x-jet-validation-errors class="mt-4" />
-
+                @if (session('status'))
+                    <div class="mb-4 font-medium text-sm text-green-600">
+                        {{ session('status') }}
+                    </div>
+                @endif
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
 
@@ -121,6 +121,13 @@
                                 <input name="password" type="password"
                                     class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                                     placeholder="Ingresa tu Contraseña">
+
+                            </div>
+                            <div class="text-sm">
+                                ¿Olvidaste tu contraseña?
+                                <a
+                                    class="font-medium text-indigo-500 hover:text-indigo-600"
+                                    href="{{ route('password.request') }}">Cambiar Contraseña</a>
                             </div>
                         </div>
                     </div>

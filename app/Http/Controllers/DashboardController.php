@@ -25,7 +25,8 @@ class DashboardController extends Controller
         $ordenes_recientes = Orden::with('user')
             ->orderBy('created_at', 'desc')
             ->whereDay('created_at', Carbon::now()->day)
-            ->paginate('3');
+            ->limit('5')
+            ->paginate('5');
 
         $total_ventas = Orden::sum('total');
 
