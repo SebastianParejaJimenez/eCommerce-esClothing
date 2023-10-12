@@ -44,7 +44,8 @@
                             <form action="{{ route('agregaritem') }}" method="POST">
                                 @csrf
                                 <input name="producto_id" type="hidden" value="{{ $producto->id }}">
-
+                                
+                                @if ($producto->categoria != "Accesorios")
                                 <div class="mb-4">
                                     <span class="font-bold text-gray-700">Seleccionar Talla:</span>
                                     <div class="flex items-center my-3">
@@ -58,6 +59,10 @@
                                         @endforeach
                                     </div>
                                 </div>
+                                @else
+                                <input type="text" name="talla" id="Unico" value="Unico" class="peer hidden" />
+                                @endif
+                                
                                 <div>
 
                                     @if (Auth::user() && $producto->estado == 'Activo')

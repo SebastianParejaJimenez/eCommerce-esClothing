@@ -24,7 +24,7 @@
                     <div
                         class="ml-auto relative max-w-xs w-full h-full bg-white shadow-xl py-4 pb-12 flex flex-col overflow-y-auto">
                         <div class="px-4 flex items-center justify-between">
-                            <h2 class="text-lg font-medium text-gray-900">Filters</h2>
+                            <h2 class="text-lg font-medium text-gray-900">Filtros</h2>
                             <button @click="open = false" type="button"
                                 class="-mr-2 w-10 h-10 bg-white p-2 rounded-md flex items-center justify-center text-gray-400">
                                 <span class="sr-only">Close menu</span>
@@ -42,7 +42,11 @@
                                 <li>
                                     <a href="#" class="block px-2 py-3"> Todos los Productos </a>
                                 </li>
-
+                                <li>
+                                    <a href="{{ route('catalogo_categoria', ['categoria' => 'Accesorios']) }}"
+                                        class="block @if (Request::segment(2) === 'Accesorios') {{ 'text-blue-600 ' }} @endif px-2 py-3">
+                                        Accesorios </a>
+                                </li>
                                 <li>
                                     <a href="{{ route('catalogo_categoria', ['categoria' => 'Chaquetas-Buzos']) }}"
                                         class="block @if (Request::segment(2) === 'Chaquetas-Buzos') {{ 'text-blue-600 ' }} @endif px-2 py-3">
@@ -77,7 +81,6 @@
                                         Conjuntos </a>
                                 </li>
                             </ul>
-
                         </div>
                     </div>
                 </div>
@@ -113,17 +116,24 @@
                         </div>
                     </div>
 
-                    <section aria-labelledby="products-heading" class="pt-6 pb-24">
+                    <section x-data="{ selectedSizes: [] }" aria-labelledby="products-heading" class="pt-6 pb-24">
                         <h2 id="products-heading" class="sr-only">Productos</h2>
 
                         <div class="grid grid-cols-1 lg:grid-cols-4 gap-x-8 gap-y-10">
-                            <!-- Filters -->
+                            <!-- Filters web -->
                             <form class="hidden lg:block">
                                 <h3 class="sr-only">Categorias</h3>
                                 <ul role="list"
                                     class="text-sm font-medium text-gray-900 space-y-4 pb-6 border-b border-gray-200">
                                     <li>
-                                        <a href="#" class="block px-2 py-3"> Todos los Productos </a>
+                                        <a href="{{ route('catalogo') }}" class="block px-2 py-3"> Todos los Productos
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="{{ route('catalogo_categoria', ['categoria' => 'Accesorios']) }}"
+                                            class="block @if (Request::segment(2) === 'Accesorios') {{ 'text-blue-600 ' }} @endif px-2 py-3">
+                                            Accesorios </a>
                                     </li>
 
                                     <li>
@@ -161,17 +171,98 @@
                                     </li>
                                 </ul>
 
+                                <!-- Filters talla web -->
+                                {{--         <div  x-data="{ openSizes: false }" class="border-b border-gray-200 py-6">
+                                    <h3 class="-my-3 flow-root">
+                                        <!-- Expand/collapse section button -->
+                                        <button  @click="openSizes = ! openSizes" type="button"
+                                            class="py-3 bg-white w-full flex items-center justify-between text-sm text-gray-400 hover:text-gray-500"
+                                            aria-controls="filter-section-2" aria-expanded="false">
+                                            <span class="font-medium text-gray-900"> Talla </span>
+                                            <span class="ml-6 flex items-center">
+                                                <!--
+                                                Expand icon, show/hide based on section open state.
+                          
+                                                Heroicon name: solid/plus-sm
+                                              -->
+                                                <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg"
+                                                    viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                    <path fill-rule="evenodd"
+                                                        d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                                        clip-rule="evenodd" />
+                                                </svg>
+                                                <!--
+                                                Collapse icon, show/hide based on section open state.
+                          
+                                                Heroicon name: solid/minus-sm
+                                              -->
+                                                <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg"
+                                                    viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                    <path fill-rule="evenodd"
+                                                        d="M5 10a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1z"
+                                                        clip-rule="evenodd" />
+                                                </svg>
+
+                                                
+                                            </span>
+                                        </button>
+                                    </h3>
+                                  
+                                    <div x-show="openSizes" 
+                                    x-transition:enter="transition ease-out duration-200 "
+                                    x-transition:enter-start="opacity-0 " x-transition:enter-end="opacity-100"
+                                    x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
+                                    x-transition:leave-end="opacity-0" x-cloak class="pt-6" id="filter-section-2">
+                                        <div class="space-y-4">
+                                            <div class="flex items-center">
+                                                <input id="filter-size-0" name="size[]" value="S" type="checkbox"
+                                                    class="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500" x-on:change="selectedSizes.includes('S') ? selectedSizes = selectedSizes.filter(size => size !== 'S') : selectedSizes.push('S')">
+                                                <label for="filter-size-0" class="ml-3 text-sm text-gray-600"> S </label>
+                                            </div>
+
+                                            <div class="flex items-center">
+                                                <input id="filter-size-1" name="size[]" value="M" type="checkbox"
+                                                    class="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500" x-on:change="selectedSizes.includes('M') ? selectedSizes = selectedSizes.filter(size => size !== 'M') : selectedSizes.push('M')">
+                                                <label for="filter-size-1" class="ml-3 text-sm text-gray-600"> M </label>
+                                            </div>
+
+                                            <div class="flex items-center">
+                                                <input id="filter-size-2" name="size[]" value="L" type="checkbox"
+                                                    class="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500" x-on:change="selectedSizes.includes('L') ? selectedSizes = selectedSizes.filter(size => size !== 'L') : selectedSizes.push('L')">
+                                                <label for="filter-size-2" class="ml-3 text-sm text-gray-600"> L
+                                                </label>
+                                            </div>
+
+                                            <div class="flex items-center">
+                                                <input id="filter-size-3" name="size[]" value="XL" type="checkbox"
+                                                    class="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500" x-on:change="selectedSizes.includes('XL') ? selectedSizes = selectedSizes.filter(size => size !== 'XL') : selectedSizes.push('XL')">
+                                                <label for="filter-size-3" class="ml-3 text-sm text-gray-600"> XL
+                                                </label>
+                                            </div>
+
+                                            <div class="flex items-center">
+                                                <input id="filter-size-4" name="size[]" value="XXL" type="checkbox"
+                                                    class="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500">
+                                                <label for="filter-size-4" class="ml-3 text-sm text-gray-600"> XXL
+                                                </label>
+                                            </div>
+                                           
+                                        </div>
+                                    </div>
+                                </div> --}}
                             </form>
 
                             <!-- Product grid -->
                             <div class="lg:col-span-3">
                                 <div class="w-full rounded-lg h-96 lg:h-full">
-                                    <x-tienda.producto-reciente :productoReciente='$productoReciente' />
+                                    <x-tienda.producto-reciente :productoReciente='$productoReciente' :selectedSize= />
                                     <x-tienda.productos-por-categoria :productos='$productos_categoria' />
                                 </div>
                             </div>
 
                         </div>
+
+
                     </section>
                 </main>
             </div>

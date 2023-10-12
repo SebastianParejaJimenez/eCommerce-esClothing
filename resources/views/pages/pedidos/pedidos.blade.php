@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="relative overflow-x-auto px-4 sm:px-6 lg:px-8 py-4 w-full max-w-9xl mx-auto">
+    <div class="m-6 rounded relative overflow-x-auto px-4 sm:px-6 lg:px-8 py-4 w-full max-w-9xl mx-auto">
         <x-dashboard.spinner-loading />
 
         @if (!$ordenes->count())
@@ -17,6 +17,10 @@
 
 
         @if ($ordenes->count())
+        <div class="bg-white px-4 py-5 border-b border-gray-200 sm:px-6">
+            <h3 class="text-lg leading-6 font-medium text-gray-900">Pedidos</h3>
+            <p class="mt-1 text-sm text-gray-500">A continuación podras ver aquellos pedidos hechos por los clientes.</p>
+          </div>
             <table class=" w-full text-sm text-left  divide-y divide-gray-200 dark:divide-gray-700">
                 <thead class="bg-gray-50 dark:bg-gray-800">
                     <tr>

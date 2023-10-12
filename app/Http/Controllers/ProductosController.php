@@ -21,7 +21,7 @@ class ProductosController extends Controller
     public function index(Request $request)
     {
 
-        $productos = Producto::with(['tallas'])->get();
+        $productos = Producto::with(['tallas'])->orderBy('created_at', 'desc')->get();
         $tallas = Talla::get();
         $rol = Auth::user()->rol_id;
         if ($rol == 1) {
@@ -110,20 +110,21 @@ class ProductosController extends Controller
 
     }
     public function store(Request $request){
+
         $request->validate([
             'nombre' => 'required',
             'precio' => 'required|numeric|min:1',
             'cantidad' => 'required|numeric|min:1',
             'categoria' => 'required',
             'imagen' => 'required|image|mimes:jpg,png,gif',
-            'tallas'=> 'required',
+            'tallas' => function ($attribute, $value, $fail) use ($request) {
+                if ($request->input('categoria') !== 'Accesorios' && !is_array($value)) {
+                    $fail('Las tallas son requeridas para esta categoría.');
+                }
+            },
         ]);
-        $producto = new Producto();
 
-/*         $producto->talla_s = $request->has('talla_s');
-        $producto->talla_l = $request->has('talla_l');
-        $producto->talla_m = $request->has('talla_m');
-        $producto->talla_xl = $request->has('talla_xl'); */
+        $producto = new Producto();
         $producto->nombre = $request->input('nombre');
         $producto->slug = Str::slug($request->input('nombre'));
         $producto->precio = $request->input('precio');
@@ -139,16 +140,16 @@ class ProductosController extends Controller
             $producto['imagen'] = $imgGuardado;
 
         }
+        
+        if ($request->input('categoria') !== 'Accesorio') {
+            $tallasSeleccionada = $request->input('tallas');
+            $producto->save();
+            $producto->tallas()->attach($tallasSeleccionada);
+        } else {
+            $producto->save();
+        }
 
-        $tallasSeleccionada = $request->input('tallas');
-        $producto->save();
-        $producto->tallas()->attach($tallasSeleccionada);
-
-
-
-
-
-        return redirect()->route('productos');
+        return redirect()->route('productos')->with('succes', 'ok');
 
     }
 

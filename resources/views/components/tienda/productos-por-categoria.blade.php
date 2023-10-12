@@ -7,22 +7,32 @@
             <div class="relative">
                 <div class="relative w-full h-72 rounded-lg overflow-hidden">
                     <img src="{{ url('productos_subidos') }}/{{ $producto->imagen }}"
-                        alt="Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls."
+                        alt="{{$producto->nombre}}."
                         class="w-full h-full object-center object-cover">
                 </div>
                 <div class="relative mt-4">
                     <h3 class="text-sm font-medium text-gray-900">{{$producto->nombre}}</h3>
                     <p class="mt-1 text-sm text-gray-500">{{$producto->categoria}}</p>
                 </div>
-                <div class="relative mt-4">
+                @if ($producto->categoria != "Accesorios")
+                    <div class="relative mt-4">
+                        <p class="mt-1 text-sm text-gray-500">Seleccione una talla</p>
+                        <select name="talla"
+                            class=" w-full rounded border appearance-none border-gray-400 py-1 hover:border-green-400 focus:outline-none focus:border-green-400 text-sm">
+                            @foreach ($producto->tallas as $talla)
+                                <option value="{{ $talla->talla }}">{{ $talla->talla }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                @else
+                <div class=" hidden relative mt-4">
                     <p class="mt-1 text-sm text-gray-500">Seleccione una talla</p>
-                    <select name="talla"
-                        class=" w-full rounded border appearance-none border-gray-400 py-1 hover:border-green-400 focus:outline-none focus:border-green-400 text-sm">
-                        @foreach ($producto->tallas as $talla)
-                            <option value="{{ $talla->talla }}">{{ $talla->talla }}</option>
-                        @endforeach
+                    <select name="talla" class=" w-full rounded border appearance-none border-gray-400 py-1 hover:border-green-400 focus:outline-none focus:border-green-400 text-sm">
+                            <option value="Unico" selected>Unico</option>
                     </select>
                 </div>
+                @endif
+                
                 <div class="absolute top-0 inset-x-0 h-72 rounded-lg p-4 flex items-end justify-end overflow-hidden">
                     <div aria-hidden="true"
                         class="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-black opacity-50"></div>

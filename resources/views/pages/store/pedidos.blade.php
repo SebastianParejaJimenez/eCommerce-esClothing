@@ -33,7 +33,7 @@
                                     </a>
 
                                     <button
-                                        class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm @if ($buscarPedido == true) {{ 'bg-gray-100' }} @endif dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">
+                                        class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm @if ($buscarPedido == true) {{ ' bg-gray-100' }} @endif dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">
                                         Filtrando
                                     </button>
                                 </div>
@@ -165,7 +165,10 @@
 
                                     <!-- Productos -->
                                     <h4 class="sr-only">Items</h4>
-                                    <ul x-show="open" role="list" class="divide-y divide-gray-200">
+                                    <ul x-show="open" x-transition:enter="transition ease-out duration-200 "
+                                    x-transition:enter-start="opacity-0 " x-transition:enter-end="opacity-100"
+                                    x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
+                                    x-transition:leave-end="opacity-0" x-cloak role="list" class="divide-y divide-gray-200">
                                         <li class="p-4 sm:p-6">
                                             @foreach ($pedido->productos as $producto)
                                                 <div class="flex items-center sm:items-start py-3">
@@ -332,7 +335,15 @@
 
                                         <!-- Productos -->
                                         <h4 class="sr-only">Items</h4>
-                                        <ul x-show="open" role="list" class="divide-y divide-gray-200">
+                                        <ul x-show="open" 
+                                        x-transition:enter="transition ease-out duration-200 "
+                                        x-transition:enter-start="opacity-0 " 
+                                        x-transition:enter-end="opacity-100"
+                                        x-transition:leave="transition ease-in duration-150" 
+                                        x-transition:leave-start="opacity-100"
+                                        x-transition:leave-end="opacity-0" 
+                                        x-cloak 
+                                        role="list" class="divide-y divide-gray-200">
                                             <li class="p-4 sm:p-6">
                                                 @foreach ($pedido->productos as $producto)
                                                     <div class="flex items-center sm:items-start py-3">

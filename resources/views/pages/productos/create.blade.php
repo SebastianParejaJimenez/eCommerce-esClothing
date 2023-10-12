@@ -51,6 +51,7 @@
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                         <option value="" selected disabled>Seleccione una Opcion</option>
                                         <option value="Camisas">Camisas</option>
+                                        <option value="Accesorios">Accesorios</option>
                                         <option value="Chaquetas-Buzos">Chaquetas y Buzos</option>
                                         <option value="Pantalones">Pantalones</option>
                                         <option value="Vestidos">Vestidos</option>
@@ -97,8 +98,6 @@
                                                     class='flex flex-col justify-center px-2 peer-checked:text-green-400  select-none'>{{ $talla->talla }}</label>
                                             </div>
                                         @endforeach
-
-
                                     </div>
                                 </div>
                         </div>

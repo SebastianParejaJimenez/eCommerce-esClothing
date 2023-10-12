@@ -12,7 +12,7 @@
                 <p>Por favor llene todos los campos con la informacion requerida.</p>
             </div>
 
-            <div class="lg:col-span-2">
+            <div class="lg:col-span-2" x-data="{ selectedCategory: '' }">
                 <form method="POST" enctype="multipart/form-data" action="{{ route('productos.store') }}"
                     class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
                     @csrf
@@ -42,11 +42,12 @@
                     <div class="md:col-span-2 dark:text-white mb-3">
                         <label
                             for="text"class="block text-sm font-medium text-gray-900 dark:text-white">Categoria</label>
-                        <select type="text" id="categoria" name="categoria"
+                        <select x-model="selectedCategory" type="text" id="categoria" name="categoria"
                             placeholder="Ingrese La categoria que tendra este Producto"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             <option value="" selected disabled>Seleccione una Opcion</option>
                             <option value="Camisas">Camisas</option>
+                            <option value="Accesorios">Accesorios</option>
                             <option value="Chaquetas-Buzos">Chaquetas y Buzos</option>
                             <option value="Pantalones">Pantalones</option>
                             <option value="Vestidos">Vestidos</option>
@@ -69,7 +70,7 @@
 
                     </div>
 
-                    <div class="md:col-span-5 mb-3">
+                    <div class="md:col-span-5 mb-3" x-show="selectedCategory !== 'Accesorios'">
                         <label
                             for="image"class="inline-block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tallas
                             Disponibles</label>
@@ -93,8 +94,6 @@
                                         class='flex flex-col justify-center px-2 peer-checked:text-green-400  select-none'>{{ $talla->talla }}</label>
                                 </div>
                             @endforeach
-
-
                         </div>
                     </div>
             </div>
@@ -114,3 +113,36 @@
     </div>
 </div>
 </div>
+
+
+<script>
+            const modal = document.querySelector('.main-modal');
+            const closeButton = document.querySelectorAll('.modal-close');
+
+            const modalClose = () => {
+                modal.classList.remove('fadeIn');
+                modal.classList.add('fadeOut');
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                }, 500);
+            }
+
+            const openModal = () => {
+                modal.classList.remove('fadeOut');
+                modal.classList.add('fadeIn');
+                modal.style.display = 'flex';
+            }
+
+            for (let i = 0; i < closeButton.length; i++) {
+
+                const elements = closeButton[i];
+
+                elements.onclick = (e) => modalClose();
+
+                modal.style.display = 'none';
+
+                window.onclick = function(event) {
+                    if (event.target == modal) modalClose();
+                }
+            }
+</script>
