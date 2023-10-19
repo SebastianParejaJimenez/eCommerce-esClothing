@@ -2,13 +2,13 @@
 
 namespace App\Notifications;
 
+use App\Models\Producto;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use App\Models\Orden;
 
-class OrdenNotification extends Notification
+class NewsletterNotification extends Notification
 {
     use Queueable;
 
@@ -17,9 +17,12 @@ class OrdenNotification extends Notification
      *
      * @return void
      */
-    public function __construct(Orden $orden)
+    public $producto;
+    public function __construct($producto)
     {
-        $this->orden = $orden;
+        //
+        $this->producto = $producto;
+
     }
 
     /**
@@ -42,19 +45,25 @@ class OrdenNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->subject('Nuevo producto disponible')
+            ->line('Hemos agregado un nuevo producto a nuestra tienda.')
+            ->action('Ver producto', url('/productos/' . $this->product->id))
+            ->line('¡Gracias por elegirnos!');
     }
 
+    /**
+     * Get the array representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return array
+     */
     public function toArray($notifiable)
     {
         return [
-            'id' => $this->orden->id,
-            'user_id' => $this->orden->user_id,
-            'subtotal' => $this->orden->subtotal,
-            'orden_date' => $this->orden->created_at,
-            'name' => $this->orden->user->name,
+            'id' => $this->producto->id,
+            'nombre' => $this->producto->nombre,
+            'categoria' => $this->producto->categoria,
+            'total' => $this->producto->total,
         ];
     }
 }

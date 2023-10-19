@@ -30,21 +30,19 @@
                                     <span class="text-gray-600">${{ number_format($producto->precio, 0, ',', '.') }}</span>
                                 </div>
                                 <div>
-                                    <span class="font-bold text-gray-700">Disponibilidad:</span>
-
                                     @if ($producto->estado == 'Activo')
                                         <span
-                                            class="bg-green-400 text-white py-1 px-3 font-semibold rounded-full text-sm">Disponible</span>
+                                            class="text-green-400  py-1 px-3 font-semibold rounded-full text-sm">Disponible</span>
                                     @else
                                         <span
-                                            class="bg-red-400 text-white py-1 px-3 font-semibold rounded-full text-sm">Agotado</span>
+                                            class="text-red-400  py-1 px-3 font-semibold rounded-full text-sm">Agotado</span>
                                     @endif
                                 </div>
                             </div>
                             <form action="{{ route('agregaritem') }}" method="POST">
                                 @csrf
                                 <input name="producto_id" type="hidden" value="{{ $producto->id }}">
-                                
+
                                 @if ($producto->categoria != "Accesorios")
                                 <div class="mb-4">
                                     <span class="font-bold text-gray-700">Seleccionar Talla:</span>
@@ -54,7 +52,7 @@
                                                 <input type="radio" name="talla" id="{{ $talla->talla }}"
                                                     value="{{ $talla->talla }}" class="peer hidden" />
                                                 <label for="{{ $talla->talla }}"
-                                                    class=" bg-gray-300 text-gray-700 py-2 px-4 rounded-full font-bold mr-2 hover:bg-gray-400 cursor-pointer select-none border-solid border-2 border-indigo-200   p-2 mx-2 text-center  peer-checked:font-bold peer-checked:border-green-400  peer-checked:bg-green-300">{{ $talla->talla }}</label>
+                                                    class=" bg-gray-300 text-gray-700 py-2 px-3 rounded-lg font-bold mr-2 hover:bg-gray-400 cursor-pointer select-none border-solid border-2 border-indigo-200 p-2 mx-1 text-center  peer-checked:font-bold peer-checked:border-green-400  peer-checked:bg-green-300">{{ $talla->talla }}</label>
                                             </div>
                                         @endforeach
                                     </div>
@@ -62,7 +60,7 @@
                                 @else
                                 <input type="text" name="talla" id="Unico" value="Unico" class="peer hidden" />
                                 @endif
-                                
+
                                 <div>
 
                                     @if (Auth::user() && $producto->estado == 'Activo')

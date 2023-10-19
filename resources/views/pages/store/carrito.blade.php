@@ -192,19 +192,21 @@
                                                             ${{ number_format($item->qty * $item->price, 2) }}</p>
                                                     </div>
 
-                                                    <div class="mt-4 sm:mt-0 sm:pr-9">
+                                                    <div class=" block mt-4 sm:mt-0 sm:pr-9">
                                                         <label for="quantity-0" class="sr-only">Cantidad</label>
 
-                                                        <a href="{{ route('decrementarcantidad', ['id' => $item->rowId]) }}"
-                                                            class="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50">
-                                                            - </a>
-                                                        <input disabled
-                                                            class="h-8 w-12  bg-white text-center text-xs outline-none rounded-md border border-gray-300 text-base focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                                            type="number" value="{{ $item->qty }}" min="1" />
-                                                        <a href="{{ route('incrementarcantidad', ['id' => $item->rowId]) }}"
-                                                            class="cursor-pointer rounded-r bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50">
-                                                            + </a>
+                                                        <div class="flex items-center border-gray-100">
+                                                            <a href="{{ route('decrementarcantidad', ['id' => $item->rowId]) }}"
+                                                                class="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50">
+                                                                - </a>
+                                                            <input disabled
+                                                                class="h-8 w-12  bg-white text-center text-xs outline-none border border-gray-300 text-base focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                                                type="number" value="{{ $item->qty }}" min="1" >
 
+                                                            <a href="{{ route('incrementarcantidad', ['id' => $item->rowId]) }}"
+                                                                class="cursor-pointer rounded-r bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50">
+                                                                + </a>
+                                                        </div>
                                                         <div class="absolute top-0 right-0">
                                                             <a href="{{ route('eliminaritem', ['id' => $item->rowId]) }}"
                                                                 type="button"

@@ -83,7 +83,7 @@
             </div>
             <div class="w-full md:w-1/2 py-10 px-5 md:px-10">
                 <div class="text-center mb-10">
-                    <h1 class="font-bold text-3xl text-gray-900">REGISTER</h1>
+                    <h1 class="font-semibold text-3xl text-gray-900">Registrarse</h1>
                     <p>Ingresa tus datos</p>
                     <x-jet-validation-errors class="mt-4" />
 
@@ -132,7 +132,7 @@
                     <div class="flex -mx-3">
                         <div class="w-full px-3 mb-5">
                             <label for="" class="text-xs font-semibold px-1">Contraseña</label>
-                            <div class="flex">
+                            <div class="flex relative">
                                 <div
                                     class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
                                     <i class="mdi mdi-lock-outline text-gray-400 text-lg"></i>
@@ -141,19 +141,26 @@
                                     class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                                     id="password" type="password" name="password" required placeholder="Contraseña"
                                     autocomplete="new-password" />
+
+                                    <div class="flex items-center absolute inset-y-4 right-0 mr-3  text-sm leading-5">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" class="cursor-pointer" onclick="showPassword('password')"  style="fill: rgb(110, 110, 110);transform: ;msFilter:;"><path d="M12 9a3.02 3.02 0 0 0-3 3c0 1.642 1.358 3 3 3 1.641 0 3-1.358 3-3 0-1.641-1.359-3-3-3z"></path><path d="M12 5c-7.633 0-9.927 6.617-9.948 6.684L1.946 12l.105.316C2.073 12.383 4.367 19 12 19s9.927-6.617 9.948-6.684l.106-.316-.105-.316C21.927 11.617 19.633 5 12 5zm0 12c-5.351 0-7.424-3.846-7.926-5C4.578 10.842 6.652 7 12 7c5.351 0 7.424 3.846 7.926 5-.504 1.158-2.578 5-7.926 5z"></path></svg>
+                                    </div>
                             </div>
                         </div>
                         <div class="w-full px-3 mb-5">
                             <label for="" class="text-xs font-semibold px-1">Confirmar Contraseña</label>
-                            <div class="flex">
+                            <div class="flex relative">
                                 <div
                                     class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
                                     <i class="mdi mdi-lock-outline text-gray-400 text-lg"></i>
                                 </div>
                                 <x-jet-input
                                     class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
-                                    id="password_confirmation" type="password" name="password_confirmation" required placeholder="Confirmar Constraseña"
+                                    id="password_confirmation" type="password" name="password_confirmation" required placeholder="Confirmar"
                                     autocomplete="new-password" />
+                                    <div class="flex items-center absolute inset-y-4 right-0 mr-3  text-sm leading-5">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" class="cursor-pointer" onclick="showPassword('password_confirmation')"  style="fill: rgb(110, 110, 110);transform: ;msFilter:;"><path d="M12 9a3.02 3.02 0 0 0-3 3c0 1.642 1.358 3 3 3 1.641 0 3-1.358 3-3 0-1.641-1.359-3-3-3z"></path><path d="M12 5c-7.633 0-9.927 6.617-9.948 6.684L1.946 12l.105.316C2.073 12.383 4.367 19 12 19s9.927-6.617 9.948-6.684l.106-.316-.105-.316C21.927 11.617 19.633 5 12 5zm0 12c-5.351 0-7.424-3.846-7.926-5C4.578 10.842 6.652 7 12 7c5.351 0 7.424 3.846 7.926 5-.504 1.158-2.578 5-7.926 5z"></path></svg>
+                                    </div>
                             </div>
                         </div>
                     </div>
@@ -201,4 +208,15 @@
         </div>
     </div>
 
+    <script>
+                function showPassword(clase) {
+    var passwordInput = document.getElementById(clase)
+
+    if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+    } else {
+        passwordInput.type = "password";
+    }
+}
+    </script>
 </x-authentication-layout>

@@ -19,13 +19,13 @@
         @endif
 
     </button>
-    <div class="origin-top-right max-h-60 overflow-scroll z-10 absolute top-full -mr-48 sm:mr-0 min-w-80 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 py-1.5 rounded shadow-lg overflow-hidden mt-1 {{ $align === 'right' ? 'right-0' : 'left-0' }}"
+    <div class="origin-top-right max-h-60 overflow-y-scroll z-10 absolute top-full -mr-10 sm:mr-0 min-w-80 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 py-1.5 rounded shadow-lg overflow-hidden mt-1 {{ $align === 'right' ? 'right-0' : 'left-0' }}"
         @click.outside="open = false" @keydown.escape.window="open = false" x-show="open"
         x-transition:enter="transition ease-out duration-200 transform"
         x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0"
         x-transition:leave="transition ease-out duration-200" x-transition:leave-start="opacity-100"
         x-transition:leave-end="opacity-0" x-cloak>
-        <div class="text-xs sticky top-0 font-semibold text-slate-400 dark:text-slate-500 uppercase pt-1.5 pb-2 px-4 bg-white">Tienes
+        <div class="text-xs  top-0 font-semibold text-slate-400 dark:text-slate-500 uppercase pt-1.5 pb-2 px-4 bg-white">Tienes
             {{ auth()->user()->unreadNotifications->count() }} Notificaciones Nuevas</div>
         <ul>
             @if (auth()->user()->unreadNotifications->count() > 0)
@@ -51,24 +51,7 @@
                         </a>
                     </li>
                 @endforeach
-               
-                @foreach (auth()->user()->unreadNotifications as $notification)
-                    <li class="border-b border-slate-200 dark:border-slate-700 last:border-0">
-                        <a class="block py-2 px-4 hover:bg-slate-50 dark:hover:bg-slate-700/20"
-                            href="{{ route('marcar.notificacion', [$notification->id, $notification->data['id']]) }}"
-                            @click="open = false" @focus="open = true" @focusout="open = false">
-                            <span class="block text-sm mb-2">📣 <span
-                                    class="font-medium text-slate-800 dark:text-slate-100">Nuevo Pedido</span>
-                                <span class="block text-sm mb-2"><span
-                                        class="font-medium text-slate-800 dark:text-slate-100">El usuario:</span>
-                                    {{ $notification->data['name'] }}, Ha realizado un pedido por:
-                                    {{ $notification->data['subtotal'] }}$</span>
-                                <span class="block text-xs font-medium text-slate-400 dark:text-slate-500">Fecha:
-                                    {{ \Carbon\Carbon::parse($notification->data['orden_date'])->formatLocalized('%d %B %Y %I:%M %p') }}</span>
-                        </a>
-                    </li>
-                @endforeach
-                 
+
             @endif
 
         </ul>

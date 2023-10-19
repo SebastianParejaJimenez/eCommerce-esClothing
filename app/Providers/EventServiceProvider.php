@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Events\OrdenEvent;
+use App\Listeners\NewsletterListener;
 use App\Listeners\OrdenListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -22,6 +23,8 @@ class EventServiceProvider extends ServiceProvider
         ],
         OrdenEvent::class => [
             OrdenListener::class,
+            NewsletterListener::class,
+
         ]
     ];
 

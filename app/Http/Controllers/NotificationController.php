@@ -22,7 +22,6 @@ class NotificationController extends Controller
 
         $orden = Orden::find($orden_id);
         return redirect()->route('detalles.pedidos', $orden->id);
-
     }
 
 

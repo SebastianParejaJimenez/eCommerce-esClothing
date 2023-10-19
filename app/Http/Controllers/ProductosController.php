@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewsletterEvent;
 use Illuminate\Http\Request;
 use App\Models\Producto;
 use App\Models\Talla;
+use App\Notifications\NewsletterNotification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class ProductosController extends Controller
 {
@@ -43,6 +46,7 @@ class ProductosController extends Controller
 
     public function activarAll(){
         $productos = Producto::where('estado', 'inactivo');
+
         $productos->each(function ($producto) {
             $producto->estado = 'Activo';
             $producto->save();
@@ -140,7 +144,7 @@ class ProductosController extends Controller
             $producto['imagen'] = $imgGuardado;
 
         }
-        
+
         if ($request->input('categoria') !== 'Accesorio') {
             $tallasSeleccionada = $request->input('tallas');
             $producto->save();
@@ -148,6 +152,8 @@ class ProductosController extends Controller
         } else {
             $producto->save();
         }
+
+        event(new NewsletterEvent($producto));
 
         return redirect()->route('productos')->with('succes', 'ok');
 

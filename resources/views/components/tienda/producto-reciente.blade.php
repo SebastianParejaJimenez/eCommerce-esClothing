@@ -20,6 +20,7 @@
             method="POST" id="form-talla">
             @csrf
             <div class="mt-3">
+                @if ($productoReciente->categoria != "Accesorios")
                 <label class="text-gray-700 text-sm" for="count">Seleccionar una talla:</label>
                 <div class="flex items-center mt-3">
                     @if ($productoReciente->tallas)
@@ -30,8 +31,8 @@
                         </div>
                         @endforeach
                     @endif
-
                 </div>
+                @endif
             </div>
 
             <div class="flex items-center mt-6">
