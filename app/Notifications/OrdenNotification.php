@@ -30,7 +30,7 @@ class OrdenNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database', 'mail'];
     }
 
     /**
@@ -42,8 +42,9 @@ class OrdenNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
+                    ->line('¡Nuevo Pedido!.')
+                    ->line($this->orden->user->name . ' Ha realizado un nuevo pedido por un total de: '. $this->orden->total . ' pesos')
+                    ->action('Ir a ver los Detalles', route('detalles.pedidos', $this->orden->id))
                     ->line('Thank you for using our application!');
     }
 
@@ -53,6 +54,7 @@ class OrdenNotification extends Notification
             'id' => $this->orden->id,
             'user_id' => $this->orden->user_id,
             'subtotal' => $this->orden->subtotal,
+            'total' => $this->orden->total,
             'orden_date' => $this->orden->created_at,
             'name' => $this->orden->user->name,
         ];

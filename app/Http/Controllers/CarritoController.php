@@ -69,6 +69,7 @@ class CarritoController extends Controller
 
     public function guardarCarrito($session_id)
     {
+
         $orden = new Orden();
 
         $orden->subtotal = str_replace(',', '', Cart::subtotal());
@@ -92,7 +93,9 @@ class CarritoController extends Controller
 
             $orden_productos->save();
         }
+
         self::ordenMakeNotification($orden);
+
     }
 
     static function ordenMakeNotification($orden)
@@ -105,6 +108,7 @@ class CarritoController extends Controller
         }); */
 
         event(new OrdenEvent($orden));
+
     }
     public function session()
     {
@@ -112,8 +116,6 @@ class CarritoController extends Controller
         $user         = auth()->user();
         $curl = new \Stripe\HttpClient\CurlClient([CURLOPT_SSLVERSION => CURL_SSLVERSION_TLSv1]);
         \Stripe\ApiRequestor::setHttpClient($curl);
-
-
         \Stripe\Stripe::setVerifySslCerts(false);
         \Stripe\Stripe::setApiKey(config('stripe.sk'));
 
@@ -152,6 +154,7 @@ class CarritoController extends Controller
             'cancel_url' => route('cancel'),
         ]);
 
+
         return redirect()->away($checkoutSession->url);
     }
     public function success(Request $request)
@@ -161,12 +164,16 @@ class CarritoController extends Controller
 
         try {
             $session = \Stripe\Checkout\Session::retrieve($sessionId);
+
             if (!$session) {
+                dd('session var no encontrada');
                 throw new NotFoundHttpException;
             }
             $this->guardarCarrito($session->id);
             $orden = Orden::where('session_id', $session->id)->first();
+
             if (!$orden) {
+                dd('orden no encontrada');
                 throw new NotFoundHttpException;
             }
 
@@ -174,23 +181,17 @@ class CarritoController extends Controller
                 $orden->estado = "PAGADO";
                 $orden->save();
                 Cart::destroy();
-
             }
         } catch (\Throwable $th) {
             throw new NotFoundHttpException();
+            dd('error en try');
         }
-        $user_id = Auth::user()->id;
-
-        $pedido_detalle = Orden::where('session_id', $session->id)->with('productos', 'user')->first();
-
-        return redirect()->back()->with("success", "success");
+        return redirect()->route('carrito_detalles')->with('success', 'success');
     }
     public function cancel()
     {
         return redirect()->back()->with("canceled", "cancelado");
     }
 
-    public function webhook()
-    {
-    }
+
 }

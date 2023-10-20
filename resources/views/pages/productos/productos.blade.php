@@ -1,260 +1,168 @@
 <x-app-layout>
-    <style>
-        .animated {
-            -webkit-animation-duration: 1s;
-            animation-duration: 1s;
-            -webkit-animation-fill-mode: both;
-            animation-fill-mode: both;
-        }
 
-        .animated.faster {
-            -webkit-animation-duration: 500ms;
-            animation-duration: 500ms;
-        }
+    <section class="px-4 sm:px-6 lg:px-8 py-4 w-full max-w-9xl mx-auto">
+        <div class="bg-white p-7 rounded-lg">
 
-        .fadeIn {
-            -webkit-animation-name: fadeIn;
-            animation-name: fadeIn;
-        }
+            <x-dashboard.banners.products-banner />
 
-        .fadeOut {
-            -webkit-animation-name: fadeOut;
-            animation-name: fadeOut;
-        }
+            <x-dashboard.spinner-loading />
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
+            @if (!$productos->count())
+                <!-- This example requires Tailwind CSS v2.0+ -->
+                <div class="text-center mt-12 bg-white py-20 rounded-md dark:bg-slate-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="mx-auto h-12 w-12 text-gray-400 dark:text-gray-200" style="fill: rgb(34, 34, 34);transform: ;msFilter:;">
+                        <path d="M22 8a.76.76 0 0 0 0-.21v-.08a.77.77 0 0 0-.07-.16.35.35 0 0 0-.05-.08l-.1-.13-.08-.06-.12-.09-9-5a1 1 0 0 0-1 0l-9 5-.09.07-.11.08a.41.41 0 0 0-.07.11.39.39 0 0 0-.08.1.59.59 0 0 0-.06.14.3.3 0 0 0 0 .1A.76.76 0 0 0 2 8v8a1 1 0 0 0 .52.87l9 5a.75.75 0 0 0 .13.06h.1a1.06 1.06 0 0 0 .5 0h.1l.14-.06 9-5A1 1 0 0 0 22 16V8zm-10 3.87L5.06 8l2.76-1.52 6.83 3.9zm0-7.72L18.94 8 16.7 9.25 9.87 5.34zM4 9.7l7 3.92v5.68l-7-3.89zm9 9.6v-5.68l3-1.68V15l2-1v-3.18l2-1.11v5.7z"></path>
+                    </svg>
+                    <h3 class="mt-2 text-sm font-medium text-gray-900 dark:text-white">No Productos</h3>
+                    <p class="mt-1 text-sm text-gray-500  dark:text-white">Inicia creando tus productos.</p>
+                </div>
+            @endif
 
-            to {
-                opacity: 1;
-            }
-        }
+            @if ($productos->count())
+                <div id="content-table" class="overflow-x-auto  sm:rounded-lg">
 
-        @keyframes fadeOut {
-            from {
-                opacity: 1;
-            }
+                    <table id="listado" class="mt-3 w-full bg-gray-50 text-sm text-left text-gray-500 dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th class="px-6 py-3">
+                                    <span class="sr-only">Imagen</span>
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Producto
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Disponibles
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Categoria
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Precio
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Tallas
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Estado
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Acción
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
 
-            to {
-                opacity: 0;
-            }
-        }
+                            @foreach ($productos as $producto)
+                                <tr
+                                    class="bg-gray-50 border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                    <td class="w-32 p-4">
+                                        <img src="{{ url('productos_subidos') }}/{{ $producto->imagen }}" alt="Image">
+                                    </td>
+                                    <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white producto_nombre">
+                                        {{ $producto->nombre }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {{ $producto->cantidad }}
+                                    </td>
+                                    <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white producto_categoria">
+                                        {{ $producto->categoria }}
 
-        /*Overrides for Tailwind CSS */
+                                    </td>
+                                    <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white producto_precio">
+                                        ${{ number_format($producto->precio, 2, '.', ',') }}
+                                    </td>
 
-        /*Form fields*/
-        .dataTables_wrapper select,
-        .dataTables_wrapper .dataTables_filter input:hover {
-            border-color: #6366F1;
-            margin-bottom: 5%;
-        }
-
-
-        /*Pagination Buttons*/
-        .dataTables_wrapper .dataTables_paginate .paginate_button {
-            font-weight: 700;
-            /*font-bold*/
-            border-radius: .25rem;
-            /*rounded*/
-            border: 1px solid transparent;
-            /*border border-transparent*/
-        }
-
-        /*Pagination Buttons - Current selected */
-        .dataTables_wrapper .dataTables_paginate .paginate_button.current {
-            color: #fff !important;
-            /*text-white*/
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
-            /*shadow*/
-            font-weight: 700;
-            /*font-bold*/
-            border-radius: .25rem;
-            /*rounded*/
-            background: #667eea !important;
-            /*bg-indigo-500*/
-            border: 1px solid transparent;
-            /*border border-transparent*/
-        }
-
-        /*Pagination Buttons - Hover */
-        .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-            color: #fff !important;
-            /*text-white*/
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
-            /*shadow*/
-            font-weight: 700;
-            /*font-bold*/
-            border-radius: .25rem;
-            /*rounded*/
-            background: #667eea !important;
-            /*bg-indigo-500*/
-            border: 1px solid transparent;
-            /*border border-transparent*/
-        }
-    </style>
-    <div class="px-4 sm:px-6 lg:px-8 py-4 w-full max-w-9xl mx-auto">
-        <x-dashboard.banners.products-banner />
-
-        <x-dashboard.spinner-loading />
-
-        @if (!$productos->count())
-            <!-- This example requires Tailwind CSS v2.0+ -->
-            <div class="text-center mt-12 bg-white py-20 rounded-md dark:bg-slate-500">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="mx-auto h-12 w-12 text-gray-400 dark:text-gray-200" style="fill: rgb(34, 34, 34);transform: ;msFilter:;">
-                    <path d="M22 8a.76.76 0 0 0 0-.21v-.08a.77.77 0 0 0-.07-.16.35.35 0 0 0-.05-.08l-.1-.13-.08-.06-.12-.09-9-5a1 1 0 0 0-1 0l-9 5-.09.07-.11.08a.41.41 0 0 0-.07.11.39.39 0 0 0-.08.1.59.59 0 0 0-.06.14.3.3 0 0 0 0 .1A.76.76 0 0 0 2 8v8a1 1 0 0 0 .52.87l9 5a.75.75 0 0 0 .13.06h.1a1.06 1.06 0 0 0 .5 0h.1l.14-.06 9-5A1 1 0 0 0 22 16V8zm-10 3.87L5.06 8l2.76-1.52 6.83 3.9zm0-7.72L18.94 8 16.7 9.25 9.87 5.34zM4 9.7l7 3.92v5.68l-7-3.89zm9 9.6v-5.68l3-1.68V15l2-1v-3.18l2-1.11v5.7z"></path>
-                </svg>
-                <h3 class="mt-2 text-sm font-medium text-gray-900 dark:text-white">No Productos</h3>
-                <p class="mt-1 text-sm text-gray-500  dark:text-white">Inicia creando tus productos.</p>
-            </div>
-        @endif
-
-        @if ($productos->count())
-            <div id="content-table" class="overflow-x-auto  sm:rounded-lg">
-
-                <table id="productos_lista"
-                    class="mt-3 w-full bg-gray-50 text-sm text-left text-gray-500 dark:text-gray-400">
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                        <tr>
-                            <th class="px-6 py-3">
-                                <span class="sr-only">Imagen</span>
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Producto
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Disponibles
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Categoria
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Precio
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Tallas
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Estado
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Acción
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        @foreach ($productos as $producto)
-                            <tr
-                                class="bg-gray-50 border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                <td class="w-32 p-4">
-                                    <img src="{{ url('productos_subidos') }}/{{ $producto->imagen }}" alt="Image">
-                                </td>
-                                <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white producto_nombre">
-                                    {{ $producto->nombre }}
-                                </td>
-                                <td class="px-6 py-4">
-                                    {{ $producto->cantidad }}
-                                </td>
-                                <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white producto_categoria">
-                                    {{ $producto->categoria }}
-
-                                </td>
-                                <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white producto_precio">
-                                    ${{ number_format($producto->precio, 2, '.', ',') }}
-                                </td>
-
-                                <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white producto_precio">
-                                    @foreach ($producto->tallas as $talla)
-                                        <span
-                                            class="bg-green-100 text-gray-900 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-gray-700 dark:text-gray-300">{{ $talla->talla }}</span>
-                                    @endforeach
-                                </td>
-                                <td class="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
-                                    <div
-                                        class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 dark:bg-gray-800
-                                @switch(true)
-                                    @case($producto->estado == 'Activo')
-                                        text-green-500 bg-green-100/60
-                                        @break
-
-                                    @case($producto->estado == 'Inactivo')
-                                        text-red-500 bg-red-200
-                                        @break
-                                    @endswitch
-                                    ">
-
-                                        @switch(true)
-                                            @case($producto->estado == 'Activo')
-                                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M10 3L4.5 8.5L2 6" stroke="currentColor" stroke-width="1.5"
-                                                        stroke-linecap="round" stroke-linejoin="round" />
-                                                </svg>
+                                    <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white producto_precio">
+                                        @foreach ($producto->tallas as $talla)
+                                            <span
+                                                class="bg-green-100 text-gray-900 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-gray-700 dark:text-gray-300">{{ $talla->talla }}</span>
+                                        @endforeach
+                                    </td>
+                                    <td class="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
+                                        <div
+                                            class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 dark:bg-gray-800
+                                    @switch(true)
+                                        @case($producto->estado == 'Activo')
+                                            text-green-500 bg-green-100/60
                                             @break
 
-                                            @case($producto->estado == 'Inactivo')
-                                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M9 3L3 9M3 3L9 9" stroke="currentColor" stroke-width="1.5"
-                                                        stroke-linecap="round" stroke-linejoin="round" />
-                                                </svg>
+                                        @case($producto->estado == 'Inactivo')
+                                            text-red-500 bg-red-200
                                             @break
                                         @endswitch
+                                        ">
 
-                                        <h2 class="text-sm font-normal">{{ $producto->estado }}</h2>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4">
+                                            @switch(true)
+                                                @case($producto->estado == 'Activo')
+                                                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M10 3L4.5 8.5L2 6" stroke="currentColor" stroke-width="1.5"
+                                                            stroke-linecap="round" stroke-linejoin="round" />
+                                                    </svg>
+                                                @break
 
-                                    <div class="flex items-center space-x-4 p-3">
+                                                @case($producto->estado == 'Inactivo')
+                                                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M9 3L3 9M3 3L9 9" stroke="currentColor" stroke-width="1.5"
+                                                            stroke-linecap="round" stroke-linejoin="round" />
+                                                    </svg>
+                                                @break
+                                            @endswitch
 
-                                        @if ($producto->estado == 'Inactivo')
-                                            <div class="flex items-center gap-x-6">
-                                                <input type="hidden" value="">
-                                                <a href="{{ route('productos.restore', $producto->id) }}" type="submit"
-                                                    onclick="habilitarProducto(event)"
-                                                    class="text-green-500 transition-colors duration-200 dark:hover:text-green-500 dark:text-gray-300 hover:text-green-500 focus:outline-none">
-                                                    ACTIVAR
-                                                </a>
-                                            </div>
-                                        @else
-                                            <form method="POST" id="deshabilitar"
-                                                action="{{ route('productos.destroy', ['id' => $producto->id]) }}">
-                                                @method('DELETE')
-                                                @csrf
-                                                <button type="submit"
-                                                    class="text-red-500 transition-colors duration-200 hover:text-indigo-500 focus:outline-none dark:hover:text-red-500 dark:text-red-300">
-                                                    Desactivar
-                                                </button>
-                                            </form>
-                                        @endif
+                                            <h2 class="text-sm font-normal">{{ $producto->estado }}</h2>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4">
 
-                                        <a href="{{ route('productos.edit', ['id' => $producto->id]) }}"
-                                            class="px-2 text-blue-500 transition-colors duration-200 dark:hover:text-indigo-500 dark:text-gray-300 hover:text-indigo-500 focus:outline-nones">
-                                            Editar
-                                        </a>
-                                        <a href="{{ route('productos.show', ['id' => $producto->id, 'slug' => $producto->slug]) }}"
-                                            class=" items-center px-2 py-2 rounded-md drop-shadow-md hover:text-indigo-600 text-gray-500">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                            </svg>
+                                        <div class="flex items-center space-x-4 p-3">
 
-                                        </a>
+                                            @if ($producto->estado == 'Inactivo')
+                                                <div class="flex items-center gap-x-6">
+                                                    <input type="hidden" value="">
+                                                    <a href="{{ route('productos.restore', $producto->id) }}" type="submit"
+                                                        onclick="habilitarProducto(event)"
+                                                        class="text-green-500 transition-colors duration-200 dark:hover:text-green-500 dark:text-gray-300 hover:text-green-500 focus:outline-none">
+                                                        ACTIVAR
+                                                    </a>
+                                                </div>
+                                            @else
+                                                <form method="POST" id="deshabilitar"
+                                                    action="{{ route('productos.destroy', ['id' => $producto->id]) }}">
+                                                    @method('DELETE')
+                                                    @csrf
+                                                    <button type="submit"
+                                                        class="text-red-500 transition-colors duration-200 hover:text-indigo-500 focus:outline-none dark:hover:text-red-500 dark:text-red-300">
+                                                        Desactivar
+                                                    </button>
+                                                </form>
+                                            @endif
 
-                            </tr>
-                        @endforeach
+                                            <a href="{{ route('productos.edit', ['id' => $producto->id]) }}"
+                                                class="px-2 text-blue-500 transition-colors duration-200 dark:hover:text-indigo-500 dark:text-gray-300 hover:text-indigo-500 focus:outline-nones">
+                                                Editar
+                                            </a>
+                                            <a href="{{ route('productos.show', ['id' => $producto->id, 'slug' => $producto->slug]) }}"
+                                                class=" items-center px-2 py-2 rounded-md drop-shadow-md hover:text-indigo-600 text-gray-500">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                </svg>
 
-                    </tbody>
-                </table>
-            </div>
-        @endif
-    </div>
+                                            </a>
+
+                                </tr>
+                            @endforeach
+
+                        </tbody>
+                    </table>
+                </div>
+            @endif
+        </div>
+    </section>
 
 
     <div class="main-modal fixed w-full h-100 inset-0 z-50 overflow-hidden flex justify-center items-center animated fadeIn faster"
@@ -285,32 +193,6 @@
 
     <x-slot:js>
         <script>
-            $(document).ready(function() {
-                // Create a DataTable object
-                var dataTable = $('#productos_lista').DataTable({
-                    // Set the language to Spanish
-                    language: {
-                        "lengthMenu": "Mostrar _MENU_ registros por página",
-                        "zeroRecords": "No se encontraron resultados",
-                        "info": "Mostrando _START_ a _END_ de un total de _TOTAL_ registros",
-                        "infoEmpty": "Mostrando 0 a 0 de 0 en total registros",
-                        "infoFiltered": "(filtrado de _MAX_ registros)",
-                        "search": "Buscar:",
-                        "paginate": {
-                            "first": "Primera",
-                            "previous": "Anterior",
-                            "next": "Siguiente",
-                            "last": "Última"
-                        }
-                    },
-                    lengthMenu: [
-                        [3, 5, 10, -1],
-                        [3, 5, 10, "Mostrar todos"]
-                    ],
-                });
-            });
-
-
             for (let i = 0; i < closeButton.length; i++) {
 
                 const elements = closeButton[i];
@@ -363,11 +245,21 @@
                     }
                 })
             }
-
-            function idProduct(id) {
-                console.log(id)
-            }
         </script>
+
+
+        @if(session('update')== "ok")
+        <script>
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: '¡Producto Actualizado con Exito!',
+                showConfirmButton: false,
+                timer: 900
+            })
+        </script>
+
+        @endif
     </x-slot:js>
 
 </x-app-layout>

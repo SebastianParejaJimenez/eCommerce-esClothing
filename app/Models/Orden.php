@@ -32,5 +32,11 @@ class Orden extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function total($subtotal)
+    {
+
+    }
+
+
 
 }

@@ -3,13 +3,12 @@
 namespace App\Listeners;
 
 use App\Models\User;
-use App\Notifications\OrdenNotification;
+use App\Notifications\OrderStatusNotification;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Notification as NotificationsNotification;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Notification;
 
-class OrdenListener
+class OrderStatusListener
 {
     /**
      * Create the event listener.
@@ -29,13 +28,7 @@ class OrdenListener
      */
     public function handle($event)
     {
-        //
-        User::where('rol_id', 1)
-        ->each(function(User $user) use ($event){
-            Notification::send($user, new OrdenNotification($event->orden));
-        });
-
-/*         ->whereNotIn('id', $event->orden->user_id)
- */
+        $user = $event->orden->user;
+        Notification::send($user, new OrderStatusNotification($event->orden));
     }
 }

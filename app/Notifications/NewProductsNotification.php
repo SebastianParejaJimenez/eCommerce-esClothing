@@ -8,7 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class NewsletterNotification extends Notification
+class NewProductsNotification extends Notification
 {
     use Queueable;
 
@@ -17,12 +17,10 @@ class NewsletterNotification extends Notification
      *
      * @return void
      */
-    public $producto;
-    public function __construct($producto)
+    public function __construct(Producto $producto)
     {
         //
         $this->producto = $producto;
-
     }
 
     /**
@@ -33,7 +31,7 @@ class NewsletterNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['mail'];
     }
 
     /**
@@ -45,10 +43,11 @@ class NewsletterNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject('Nuevo producto disponible')
-            ->line('Hemos agregado un nuevo producto a nuestra tienda.')
-            ->action('Ver producto', url('/productos/' . $this->product->id))
-            ->line('¡Gracias por elegirnos!');
+        ->line('¡Nuevos Productos Disponibles en esClothing!')
+        ->line('Nombre del Nuevo Producto: '. $this->producto->nombre . '.')
+        ->line('Compralo ahora mismo por: '. $this->producto->precio . '.')
+        ->action('Puedes verlo acá', route('productos.show', ['id' => $this->producto->id, 'slug' => $this->producto->slug]))
+        ->line('¡Gracias por estas subscrito a nuestro Email!');
     }
 
     /**
@@ -60,10 +59,7 @@ class NewsletterNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            'id' => $this->producto->id,
-            'nombre' => $this->producto->nombre,
-            'categoria' => $this->producto->categoria,
-            'total' => $this->producto->total,
+            //
         ];
     }
 }

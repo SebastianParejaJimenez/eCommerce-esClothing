@@ -64,7 +64,7 @@
                             <x-dashboard.spinner-loading />
 {{--                             <input placeholder="Buscar" name="q" class="appearance-none rounded-r rounded-l sm:rounded-l-none border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none" />
  --}}
-                            <table class="min-w-full divide-y datatable  divide-gray-200 dark:divide-gray-700" id="usuarios" >
+                            <table class="min-w-full divide-y datatable  divide-gray-200 dark:divide-gray-700" id="listado" >
                                 <thead class="bg-gray-50 dark:bg-gray-800">
                                     <tr>
 
@@ -185,34 +185,4 @@
                 </div>
             </div>
         </section>
-
-    <x-slot:js>
-
-    <script>
-        $(document).ready(function() {
-            // Create a DataTable object
-            var dataTable = $('#usuarios').DataTable({
-                // Set the language to Spanish
-                language: {
-                    "lengthMenu": "Mostrar _MENU_ registros por página",
-                    "zeroRecords": "No se encontraron resultados",
-                    "info": "Mostrando _START_ a _END_ de un total de _TOTAL_ registros",
-                    "infoEmpty": "Mostrando 0 a 0 de 0 en total registros",
-                    "infoFiltered": "(filtrado de _MAX_ registros)",
-                    "search": "Buscar:",
-                    "paginate": {
-                        "first": "Primera",
-                        "previous": "Anterior",
-                        "next": "Siguiente",
-                        "last": "Última"
-                    }
-                },
-                lengthMenu: [[3, 5, 10, -1], [3, 5, 10, "Mostrar todos"]],
-            });
-        });
-    </script>
-
-
-    </x-slot:js>
-
     </x-app-layout>

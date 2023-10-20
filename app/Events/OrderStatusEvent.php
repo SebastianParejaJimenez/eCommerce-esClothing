@@ -10,16 +10,14 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class NewsletterEvent
+class OrderStatusEvent
 {
-    public $producto;
-
+    public $orden;
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public function __construct($producto)
+    public function __construct($orden)
     {
-        //
-        $this->producto = $producto;
+        $this->orden = $orden;
     }
 
     public function broadcastOn()

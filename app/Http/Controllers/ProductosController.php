@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\NewsletterEvent;
+use App\Events\NewProductsEvent;
 use Illuminate\Http\Request;
 use App\Models\Producto;
 use App\Models\Talla;
-use App\Notifications\NewsletterNotification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -40,7 +39,7 @@ class ProductosController extends Controller
         $producto->estado = "Activo";
         $producto->save();
 
-        return redirect()->back();
+        return redirect()->back()->with('update', 'ok');
 
     }
 
@@ -52,7 +51,7 @@ class ProductosController extends Controller
             $producto->save();
         });
 
-        return redirect()->route('productos');
+        return redirect()->route('productos')->with('update', 'ok');
     }
 
     public function search(Request $request)
@@ -153,10 +152,21 @@ class ProductosController extends Controller
             $producto->save();
         }
 
-        event(new NewsletterEvent($producto));
+        /*self::ordenNewProductNotification($producto); */
+
 
         return redirect()->route('productos')->with('succes', 'ok');
 
+    }
+
+    static function ordenNewProductNotification($producto)
+    {
+        //Ejemplo para conocer si las notificaciones llegan a bd o no
+        /*         User::where('rol_id', 1)
+        ->each(function(User $user) use ($orden){
+            $user->notify(new OrdenNotification($orden));
+        }); */
+        event(new NewProductsEvent($producto));
     }
 
     public function show($id){
@@ -191,7 +201,7 @@ class ProductosController extends Controller
         $producto = Producto::findOrFail($id);
         $producto->estado = "Inactivo";
         $producto->save();
-        return redirect()->route('productos');
+        return redirect()->route('productos')->with('update', 'ok');
 
     }
 
@@ -253,7 +263,7 @@ class ProductosController extends Controller
 
         $producto->save();
 
-        return redirect()->route('productos');
+        return redirect()->route('productos')->with('update', 'ok');
 
     }
 }

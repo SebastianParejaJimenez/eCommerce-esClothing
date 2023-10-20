@@ -86,7 +86,7 @@
                                         </span>
                                     </a>
                                     <div class="pl-3 ml-3 transition border-gray-500 dropdown-section nested-menu"
-                                        x-show="open">
+                                        x-show="open" >
                                         <ul class="text-sm font-medium">
                                             <li>
                                                 <a href="{{route('productos')}}"

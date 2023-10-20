@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Events\OrderStatusEvent;
 use App\Models\Orden; // Asegúrate de importar el modelo Orden
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Toastr;
@@ -29,11 +31,24 @@ class PedidosController extends Controller
     }
 
     public function updateEstado($id, $estado){
+        $orden = Orden::findOrFail($id);
+        $orden->estado = $estado;
+        $orden->save();
 
-        $pedido = Orden::findOrFail($id);
-        $pedido->estado = $estado;
-        $pedido->save();
+        self::ordenStatusMakeNotification($orden);
 
         return response()->json(['success' => true]);
     }
+
+
+    static function ordenStatusMakeNotification($orden)
+    {
+        //Ejemplo para conocer si las notificaciones llegan a bd o no
+        /*         User::where('rol_id', 1)
+        ->each(function(User $user) use ($orden){
+            $user->notify(new OrdenNotification($orden));
+        }); */
+        event(new OrderStatusEvent($orden));
+    }
+
 }

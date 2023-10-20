@@ -4,7 +4,7 @@
             <!-- Icon -->
             <img src="{{ asset('images/icon-02.svg') }}" width="32" height="32" alt="Icon 02" />
         </header>
-        <h2 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-2">Ventas</h2>
+        <h2 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-2">Ventas del Dia</h2>
         <div class="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase mb-1">Ventas
             Generadas</div>
         <div class="flex items-start">

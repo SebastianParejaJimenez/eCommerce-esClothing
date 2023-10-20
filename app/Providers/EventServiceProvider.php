@@ -2,9 +2,12 @@
 
 namespace App\Providers;
 
+use App\Events\NewProductsEvent;
 use App\Events\OrdenEvent;
-use App\Listeners\NewsletterListener;
+use App\Events\OrderStatusEvent;
+use App\Listeners\NewProductsListener;
 use App\Listeners\OrdenListener;
+use App\Listeners\OrderStatusListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -23,9 +26,14 @@ class EventServiceProvider extends ServiceProvider
         ],
         OrdenEvent::class => [
             OrdenListener::class,
-            NewsletterListener::class,
+        ],
+        OrderStatusEvent::class => [
+            OrderStatusListener::class,
+        ],
+        NewProductsEvent::class => [
+            NewProductsListener::class,
+        ],
 
-        ]
     ];
 
     /**
