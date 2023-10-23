@@ -1,5 +1,5 @@
       <!-- This example requires Tailwind CSS v2.0+ -->
-      <div class="bg-white">
+      <section id="#categorias" class="bg-white">
         <div class="py-2 sm:py-4 xl:max-w-7xl xl:mx-auto xl:px-8">
             <div class="px-4 sm:px-6 sm:flex sm:items-center sm:justify-between lg:px-8 xl:px-0">
                 <h2 class="text-2xl font-bold tracking-tight ">Comprar por Categoria</h2>
@@ -78,4 +78,4 @@
                 <a href="{{ route('catalogo') }}" class="block text-sm font-semibold text-indigo-600 hover:text-indigo-500">Consulta todas las Categorias<span aria-hidden="true"> &rarr;</span></a>
             </div>
         </div>
-    </div>
+    </section>

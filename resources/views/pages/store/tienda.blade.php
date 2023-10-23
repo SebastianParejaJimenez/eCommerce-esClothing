@@ -7,11 +7,11 @@
 
             <x-productos.contexto-empresa :productos='$producto_randoms' />
 
-
             <x-productos.top-productos :productos='$producto_randoms' />
 
             <x-tienda.comprar-por-categoria />
-            <section class="mt-6 flex items-center font-poppins dark:bg-gray-800 ">
+
+            <section class="mt-4 flex items-center font-poppins dark:bg-gray-800 ">
                 <div class="justify-center flex-1 mx-auto max-w-7xl ">
                     <div class="relative px-4 py-4 mx-4 bg-white bg-bottom bg-no-repeat bg-cover rounded-md shadow md:p-10 dark:bg-gray-900"
                         style="min-height: 380px;">
@@ -47,6 +47,8 @@
                     </div>
                 </div>
             </section>
+
+
         </div>
         <x-footers.footer-store />
 

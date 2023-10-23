@@ -59,6 +59,15 @@ class DatabaseSeeder extends Seeder
         DB::table('tallas')->insert([
             'talla'  => 'XL',
         ]);
+        DB::table('redes_sociales')->insert([
+            'link_twitter' => 'https://twitter.com/?lang=es',
+            'link_facebook' => 'https://web.facebook.com/?locale=es_LA&_rdc=1&_rdr',
+            'link_instagram' => 'https://www.instagram.com',
+            'link_whatsapp'  => 'https://www.whatsapp.com/?lang=es_LA',
+            'created_at' => now(),
+            'updated_at' => now(),
+
+        ]);
 /*         DB::table('productos')->insert([
             'nombre'  => 'Camisa',
             'categoria'     => 'Camisas',

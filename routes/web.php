@@ -8,6 +8,7 @@ use App\Http\Controllers\StoreController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PedidosController;
+use App\Http\Controllers\RedSocialController;
 use App\Http\Controllers\UsuariosController;
 /*
 |--------------------------------------------------------------------------
@@ -68,6 +69,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/marcar_Notificaciones', [NotificationController::class, 'markAllNotifications'])->name('marcar.notificaciones');
     Route::get('/marcar_notificacion/{notification_id}/{orden_id}', [NotificationController::class, 'markOneNotification'])->name('marcar.notificacion');
 
+    //Ruta Redes Sociales Editar
+    Route::get('/redes_sociales', [RedSocialController::class, 'index'])->name('redes_sociales.index');
 
 
     //Rutas Productos

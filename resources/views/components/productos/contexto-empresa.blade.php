@@ -1,4 +1,4 @@
-<section class="flex items-center justify-center dark:bg-gray-800 lg:h-min">
+<section id="Tienda" class="flex items-center justify-center dark:bg-gray-800 lg:h-min">
     <div class="px-4 py-5 mx-auto max-w-7xl">
         <div class="flex flex-wrap">
             <div class="flex-1 pl-0 lg:pl-4">
