@@ -76,7 +76,7 @@
         <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="{{ asset('js/datatables-tables.js') }}"></script>
-
+        <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
         {{ $js }}
     </body>
 </html>

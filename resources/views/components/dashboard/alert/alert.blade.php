@@ -9,8 +9,7 @@
         <ul class="mt-1.5 ml-4 list-disc list-inside">
         @foreach($errors->all() as $error)
           <li>{{$error}}</li>
-        @endforeach
+        @endforeach 
       </ul>
     </div>
   </div>
-  

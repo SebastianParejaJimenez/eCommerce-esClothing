@@ -71,6 +71,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     //Ruta Redes Sociales Editar
     Route::get('/redes_sociales', [RedSocialController::class, 'index'])->name('redes_sociales.index');
+    Route::post('/redes_sociales', [RedSocialController::class, 'update'])->name('redes_sociales.update');
 
 
     //Rutas Productos
