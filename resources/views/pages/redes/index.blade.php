@@ -111,7 +111,7 @@
     <div class="main-modal fixed w-full h-100 inset-0 z-50 overflow-hidden flex justify-center items-center animated fadeIn faster"
         style="background: rgba(0,0,0,.7);">
         <div
-            class="border border-teal-500 shadow-lg modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
+            class="border border-gray-500 shadow-lg modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
             <div class="modal-content py-4 text-left px-6">
                 <!--Title-->
                 <div class="flex justify-between items-center pb-3">
@@ -143,12 +143,10 @@
                                         </span>
                                         Link Facebook
                                     </p>
-                                    <input id="red_facebook" type="text" name="link_facebook"
+                                    <input id="red_facebook" type="url" name="link_facebook"
                                         class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 outline-none"
                                         autocomplete="off" />
 
-                                    <p class="error hidden text-red-500 text-sm italic mt-2" id="error_link_facebook">
-                                        Error link Facebook</p>
 
                                 </div>
                                 <div class="md:col-span-5">
@@ -162,11 +160,10 @@
                                         </span>
                                         Link Whatsapp
                                     </p>
-                                    <input id="red_whatsapp" type="text" name="link_whatsapp"
+                                    <input id="red_whatsapp" type="url" name="link_whatsapp"
                                         class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 outline-none"
                                         autocomplete="off" />
-                                    <p class="error hidden text-red-500 text-sm italic mt-2" id="error_link_whatsapp">
-                                        Error Link Whatsapp</p>
+
 
                                 </div>
                                 <div class="md:col-span-5">
@@ -180,11 +177,10 @@
                                         </span>
                                         Link Instagram
                                     </p>
-                                    <input type="text" name="link_instagram" id="red_instagram"
+                                    <input type="url" name="link_instagram" id="red_instagram"
                                         class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 outline-none"
                                         autocomplete="off" />
-                                    <p class="error hidden text-red-500 text-sm italic mt-2" id="error_link_instagram">
-                                        Error Link Instagram</p>
+
                                 </div>
                                 <div class="md:col-span-5">
                                     <p class="flex items-center gap-x-2">
@@ -197,11 +193,10 @@
                                         </span>
                                         Link Twitter / X
                                     </p>
-                                    <input type="text" name="link_twitter" id="red_twitter"
+                                    <input type="url" name="link_twitter" id="red_twitter"
                                         class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 outline-none"
                                         autocomplete="off" />
-                                    <p class="error hidden text-red-500 text-sm italic mt-2" id="error_link_twitter">
-                                        Error Link Twitter</p>
+
                                 </div>
                                 <div class="md:col-span-5 text-right pt-2">
                                     <div class="inline-flex items-end">
@@ -271,7 +266,8 @@
                             required: "El campo es Requerido y no puede estar Vacio.",
                             url: "El campo debe ser un a URL valida.",
                         }
-                    }
+                    },
+                    errorClass: "error text-red-500 text-sm italic mt-2",
                 });
 
             }

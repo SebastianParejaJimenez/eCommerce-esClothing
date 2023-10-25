@@ -125,7 +125,51 @@
     </div>
 
     <x-slot:js>
+        <script>
+            function validateFm() {
+                $(".formulario-validacion").validate({
+                    rules: {
+                        // simple rule, converted to {required:true}
+                        link_facebook: {
+                            required: true,
+                            url: true
+                        },
+                        link_whatsapp: {
+                            required: true,
+                            url: true
+                        },
+                        link_instagram: {
+                            required: true,
+                            url: true
+                        },
+                        link_twitter: {
+                            required: true,
+                            url: true
+                        },
+                    },
+                    messages: {
+                        link_facebook: {
+                            required: "El campo es Requerido y no puede estar Vacio.",
+                            url: "El campo debe ser un a URL valida.",
+                        },
+                        link_whatsapp: {
+                            required: "El campo es Requerido y no puede estar Vacio.",
+                            url: "El campo debe ser un a URL valida.",
+                        },
+                        link_instagram: {
+                            required: "El campo es Requerido y no puede estar Vacio.",
+                            url: "El campo debe ser un a URL valida.",
+                        },
+                        link_twitter: {
+                            required: "El campo es Requerido y no puede estar Vacio.",
+                            url: "El campo debe ser un a URL valida.",
+                        }
+                    },
+                    errorClass: "error text-red-500 text-sm italic mt-2",
+                });
 
+            }
+        </script>
     </x-slot:js>
 
 </x-app-layout>

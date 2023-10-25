@@ -168,7 +168,7 @@
     <div class="main-modal fixed w-full h-100 inset-0 z-50 overflow-hidden flex justify-center items-center animated fadeIn faster"
         style="background: rgba(0,0,0,.7);">
         <div
-            class="border border-teal-500 shadow-lg modal-container bg-white w-8/12 mx-auto rounded shadow-lg z-50 overflow-y-auto">
+            class="border border-gray-500 shadow-lg modal-container bg-white w-8/12 mx-auto rounded shadow-lg z-50 overflow-y-auto">
             <div class="modal-content py-4 text-left px-6">
                 <!--Title-->
                 <div class="flex justify-between items-center pb-3">

@@ -24,6 +24,7 @@
         "flatpickr": "^4.6.13",
         "flowbite": "^1.8.1",
         "jquery": "^3.7.0",
+        "jquery-validation": "^1.20.0",
         "list.js": "^2.3.1",
         "moment": "^2.29.4",
         "sweetalert2": "^11.7.22",
