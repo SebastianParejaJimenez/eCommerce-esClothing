@@ -119,7 +119,7 @@ class ProductosController extends Controller
             'precio' => 'required|numeric|min:1',
             'cantidad' => 'required|numeric|min:1',
             'categoria' => 'required',
-            'imagen' => 'required|image|mimes:jpg,png,gif',
+            'imagen' => 'required|image|mimes:jpg,png,jpeg',
             'tallas' => function ($attribute, $value, $fail) use ($request) {
                 if ($request->input('categoria') !== 'Accesorios' && !is_array($value)) {
                     $fail('Las tallas son requeridas para esta categoría.');

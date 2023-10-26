@@ -8,6 +8,8 @@
 </div>
 <script>
 
+let contentTable = document.getElementById('content-table')
+
 function showSpinner() {
   // Mostrar el spinner
 

@@ -19,9 +19,9 @@
             @endif
 
             @if ($productos->count())
-                <div id="content-table" class="overflow-x-auto  sm:rounded-lg">
+                <div id="content-table" class="overflow-x-auto sm:rounded-lg">
 
-                    <table id="listado" class="mt-3 w-full bg-gray-50 text-sm text-left text-gray-500 dark:text-gray-400">
+                    <table id="listado" class="mt-3 w-full bg-gray-50 text-sm text-left text-gray-500 dark:text-gray-400 ">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th class="px-6 py-3">
@@ -73,10 +73,14 @@
                                     </td>
 
                                     <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white producto_precio">
-                                        @foreach ($producto->tallas as $talla)
-                                            <span
-                                                class="bg-green-100 text-gray-900 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-gray-700 dark:text-gray-300">{{ $talla->talla }}</span>
-                                        @endforeach
+                                        @if ($producto->categoria != "Accesorios")
+                                            @foreach ($producto->tallas as $talla)
+                                                <span class="bg-green-100 text-gray-900 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-gray-700 dark:text-gray-300">{{ $talla->talla }}</span>
+                                            @endforeach
+
+                                        @else
+                                        <span class="bg-green-100 text-gray-900 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-gray-700 dark:text-gray-300">Única</span>
+                                        @endif
                                     </td>
                                     <td class="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                                         <div
@@ -167,8 +171,7 @@
 
     <div class="main-modal fixed w-full h-100 inset-0 z-50 overflow-hidden flex justify-center items-center animated fadeIn faster"
         style="background: rgba(0,0,0,.7);">
-        <div
-            class="border border-gray-500 shadow-lg modal-container bg-white w-8/12 mx-auto rounded shadow-lg z-50 overflow-y-auto">
+        <div class=" modal-container bg-white w-2/4 mx-auto rounded z-50 overflow-y-auto">
             <div class="modal-content py-4 text-left px-6">
                 <!--Title-->
                 <div class="flex justify-between items-center pb-3">
@@ -253,13 +256,25 @@
             Swal.fire({
                 position: 'top-end',
                 icon: 'success',
-                title: '¡Producto Actualizado con Exito!',
+                title: '¡Producto actualizado con éxito!',
                 showConfirmButton: false,
                 timer: 900
             })
         </script>
-
         @endif
+
+        @if(session('succes')== "ok")
+        <script>
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: '¡Producto creado con exito!',
+                showConfirmButton: false,
+                timer: 900
+            })
+        </script>
+        @endif
+
     </x-slot:js>
 
 </x-app-layout>

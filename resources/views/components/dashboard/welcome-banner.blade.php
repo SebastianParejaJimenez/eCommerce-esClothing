@@ -1,7 +1,13 @@
 @php
 use App\Models\User;
 use App\Models\Producto;
+use App\Models\EmailSubscriptions;
+
+
+$cont_sub = EmailSubscriptions::count();
 $cont_user = User::count();
+$cont_clientes = User::where('rol_id', '2')->count();
+
 $cont_prod = Producto::count();
 @endphp
 
@@ -19,12 +25,12 @@ $cont_prod = Producto::count();
                   <p class="leading-relaxed">Usuarios</p>
                 </div>
                 <div class="p-4 sm:w-1/4 w-1/2">
-                  <h2 class="title-font font-medium sm:text-4xl text-3xl text-gray-900">1.8K</h2>
+                  <h2 class="title-font font-medium sm:text-4xl text-3xl text-gray-900">{{$cont_sub}}</h2>
                   <p class="leading-relaxed">Subscriptores</p>
                 </div>
                 <div class="p-4 sm:w-1/4 w-1/2">
-                  <h2 class="title-font font-medium sm:text-4xl text-3xl text-gray-900">35</h2>
-                  <p class="leading-relaxed">Clientes Activos</p>
+                  <h2 class="title-font font-medium sm:text-4xl text-3xl text-gray-900">{{$cont_clientes}}</h2>
+                  <p class="leading-relaxed">Clientes</p>
                 </div>
                 <div class="p-4 sm:w-1/4 w-1/2">
                   <h2 class="title-font font-medium sm:text-4xl text-3xl text-gray-900">{{$cont_prod}}</h2>

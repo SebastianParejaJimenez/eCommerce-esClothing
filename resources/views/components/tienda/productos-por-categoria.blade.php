@@ -28,11 +28,11 @@
                 <div class=" hidden relative mt-4">
                     <p class="mt-1 text-sm text-gray-500">Seleccione una talla</p>
                     <select name="talla" class=" w-full rounded border appearance-none border-gray-400 py-1 hover:border-green-400 focus:outline-none focus:border-green-400 text-sm">
-                            <option value="Unico" selected>Unico</option>
+                            <option value="Unico" selected>Único</option>
                     </select>
                 </div>
                 @endif
-                
+
                 <div class="absolute top-0 inset-x-0 h-72 rounded-lg p-4 flex items-end justify-end overflow-hidden">
                     <div aria-hidden="true"
                         class="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-black opacity-50"></div>
