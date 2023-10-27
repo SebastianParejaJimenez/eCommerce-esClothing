@@ -35,8 +35,8 @@ class PedidosController extends Controller
         $orden->estado = $estado;
         $orden->save();
 
-        self::ordenStatusMakeNotification($orden);
-
+/*         self::ordenStatusMakeNotification($orden);
+ */
         return response()->json(['success' => true]);
     }
 

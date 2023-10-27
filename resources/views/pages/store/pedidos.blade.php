@@ -21,11 +21,10 @@
                 {{-- Lista --}}
                 <div class="mt-16">
                     <h2 class="sr-only">Ordenes Recientes</h2>
-                    <div class="max-w-7xl mx-auto sm:px-2 lg:px-8">
-                        <div class="max-w-2xl mx-auto space-y-8 sm:px-4 lg:max-w-4xl lg:px-0">
+                    <div class="max-w-7xl mx-auto  sm:px-2 md:px-3 lg:px-8 px-1">
+                        <div class="max-w-2xl mx-auto space-y-8  sm:px-4 lg:max-w-4xl lg:px-0 px-1">
                             <div class="mt-6 md:flex md:items-center md:justify-between">
-                                <div
-                                    class="inline-flex overflow-hidden bg-white border divide-x rounded-lg dark:bg-gray-900 rtl:flex-row-reverse dark:border-gray-700 dark:divide-gray-700">
+                                <div class="inline-flex overflow-hidden bg-white border divide-x rounded-lg dark:bg-gray-900 rtl:flex-row-reverse dark:border-gray-700 dark:divide-gray-700">
                                     <a href="{{ route('pedidos_hechos') }}" type="button"
                                         class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200
                                         @if ($buscarPedido == false) {{ 'bg-gray-100' }} @endif sm:text-sm dark:bg-gray-800 dark:text-gray-300">
@@ -64,8 +63,7 @@
                             </div>
 
                             @if ($buscarPedido == true)
-                                <div id="resultado-pedido" x-data="{ open: false }"
-                                    class="relative bg-white border-t border-b border-gray-300 shadow-sm sm:rounded-lg sm:border">
+                                <div id="resultado-pedido" x-data="{ open: false }" class="relative bg-white border-t border-b border-gray-300 shadow-sm sm:rounded-lg sm:border">
                                     <h3 class="sr-only">Order placed on <time datetime="2021-07-06">Jul 6, 2021</time></h3>
 
                                     <div
@@ -233,10 +231,8 @@
                                 </div>
                             @else
                                 @foreach ($pedidos as $pedido)
-                                    <div id="resultado-pedido" x-data="{ open: false }"
-                                        class="bg-white border-t border-b border-gray-300 shadow-sm sm:rounded-lg sm:border">
-                                        <div
-                                            class="flex items-center p-4 border-b border-gray-200 sm:p-6 sm:grid sm:grid-cols-4 sm:gap-x-6">
+                                    <div id="resultado-pedido" x-data="{ open: false }" class="bg-white border-t border-b border-gray-300 shadow-sm sm:rounded-lg sm:border">
+                                        <div class="flex items-center p-4 border-b border-gray-200 sm:p-6 sm:grid sm:grid-cols-4 sm:gap-x-6">
                                             <dl
                                                 class="flex-1 grid grid-cols-2 gap-x-6 text-sm sm:col-span-3 sm:grid-cols-3 lg:col-span-2">
                                                 <div>
@@ -335,14 +331,14 @@
 
                                         <!-- Productos -->
                                         <h4 class="sr-only">Items</h4>
-                                        <ul x-show="open" 
+                                        <ul x-show="open"
                                         x-transition:enter="transition ease-out duration-200 "
-                                        x-transition:enter-start="opacity-0 " 
+                                        x-transition:enter-start="opacity-0 "
                                         x-transition:enter-end="opacity-100"
-                                        x-transition:leave="transition ease-in duration-150" 
+                                        x-transition:leave="transition ease-in duration-150"
                                         x-transition:leave-start="opacity-100"
-                                        x-transition:leave-end="opacity-0" 
-                                        x-cloak 
+                                        x-transition:leave-end="opacity-0"
+                                        x-cloak
                                         role="list" class="divide-y divide-gray-200">
                                             <li class="p-4 sm:p-6">
                                                 @foreach ($pedido->productos as $producto)

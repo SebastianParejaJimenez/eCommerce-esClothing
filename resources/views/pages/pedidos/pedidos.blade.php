@@ -6,7 +6,6 @@
 
             @if (!$ordenes->count())
                 <div class="text-center mt-12  py-20 rounded-md dark:bg-slate-500">
-
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                         class="mx-auto h-12 w-12 text-gray-400 dark:text-gray-200" viewBox="0 0 24 24"
                         style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;">
@@ -22,8 +21,8 @@
 
 
             @if ($ordenes->count())
-                <div class="bg-white px-4 py-5 sm:px-6">
-                    <h3 class="text-lg leading-6 font-medium text-gray-900">Pedidos</h3>
+                <div class="px-4 py-3 sm:px-6">
+                    <h3 class="text-lg leading-6 font-medium ">Pedidos</h3>
                     <p class="mt-1 text-sm text-gray-500">A continuación podras ver aquellos pedidos hechos por los
                         clientes.</p>
                 </div>

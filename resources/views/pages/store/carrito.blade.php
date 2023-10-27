@@ -345,10 +345,9 @@
 
             @endif
 
-            <div class="main-modal fixed w-full h-100 inset-0 z-50 overflow-auto flex justify-center items-center animated fadeIn faster"
+            <div class="main-modal fixed w-full h-100  inset-0 z-50 overflow-auto flex justify-center items-center animated fadeIn faster"
                 style="background: rgba(0,0,0,.7);">
-                <div
-                    class="border border-teal-500 shadow-lg modal-container bg-white w-7/12 h-auto  mx-auto rounded shadow-lg z-50 overflow-auto	">
+                <div class="border border-gray-500 shadow-lg modal-container bg-white w-7/12 h-[97%] max-h-[97%] mx-auto rounded shadow-lg z-50 overflow-auto">
                     <div class="modal-content py-4 text-left px-6">
                         <!--Title-->
                         <div class="flex justify-between items-center pb-3">
@@ -363,7 +362,7 @@
                             </div>
                         </div>
                         <!--Body-->
-                        <div class="my-5">
+                        <div class="my-5 max-h-full">
                             @if (Auth::user())
                                 @livewire('profile.update-profile-information-form')
                             @endif

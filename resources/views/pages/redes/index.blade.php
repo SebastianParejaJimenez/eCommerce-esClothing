@@ -45,13 +45,13 @@
 
 
     <section class="px-4 sm:px-6 lg:px-8 py-4 w-full max-w-9xl mx-auto">
-        <div class="bg-white p-7 rounded-lg">
+        <div class=" bg-white dark:bg-slate-800 p-7 rounded-lg">
             <!-- This example requires Tailwind CSS v2.0+ -->
-            <div class="px-4 sm:px-6 lg:px-8">
+            <div class="  px-4 sm:px-6 lg:px-8">
                 <div class="sm:flex sm:items-center">
                     <div class="sm:flex-auto">
-                        <h1 class="text-xl font-semibold text-gray-900">Redes Sociales</h1>
-                        <p class="mt-2 text-sm text-gray-700">A continuacion podras ver y editar los links de tus redes
+                        <h1 class="text-xl font-semibold ">Redes Sociales</h1>
+                        <p class="mt-2 text-sm ">A continuacion podras ver y editar los links de tus redes
                             sociales que estan disponibles para tus clientes.</p>
                     </div>
                 </div>
@@ -59,35 +59,35 @@
                     <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
                         <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
                             <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
-                                <table class="min-w-full divide-y divide-gray-300">
-                                    <thead class="bg-gray-50">
+                                <table class="min-w-full divide-y divide-gray-300 dark:bg-gray-800">
+                                    <thead class="bg-gray-50 dark:bg-gray-800">
                                         <tr>
                                             <th scope="col"
-                                                class="py-3 pl-4 pr-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500 sm:pl-6">
+                                                class="py-3 pl-4 pr-3 text-left text-xs font-medium uppercase tracking-wide  sm:pl-6">
                                                 Link Facebook</th>
                                             <th scope="col"
-                                                class="py-3 pl-4 pr-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500 sm:pl-6">
+                                                class="py-3 pl-4 pr-3 text-left text-xs font-medium uppercase tracking-wide  sm:pl-6">
                                                 Link Whatsapp</th>
                                             <th scope="col"
-                                                class="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500">
+                                                class="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide ">
                                                 Link Instagram</th>
                                             <th scope="col"
-                                                class="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500">
+                                                class="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide ">
                                                 Link Twitter / X</th>
                                             <th scope="col" class="relative py-3 pl-3 pr-4 sm:pr-6">
                                                 <span class="sr-only">Edit</span>
                                             </th>
                                         </tr>
                                     </thead>
-                                    <tbody class="divide-y divide-gray-200 bg-white">
+                                    <tbody class="divide-y divide-gray-200 dark:divide-gray-800 dark:bg-slate-900">
                                         <tr>
-                                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                            <td class="whitespace-nowrap px-3 py-4 text-sm ">
                                                 {{ $redes->link_facebook }}</td>
-                                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                            <td class="whitespace-nowrap px-3 py-4 text-sm ">
                                                 {{ $redes->link_whatsapp }}</td>
-                                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                            <td class="whitespace-nowrap px-3 py-4 text-sm ">
                                                 {{ $redes->link_instagram }}</td>
-                                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                            <td class="whitespace-nowrap px-3 py-4 text-sm ">
                                                 {{ $redes->link_twitter }}</td>
                                             <td
                                                 class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
@@ -128,8 +128,8 @@
                 <!--Body-->
                 <div class="my-5">
                     <div class="my-5">
-                        <form action="{{route('redes_sociales.update')}}" class="formulario-validacion" method="POST" enctype="multipart/form-data"
-                            id="form-edit">
+                        <form action="{{ route('redes_sociales.update') }}" class="formulario-validacion" method="POST"
+                            enctype="multipart/form-data" id="form-edit">
                             @csrf
                             <div class="grid gap-4 gap-y-3 text-sm grid-cols-1 md:grid-cols-5">
                                 <div class="md:col-span-5">
@@ -201,7 +201,7 @@
                                 <div class="md:col-span-5 text-right pt-2">
                                     <div class="inline-flex items-end">
                                         <p
-                                            class="bg-gray-500 hover:bg-gray-400 text-white font-bold py-2 px-4 rounded transition-colors duration-300 modal-cancel-edit cursor-pointer">
+                                            class="modal-cancel bg-gray-500 hover:bg-gray-400 text-white font-bold py-2 px-4 rounded transition-colors duration-300 modal-cancel-edit cursor-pointer">
                                             Cancelar
                                         </p>
                                     </div>
@@ -222,11 +222,10 @@
     </div>
 
     <x-slot:js>
-
-
         <script>
             const modal = document.querySelector('.main-modal');
             const closeButton = document.querySelectorAll('.modal-close');
+            const cancelButton = document.querySelectorAll('.modal-cancel');
 
             function validateFm() {
                 $(".formulario-validacion").validate({
@@ -280,11 +279,15 @@
                 }, 500);
             }
 
-            const openModal = (redes_sociales) => {
-                modal.classList.remove('fadeOut');
-                modal.classList.add('fadeIn');
-                modal.style.display = 'flex';
+            const modalCancel = () => {
+                modal.classList.remove('fadeIn');
+                modal.classList.add('fadeOut');
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                }, 500);
+            }
 
+            const openModal = (redes_sociales) => {
                 modal.classList.remove('fadeOut');
                 modal.classList.add('fadeIn');
                 modal.style.display = 'flex';
@@ -313,6 +316,18 @@
 
                 modal.style.display = 'none';
 
+            }
+
+            for (let i = 0; i < cancelButton.length; i++) {
+                const elements = cancelButton[i];
+
+                elements.onclick = (e) => modalCancel();
+
+                modal.style.display = 'none';
+
+                window.onclick = function(event) {
+                    if (event.target == modal) modalCancel();
+                }
             }
         </script>
 

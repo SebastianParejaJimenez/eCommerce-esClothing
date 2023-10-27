@@ -27,23 +27,23 @@ class ProductosController extends Controller
         $tallas = Talla::get();
         $rol = Auth::user()->rol_id;
         if ($rol == 1) {
-        return view('pages/productos/productos', compact('productos', 'tallas'));
+            return view('pages/productos/productos', compact('productos', 'tallas'));
         }
         return redirect()->route('tienda');
-
     }
 
 
-    public function activar($id){
+    public function activar($id)
+    {
         $producto = Producto::findOrFail($id);
         $producto->estado = "Activo";
         $producto->save();
 
         return redirect()->back()->with('update', 'ok');
-
     }
 
-    public function activarAll(){
+    public function activarAll()
+    {
         $productos = Producto::where('estado', 'inactivo');
 
         $productos->each(function ($producto) {
@@ -67,17 +67,18 @@ class ProductosController extends Controller
         return view('pages/productos/productos', compact('productos'));
     }
 
-    public function estadisticas(Request $request){
+    public function estadisticas(Request $request)
+    {
         $productosVendidos = Producto::withCount('ordenProductos')->orderBy('orden_productos_count', 'desc')->get();
 
 
         $productosConVentas = Producto::all();
 
         $productos_mes = Producto::selectRaw('MONTH(orden_productos.created_at) as mes, COUNT(orden_productos.id) as total_ventas')
-        ->join('orden_productos', 'productos.id', '=', 'orden_productos.producto_id')
-        ->groupBy('mes')
-        ->orderBy('mes')
-        ->get();
+            ->join('orden_productos', 'productos.id', '=', 'orden_productos.producto_id')
+            ->groupBy('mes')
+            ->orderBy('mes')
+            ->get();
 
         $data_barras = [];
         $data = [];
@@ -100,31 +101,27 @@ class ProductosController extends Controller
         return view('pages/productos/estadisticas', $data, $data_barras);
     }
 
-    public function create(Request $request){
+    public function create(Request $request)
+    {
         $rol = Auth::user()->rol_id;
         $tallas = Talla::get();
 
         if ($rol == 1) {
-        return view('pages/productos/create', compact('tallas'));
+            return view('pages/productos/create', compact('tallas'));
         }
 
 
         return redirect()->route('tienda');
-
     }
-    public function store(Request $request){
-
+    public function store(Request $request)
+    {
         $request->validate([
             'nombre' => 'required',
             'precio' => 'required|numeric|min:1',
             'cantidad' => 'required|numeric|min:1',
             'categoria' => 'required',
             'imagen' => 'required|image|mimes:jpg,png,jpeg',
-            'tallas' => function ($attribute, $value, $fail) use ($request) {
-                if ($request->input('categoria') !== 'Accesorios' && !is_array($value)) {
-                    $fail('Las tallas son requeridas para esta categoría.');
-                }
-            },
+            'tallas' => 'required_unless:categoria,Accesorios',
         ]);
 
         $producto = new Producto();
@@ -137,26 +134,20 @@ class ProductosController extends Controller
         if ($request->hasFile('imagen')) {
             $imagen = $request->file('imagen');
             $rutaGuardarImagen = "productos_subidos/";
-            $imgGuardado = date('YmdHis'). "." . $imagen->getClientOriginalExtension();
+            $imgGuardado = date('YmdHis') . "." . $imagen->getClientOriginalExtension();
             $imagen->move($rutaGuardarImagen, $imgGuardado);
 
             $producto['imagen'] = $imgGuardado;
-
         }
 
-        if ($request->input('categoria') !== 'Accesorio') {
-            $tallasSeleccionada = $request->input('tallas');
-            $producto->save();
-            $producto->tallas()->attach($tallasSeleccionada);
-        } else {
-            $producto->save();
-        }
+        $tallasSeleccionada = $request->input('tallas');
+        $producto->save();
+        $producto->tallas()->attach($tallasSeleccionada);
 
         /*self::ordenNewProductNotification($producto); */
 
 
         return redirect()->route('productos')->with('succes', 'ok');
-
     }
 
     static function ordenNewProductNotification($producto)
@@ -169,11 +160,11 @@ class ProductosController extends Controller
         event(new NewProductsEvent($producto));
     }
 
-    public function show($id){
+    public function show($id)
+    {
         $producto = Producto::with(['tallas'])->findOrFail($id);
 
-        return view('pages.productos.show', compact( 'producto'));
-
+        return view('pages.productos.show', compact('producto'));
     }
 
     public function sumar(Request $request, $id)
@@ -196,16 +187,17 @@ class ProductosController extends Controller
         return redirect()->route('productos');
     }
 
-    public function destroy($id){
+    public function destroy($id)
+    {
 
         $producto = Producto::findOrFail($id);
         $producto->estado = "Inactivo";
         $producto->save();
         return redirect()->route('productos')->with('update', 'ok');
-
     }
 
-    public function edit($id){
+    public function edit($id)
+    {
         $producto = Producto::with(['tallas'])->findOrFail($id);
         $rol = Auth::user()->rol_id;
         $tallasSeleccionadas = $producto->tallas->pluck('id')->toArray();
@@ -217,12 +209,11 @@ class ProductosController extends Controller
         }
 
         return redirect()->route('tienda');
-
     }
 
 
-    public function update(Request $request, $id){
-
+    public function update(Request $request, $id)
+    {
         $producto = Producto::with(['tallas'])->findOrFail($id);
 
         $request->validate([
@@ -230,8 +221,8 @@ class ProductosController extends Controller
             'precio' => 'required|numeric|min:1',
             'cantidad' => 'required|numeric|min:1',
             'categoria' => 'required',
-            'imagen' => 'image|mimes:jpg,png,gif',
-            'tallas' => 'required',
+            'imagen' => 'image|mimes:jpg,png,gif|max:10000',
+            'tallas' => 'required_unless:categoria,Accesorios',
         ]);
 
         $imagenAnterior = $producto->imagen;
@@ -240,7 +231,6 @@ class ProductosController extends Controller
         $producto->precio = $request->input('precio');
         $producto->cantidad = $request->input('cantidad');
         $producto->categoria = $request->input('categoria');
-
         if ($request->hasFile('imagen')) {
 
             if ($imagenAnterior) {
@@ -252,18 +242,22 @@ class ProductosController extends Controller
             ]);
             $imagen = $request->file('imagen');
             $rutaGuardarImagen = "productos_subidos/";
-            $imgGuardado = date('YmdHis'). "." . $imagen->getClientOriginalExtension();
+            $imgGuardado = date('YmdHis') . "." . $imagen->getClientOriginalExtension();
             $imagen->move($rutaGuardarImagen, $imgGuardado);
 
             $producto['imagen'] = $imgGuardado;
         }
 
-        $tallasSeleccionadas =$request->input('tallas');;
-        $producto->tallas()->sync($tallasSeleccionadas);
+        if ($request->input('categoria') !== 'Accesorios') {
+            $tallasSeleccionada = $request->input('tallas');
+            $producto->tallas()->sync($tallasSeleccionada);
+            $producto->save();
+        } else {
+            $producto->tallas()->sync([]);
+            $producto->save();
+        }
 
-        $producto->save();
 
         return redirect()->route('productos')->with('update', 'ok');
-
     }
 }

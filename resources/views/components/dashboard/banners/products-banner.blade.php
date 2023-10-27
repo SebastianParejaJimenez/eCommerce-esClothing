@@ -3,7 +3,7 @@ use App\Models\Producto;
 $cont_prod= Producto::where('estado','activo')->count();
 
 @endphp
-<div class="lg:flex lg:items-center lg:justify-between py-7">
+<div class="lg:flex lg:items-center lg:justify-between py-3">
     <div class="min-w-0 flex-1">
       <div class="flex items-center gap-x-3">
         <h2 class="text-lg font-medium text-gray-800 dark:text-white">Productos</h2>

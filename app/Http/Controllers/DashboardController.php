@@ -23,11 +23,11 @@ class DashboardController extends Controller
         $productosConVentas = Producto::withCount('ordenProductos')->orderBy('orden_productos_count', 'desc')->take(5)->get();
 
         $ordenes_recientes = Orden::with('user')
-            ->where('estado', 'COMPLETADO')
+            ->where('estado', '!=', 'CANCELADO')
+            ->where('estado', '!=', 'PENDIENTE')
             ->orderBy('created_at', 'desc')
             ->whereDay('created_at', Carbon::now()->day)
-            ->limit('5')
-            ->paginate('5');
+            ->paginate('4');
 
         $total_ventas = Orden::whereDay('created_at', Carbon::now()->day)
         ->where('estado', 'COMPLETADO')->get()->sum('total');

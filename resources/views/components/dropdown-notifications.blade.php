@@ -47,7 +47,7 @@
                                     {{ $notification->data['name'] }}, Ha realizado un pedido por:
                                     {{ $notification->data['subtotal'] }}$</span>
                                 <span class="block text-xs font-medium text-slate-400 dark:text-slate-500">Fecha:
-                                    {{ \Carbon\Carbon::parse($notification->data['orden_date'])->formatLocalized('%d %B %Y %I:%M %p') }}</span>
+                                    {{ \Carbon\Carbon::parse($notification->created_at)->formatLocalized('%d %B %Y %I:%M %p')  }}</span>
                         </a>
                     </li>
                 @endforeach

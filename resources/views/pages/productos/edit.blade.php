@@ -3,21 +3,22 @@
     <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
 
 
-        @if ($errors->any())
-            <x-dashboard.alert.alert />
-        @endif
-
 
         <div class="container max-w-screen-xl">
             <div>
+
                 <div class="rounded shadow-lg p-4 px-4 md:p-8 mb-6 bg-white dark:bg-gray-800 ">
+                    @if ($errors->any())
+                    <x-dashboard.alert.alert />
+                    @endif
+
                     <div class="  grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
                         <div class="text-gray-600 dark:text-white">
                             <p class="font-medium text-lg">Registro de Producto</p>
                             <p>Por favor llene todos los campos con la informacion requerida.</p>
                         </div>
 
-                        <div class="lg:col-span-2">
+                        <div class="lg:col-span-2" x-data="{ selectedCategory: '{{$producto->categoria}}' }">
                             <form method="POST" enctype="multipart/form-data" action="{{ route('productos.update', ['producto' => $producto->id]) }}"
                                 class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
                                 @csrf
@@ -30,57 +31,54 @@
                                 </div>
 
                                 <div class="md:col-span-5 dark:text-white mb-3">
-                                    <label for="email">Precio</label>
-                                    <input value="{{$producto->precio}}"  type="number" id="precio" name="precio"
+                                    <label for="precio">Precio</label>
+                                    <input value="{{$producto->precio}}" type="number" id="precio" name="precio"
                                         placeholder="Ingrese el Precio que tendra este Producto"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
 
                                 </div>
 
                                 <div class="md:col-span-3 dark:text-white mb-3">
-                                    <label for="address">Cantidad</label>
+                                    <label for="cantidad">Cantidad</label>
                                     <input type="number" id="cantidad" name="cantidad" value="{{$producto->cantidad}}"
                                         placeholder="Ingrese las Cantidades que tenga del Producto"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 </div>
 
                                 <div class="md:col-span-2 dark:text-white mb-3">
-                                    <label
-                                        for="text"class="block text-sm font-medium text-gray-900 dark:text-white">Categoria</label>
+                                    <label for="categoria"class="block text-sm font-medium text-gray-900 dark:text-white">Categoria</label>
 
-                                    <select type="text" id="categoria" name="categoria"
-                                        placeholder="Ingrese La categoria que tendra este Producto"
+                                    <select x-model="selectedCategory" type="text" id="categoria" name="categoria"  placeholder="Ingrese La categoria que tendra este Producto"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
 
                                         <option value="{{$producto->categoria}}" selected>{{$producto->categoria}}</option>
                                         {!! $producto->categoria != "Camisas" ? '<option value="Camisas">Camisas</option>' : '' !!}
                                         {!! $producto->categoria != "Chaquetas-Buzos" ? '<option value="Chaquetas-Buzos">Chaquetas y Buzos</option>' : '' !!}
                                         {!! $producto->categoria != "Pantalones" ? '<option value="Pantalones">Pantalones</option>' : '' !!}
+                                        {!! $producto->categoria != "Accesorio" ? '<option value="Accesorios">Accesorios</option>' : '' !!}
                                         {!! $producto->categoria != "Vestidos" ? '<option value="Vestidos">Vestidos</option>' : '' !!}
                                         {!! $producto->categoria != "Conjuntos" ? '<option value="Conjuntos">Conjuntos</option>' : '' !!}
                                     </select>
 
 
                                 </div>
-                                <div class="md:col-span-5 dark:text-white mb-3">
+                                <div class="md:col-span-5 dark:text-white mb-3"  >
                                     <label
-                                        for="image"class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Subir
+                                        for="imagen"class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Subir
                                         Imagen
                                         del Producto</label>
                                     <img src="{{ url('productos_subidos') }}/{{$producto->imagen}}" alt="Foto actual" width="100" class="py-2 px-2">
 
                                     <input
-                                        class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                        class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"  id="imagen"
                                         aria-describedby="file_input_help" id="file_input" type="file"
-                                        name="imagen">
+                                        name="imagen" accept="image/png, image/jpeg, image/jpg">
 
-                                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help"> PNG,
-                                        JPG or GIF(MAX.
-                                        ).</p>
+                                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-300 bold" id="file_input_help">Unicamente tipos de Archivos: PNG, JPG o JPEG(MAX. 10MB).</p>
 
                                 </div>
 
-                                <div class="md:col-span-5 mb-3 ">
+                                <div class="md:col-span-5 mb-3 " x-show="selectedCategory !== 'Accesorios'">
                                     <label
                                         for="image"class="inline-block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tallas
                                         Disponibles</label>
@@ -114,10 +112,8 @@
 
                         <div class="md:col-span-5 text-right">
                             <div class="inline-flex items-end">
-                                <button type="submit"
-                                    class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded mx-3">Guardar</button>
-                                <a href="{{ route('productos') }}"
-                                    class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mx-3">Cancelar</a>
+                                <a href="{{ route('productos') }}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mx-3">Cancelar</a>
+                                <button type="submit" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded mx-3">Guardar</button>
                             </div>
                         </div>
 
@@ -131,36 +127,7 @@
     </div>
 
     <x-slot:js>
-         <script>
-            $('form').submit(function(e) {
-                e.preventDefault();
 
-
-                let hayAlMenosUnCheckboxCheckeado = false;
-
-                $('input[type="checkbox"]:checked').each(function(index, checkbox) {
-                    if (checkbox.checked) {
-                        hayAlMenosUnCheckboxCheckeado = true;
-                        return;
-                    }
-                });
-
-                console.log(hayAlMenosUnCheckboxCheckeado)
-
-                if (!hayAlMenosUnCheckboxCheckeado) {
-                    Swal.fire({
-                        title: 'Faltan Datos',
-                        text: "Necesitas seleccionar una talla para poder agregar al Carrito!",
-                        icon: 'warning',
-                        showCancelButton: false,
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: 'Aceptar'
-                    })
-                } else {
-                    this.submit();
-                }
-            });
-        </script>
     </x-slot:js>
 
 </x-app-layout>

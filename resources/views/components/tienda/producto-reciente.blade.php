@@ -32,7 +32,15 @@
                         @endforeach
                     @endif
                 </div>
+                 @else
+                <div class="hidden relative mt-4">
+                    <p class="mt-1 text-sm text-gray-500">Seleccione una talla</p>
+                    <select name="talla" class=" w-full rounded border appearance-none border-gray-400 py-1 hover:border-green-400 focus:outline-none focus:border-green-400 text-sm">
+                            <option value="Unico" selected>Único</option>
+                    </select>
+                </div>
                 @endif
+
             </div>
 
             <div class="flex items-center mt-6">

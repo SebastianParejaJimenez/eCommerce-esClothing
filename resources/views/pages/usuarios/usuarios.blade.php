@@ -55,15 +55,13 @@
         </style>
 
         <section class="container px-4 mx-auto">
-            <div class="flex flex-col">
+            <div class="flex flex-col m-6">
                 <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                    <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                    <div class="inline-block min-w-full align-middle md:px-6 lg:px-8 rounded-lg p-7 bg-white dark:bg-slate-800">
                         <x-dashboard.banners.usuarios-inactivo-banner />
 
                         <div class="overflow-hidden  dark:border-gray-700 md:rounded-lg">
                             <x-dashboard.spinner-loading />
-{{--                             <input placeholder="Buscar" name="q" class="appearance-none rounded-r rounded-l sm:rounded-l-none border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none" />
- --}}
                             <table class="min-w-full divide-y datatable  divide-gray-200 dark:divide-gray-700" id="listado" >
                                 <thead class="bg-gray-50 dark:bg-gray-800">
                                     <tr>
@@ -185,4 +183,8 @@
                 </div>
             </div>
         </section>
+
+    <x-slot:js>
+    </x-slot:js>
+
     </x-app-layout>

@@ -112,6 +112,7 @@ class CarritoController extends Controller
     }
     public function session()
     {
+
         $productItems = [];
         $user         = auth()->user();
         $curl = new \Stripe\HttpClient\CurlClient([CURLOPT_SSLVERSION => CURL_SSLVERSION_TLSv1]);
@@ -164,7 +165,6 @@ class CarritoController extends Controller
 
         try {
             $session = \Stripe\Checkout\Session::retrieve($sessionId);
-
             if (!$session) {
                 dd('session var no encontrada');
                 throw new NotFoundHttpException;
