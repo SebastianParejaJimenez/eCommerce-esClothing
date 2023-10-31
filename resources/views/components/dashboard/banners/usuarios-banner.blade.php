@@ -1,14 +1,8 @@
-@php
-use App\Models\User;
-$cont_user= User::where('estado', '=', 'inactivo')->withTrashed()->count();
 
-@endphp
-<div class="sm:flex sm:items-center sm:justify-between my-8">
+<div class="sm:flex sm:items-center sm:justify-between my-5">
   <div>
       <div class="flex items-center gap-x-3">
-          <h2 class="text-lg font-medium text-gray-800 dark:text-white">Usuarios Inactivos</h2>
-
-          <span class="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400">{{$cont_user}}</span>
+          <h2 class="text-lg font-medium text-gray-800 dark:text-white">Usuarios</h2>
       </div>
        <p class="mt-1 text-sm text-gray-500 dark:text-gray-300">En la siguiente tabla podras consultar todos los usuarios registrados en tu sistema.</p>
  </div>

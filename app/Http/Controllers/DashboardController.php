@@ -30,10 +30,15 @@ class DashboardController extends Controller
             ->paginate('4');
 
         $total_ventas = Orden::whereDay('created_at', Carbon::now()->day)
-        ->where('estado', 'COMPLETADO')->get()->sum('total');
+        ->where('estado', '!=', 'CANCELADO')
+        ->where('estado', '!=', 'PENDIENTE')
+        ->get()
+        ->sum('total');
 
         $ventas = Orden::whereDay('created_at', Carbon::now()->day)
-        ->where('estado', 'COMPLETADO')->get();
+        ->where('estado', '!=', 'CANCELADO')
+        ->where('estado', '!=', 'PENDIENTE')
+        ->get();
 
         $data = [];
         foreach ($ventas as $venta) {

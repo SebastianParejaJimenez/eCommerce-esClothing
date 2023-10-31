@@ -22,7 +22,7 @@
         <div class="">
             <div class="body-content" x-data="{ open: true }">
                 <div class="relative lg:block navbar-menu">
-                    <nav x-bind:class="! open ? 'w-0' : 'w-[280px]'" class="fixed top-0 transition-all lg:mt-0 z-0  left-0 dark:bg-gray-900 bottom-0 flex flex-col w-[280px] lg:border-none border-r border-gray-200 dark:border-gray-800 bg-gray-50 overflow-hidden "
+                    <nav x-bind:class="! open ? 'w-0' : 'w-[280px]'" class="fixed top-0 transition-all lg:mt-0 z-0  left-0 dark:bg-[#182235] bottom-0 flex flex-col w-[280px] lg:border-none border-r border-gray-200 dark:border-gray-800 bg-gray-50 overflow-hidden "
                         id="sidenav">
                         <div
                             class="flex items-center w-full px-4 pt-4 pb-4 mb-4 border-b border-gray-200 dark:border-gray-700">

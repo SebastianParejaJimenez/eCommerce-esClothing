@@ -1,64 +1,9 @@
     <x-app-layout>
-        <style>
-            /*Overrides for Tailwind CSS */
-
-            /*Form fields*/
-            .dataTables_wrapper select,
-            .dataTables_wrapper .dataTables_filter input:hover {
-                border-color: #6366F1;
-                margin-bottom: 5%;
-            }
-
-
-            /*Pagination Buttons*/
-            .dataTables_wrapper .dataTables_paginate .paginate_button {
-                font-weight: 700;
-                /*font-bold*/
-                border-radius: .25rem;
-                /*rounded*/
-                border: 1px solid transparent;
-                /*border border-transparent*/
-            }
-
-            /*Pagination Buttons - Current selected */
-            .dataTables_wrapper .dataTables_paginate .paginate_button.current {
-                color: #fff !important;
-                /*text-white*/
-                box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
-                /*shadow*/
-                font-weight: 700;
-                /*font-bold*/
-                border-radius: .25rem;
-                /*rounded*/
-                background: #667eea !important;
-                /*bg-indigo-500*/
-                border: 1px solid transparent;
-                /*border border-transparent*/
-            }
-
-            /*Pagination Buttons - Hover */
-            .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-                color: #fff !important;
-                /*text-white*/
-                box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
-                /*shadow*/
-                font-weight: 700;
-                /*font-bold*/
-                border-radius: .25rem;
-                /*rounded*/
-                background: #667eea !important;
-                /*bg-indigo-500*/
-                border: 1px solid transparent;
-                /*border border-transparent*/
-            }
-
-        </style>
-
         <section class="container px-4 mx-auto">
             <div class="flex flex-col m-6">
                 <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="inline-block min-w-full align-middle md:px-6 lg:px-8 rounded-lg p-7 bg-white dark:bg-slate-800">
-                        <x-dashboard.banners.usuarios-inactivo-banner />
+                        <x-dashboard.banners.usuarios-banner />
 
                         <div class="overflow-hidden  dark:border-gray-700 md:rounded-lg">
                             <x-dashboard.spinner-loading />
