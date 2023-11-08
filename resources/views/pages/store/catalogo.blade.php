@@ -81,11 +81,17 @@
                                         Conjuntos </a>
                                 </li>
                             </ul>
+
                         </div>
                     </div>
                 </div>
 
-                <main class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
+                <main x-data="{
+                    openTab: 1,
+                    activeClass:'border-b-3 border-b-blue-400 cursor-pointer pl-2 text-blue-700 min-w-0 flex-1 hover:text-gray-500 hover:border-b-gray-400',
+                    inactiveClass:'cursor-pointer pl-1 hover:text-blue-600 min-w-0 flex-1 text-gray-500',
+                    underlineActive: 'border-indigo-500 text-indigo-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm',
+                    underlineInactive: 'bg-transparent absolute inset-x-0 bottom-0 h-0.5'}" class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="relative flex items-baseline justify-between pt-16 pb-6 border-b border-gray-200">
                         <p class="text-3xl font-extrabold tracking-tight text-gray-700">Nuestros Productos</p>
 
@@ -116,73 +122,25 @@
                         </div>
                     </div>
 
-                    <section x-data="{ selectedSizes: [] }" aria-labelledby="products-heading" class="pt-6 pb-24">
+                    <section aria-labelledby="products-heading" class="pt-6 pb-24">
                         <h2 id="products-heading" class="sr-only">Productos</h2>
 
                         <div class="grid grid-cols-1 lg:grid-cols-4 gap-x-8 gap-y-10">
                             <!-- Filters web -->
                             <form class="hidden lg:block">
-                                <h3 class="sr-only">Categorias</h3>
-                                <ul role="list"
-                                    class="text-sm font-medium text-gray-900 space-y-4 pb-6 border-b border-gray-200">
-                                    <li>
-                                        <a href="{{ route('catalogo') }}" class="block px-2 py-3"> Todos los Productos
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <a href="{{ route('catalogo_categoria', ['categoria' => 'Accesorios']) }}"
-                                            class="block @if (Request::segment(2) === 'Accesorios') {{ 'text-blue-600 ' }} @endif px-2 py-3">
-                                            Accesorios </a>
-                                    </li>
-
-                                    <li>
-                                        <a href="{{ route('catalogo_categoria', ['categoria' => 'Chaquetas-Buzos']) }}"
-                                            class="block @if (Request::segment(2) === 'Chaquetas-Buzos') {{ 'text-blue-600 ' }} @endif px-2 py-3">
-                                            Chaquetas y Buzos </a>
-                                    </li>
-
-                                    <li>
-                                        <a href="{{ route('catalogo_categoria', ['categoria' => 'Camisas']) }}"
-                                            class="block px-2 py-3 @if (Request::segment(2) === 'Camisas') {{ 'text-blue-600 ' }} @endif">
-                                            Camisas </a>
-                                    </li>
-
-                                    <li>
-                                        <a href="{{ route('catalogo_categoria', ['categoria' => 'Vestidos']) }}"
-                                            class="block px-2 py-3 @if (Request::segment(2) === 'Vestidos') {{ 'text-blue-600 ' }} @endif">
-                                            Vestidos </a>
-                                    </li>
-
-                                    <li>
-                                        <a href="{{ route('catalogo_categoria', ['categoria' => 'Shorts']) }}"
-                                            class="block px-2 py-3 @if (Request::segment(2) === 'Shorts') {{ 'text-blue-600 ' }} @endif">
-                                            Shorts </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('catalogo_categoria', ['categoria' => 'Pantalones']) }}"
-                                            class="block px-2 py-3 @if (Request::segment(2) === 'Pantalones') {{ 'text-blue-600 ' }} @endif">
-                                            Pantalones </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('catalogo_categoria', ['categoria' => 'Conjuntos']) }}"
-                                            class="block px-2 py-3 @if (Request::segment(2) === 'Conjuntos') {{ 'text-blue-600 ' }} @endif">
-                                            Conjuntos </a>
-                                    </li>
-                                </ul>
 
                                 <!-- Filters talla web -->
-                                {{--         <div  x-data="{ openSizes: false }" class="border-b border-gray-200 py-6">
+                                <div  x-data="{ openSizes: true }" class="border-b border-gray-200 py-6">
                                     <h3 class="-my-3 flow-root">
                                         <!-- Expand/collapse section button -->
                                         <button  @click="openSizes = ! openSizes" type="button"
                                             class="py-3 bg-white w-full flex items-center justify-between text-sm text-gray-400 hover:text-gray-500"
                                             aria-controls="filter-section-2" aria-expanded="false">
-                                            <span class="font-medium text-gray-900"> Talla </span>
+                                            <span class="font-medium text-gray-900"> Tallas </span>
                                             <span class="ml-6 flex items-center">
                                                 <!--
                                                 Expand icon, show/hide based on section open state.
-                          
+
                                                 Heroicon name: solid/plus-sm
                                               -->
                                                 <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg"
@@ -193,7 +151,7 @@
                                                 </svg>
                                                 <!--
                                                 Collapse icon, show/hide based on section open state.
-                          
+
                                                 Heroicon name: solid/minus-sm
                                               -->
                                                 <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg"
@@ -203,60 +161,149 @@
                                                         clip-rule="evenodd" />
                                                 </svg>
 
-                                                
+
                                             </span>
                                         </button>
                                     </h3>
-                                  
-                                    <div x-show="openSizes" 
+
+                                    <div x-show="openSizes"
+                                    x-transition:enter="transition ease-out duration-200 "
+                                    x-transition:enter-start="opacity-0 " x-transition:enter-end="opacity-100"
+                                    x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
+                                    x-transition:leave-end="opacity-0" x-cloak class="pt-6" id="filter-section-2">
+                                    <div class="space-y-6 text-sm font-medium text-gray-900 space-y-2 pb-6 border-b border-gray-200">
+                                        <div class="flex items-center">
+                                          <label  @click="openTab = 1" :class="openTab === 1 ? activeClass :inactiveClass" class="cursor-pointer pl-1 hover:text-blue-600 min-w-0 flex-1 text-gray-500"> Todas </label>
+                                        </div>
+
+                                        <div class="flex items-center">
+                                          <label  @click="openTab = 2" :class="openTab === 2 ? activeClass :inactiveClass" class="cursor-pointer pl-1 hover:text-blue-600 min-w-0 flex-1 text-gray-500"> S </label>
+                                        </div>
+
+                                        <div class="flex items-center">
+                                          <label @click="openTab = 3" :class="openTab ===3 ? activeClass :inactiveClass"  class="cursor-pointer pl-1 hover:text-blue-600 min-w-0 flex-1 text-gray-500"> M </label>
+                                        </div>
+
+                                        <div class="flex items-center">
+                                          <label @click="openTab = 4" :class="openTab === 4 ? activeClass :inactiveClass" class="cursor-pointer pl-1 hover:text-blue-600 min-w-0 flex-1 text-gray-500"> L </label>
+                                        </div>
+
+                                        <div class="flex items-center">
+                                          <label @click="openTab = 5" :class="openTab === 5 ? activeClass :inactiveClass"  class="cursor-pointer pl-1 hover:text-blue-600 min-w-0 flex-1 text-gray-500"> XL </label>
+                                        </div>
+                                      </div>
+                                    </div>
+                                </div>
+
+
+                                <div  x-data="{ openCategory: true }" class="border-b border-gray-200 py-6">
+                                    <h3 class="-my-3 flow-root">
+                                        <!-- Expand/collapse section button -->
+                                        <button  @click="openCategory = ! openCategory" type="button"
+                                            class="py-3 bg-white w-full flex items-center justify-between text-sm text-gray-400 hover:text-gray-500"
+                                            aria-controls="filter-section-2" aria-expanded="false">
+                                            <span class="font-medium text-gray-900"> Categorias </span>
+                                            <span class="ml-6 flex items-center">
+                                                <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg"
+                                                    viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                    <path fill-rule="evenodd"
+                                                        d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                                        clip-rule="evenodd" />
+                                                </svg>
+                                                <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg"
+                                                    viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                    <path fill-rule="evenodd"
+                                                        d="M5 10a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1z"
+                                                        clip-rule="evenodd" />
+                                                </svg>
+                                            </span>
+                                        </button>
+                                    </h3>
+
+                                    <div x-show="openCategory"
                                     x-transition:enter="transition ease-out duration-200 "
                                     x-transition:enter-start="opacity-0 " x-transition:enter-end="opacity-100"
                                     x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
                                     x-transition:leave-end="opacity-0" x-cloak class="pt-6" id="filter-section-2">
                                         <div class="space-y-4">
-                                            <div class="flex items-center">
-                                                <input id="filter-size-0" name="size[]" value="S" type="checkbox"
-                                                    class="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500" x-on:change="selectedSizes.includes('S') ? selectedSizes = selectedSizes.filter(size => size !== 'S') : selectedSizes.push('S')">
-                                                <label for="filter-size-0" class="ml-3 text-sm text-gray-600"> S </label>
-                                            </div>
+                                            <ul role="list" class="text-sm font-medium text-gray-900 space-y-2 pb-6 border-b border-gray-200">
+                                            <li>
+                                                <a href="{{ route('catalogo') }}" class="block ml-3 min-w-0 flex-1 @if (!Request::segment(2)) {{ 'text-blue-600 ' }} @endif  px-2 py-3"> Todos los Productos
+                                                </a>
+                                            </li>
 
-                                            <div class="flex items-center">
-                                                <input id="filter-size-1" name="size[]" value="M" type="checkbox"
-                                                    class="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500" x-on:change="selectedSizes.includes('M') ? selectedSizes = selectedSizes.filter(size => size !== 'M') : selectedSizes.push('M')">
-                                                <label for="filter-size-1" class="ml-3 text-sm text-gray-600"> M </label>
-                                            </div>
+                                            <li>
+                                                <a href="{{ route('catalogo_categoria', ['categoria' => 'Accesorios']) }}"
+                                                    class="block ml-3 min-w-0 flex-1  @if (Request::segment(2) === 'Accesorios') {{ 'text-blue-600 ' }} @endif px-2 py-3 ">
+                                                    Accesorios </a>
+                                            </li>
 
-                                            <div class="flex items-center">
-                                                <input id="filter-size-2" name="size[]" value="L" type="checkbox"
-                                                    class="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500" x-on:change="selectedSizes.includes('L') ? selectedSizes = selectedSizes.filter(size => size !== 'L') : selectedSizes.push('L')">
-                                                <label for="filter-size-2" class="ml-3 text-sm text-gray-600"> L
-                                                </label>
-                                            </div>
+                                            <li>
+                                                <a href="{{ route('catalogo_categoria', ['categoria' => 'Chaquetas-Buzos']) }}"
+                                                    class="block ml-3 min-w-0 flex-1  @if (Request::segment(2) === 'Chaquetas-Buzos') {{ 'text-blue-600 ' }} @endif px-2 py-3 ">
+                                                    Chaquetas y Buzos </a>
+                                            </li>
 
-                                            <div class="flex items-center">
-                                                <input id="filter-size-3" name="size[]" value="XL" type="checkbox"
-                                                    class="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500" x-on:change="selectedSizes.includes('XL') ? selectedSizes = selectedSizes.filter(size => size !== 'XL') : selectedSizes.push('XL')">
-                                                <label for="filter-size-3" class="ml-3 text-sm text-gray-600"> XL
-                                                </label>
-                                            </div>
+                                            <li>
+                                                <a href="{{ route('catalogo_categoria', ['categoria' => 'Camisas']) }}"
+                                                    class="block ml-3 min-w-0 flex-1  px-2 py-3 @if (Request::segment(2) === 'Camisas') {{ 'text-blue-600 ' }} @endif ">
+                                                    Camisas </a>
+                                            </li>
 
-                                            <div class="flex items-center">
-                                                <input id="filter-size-4" name="size[]" value="XXL" type="checkbox"
-                                                    class="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500">
-                                                <label for="filter-size-4" class="ml-3 text-sm text-gray-600"> XXL
-                                                </label>
-                                            </div>
-                                           
+                                            <li>
+                                                <a href="{{ route('catalogo_categoria', ['categoria' => 'Vestidos']) }}"
+                                                    class="block ml-3 min-w-0 flex-1  px-2 py-3 @if (Request::segment(2) === 'Vestidos') {{ 'text-blue-600 ' }} @endif ">
+                                                    Vestidos </a>
+                                            </li>
+
+                                            <li>
+                                                <a href="{{ route('catalogo_categoria', ['categoria' => 'Shorts']) }}"
+                                                    class="block ml-3 min-w-0 flex-1  px-2 py-3 @if (Request::segment(2) === 'Shorts') {{ 'text-blue-600 ' }} @endif ">
+                                                    Shorts </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ route('catalogo_categoria', ['categoria' => 'Pantalones']) }}"
+                                                    class="block ml-3 min-w-0 flex-1  px-2 py-3 @if (Request::segment(2) === 'Pantalones') {{ 'text-blue-600 ' }} @endif ">
+                                                    Pantalones </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ route('catalogo_categoria', ['categoria' => 'Conjuntos']) }}"
+                                                    class="block ml-3 min-w-0 flex-1  px-2 py-3 @if (Request::segment(2) === 'Conjuntos') {{ 'text-blue-600 ' }} @endif ">
+                                                    Conjuntos </a>
+                                            </li>
+                                        </ul>
                                         </div>
                                     </div>
-                                </div> --}}
+                                </div>
+
+
                             </form>
 
                             <!-- Product grid -->
                             <div class="lg:col-span-3">
-                                <div class="w-full rounded-lg h-96 lg:h-full">
+                                <div x-show="openTab === 1" class="w-full rounded-lg h-96 lg:h-full">
                                     <x-tienda.producto-reciente :productoReciente='$productoReciente' :selectedSize= />
                                     <x-tienda.productos-por-categoria :productos='$productos_categoria' />
+                                </div>
+
+                                <div x-show="openTab === 2" class="w-full rounded-lg h-96 lg:h-full">
+                                    <x-tienda.producto-reciente :productoReciente='$productoReciente' :selectedSize= />
+                                    <x-tienda.productos-por-categoria :productos='$productos_talla_s' />
+                                </div>
+
+                                <div x-show="openTab === 3" class="w-full rounded-lg h-96 lg:h-full">
+                                    <x-tienda.producto-reciente :productoReciente='$productoReciente' :selectedSize= />
+                                    <x-tienda.productos-por-categoria :productos='$productos_talla_m' />
+                                </div>
+
+                                <div x-show="openTab === 4" class="w-full rounded-lg h-96 lg:h-full">
+                                    <x-tienda.producto-reciente :productoReciente='$productoReciente' :selectedSize= />
+                                    <x-tienda.productos-por-categoria :productos='$productos_talla_l' />
+                                </div>
+
+                                <div x-show="openTab === 5" class="w-full rounded-lg h-96 lg:h-full">
+                                    <x-tienda.producto-reciente :productoReciente='$productoReciente' :selectedSize= />
+                                    <x-tienda.productos-por-categoria :productos='$productos_talla_xl' />
                                 </div>
                             </div>
 

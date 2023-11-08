@@ -14,7 +14,7 @@
 
                         <div class="md:col-span-5 dark:text-white mb-3">
                             <label for="nombre">Nombre del Producto</label>
-                            <input type="text" id="nombre" name="nombre" :value="old('nombre')"
+                            <input type="text" id="nombre" name="nombre"
                                 placeholder="Ingrese el Nombre que tendra este Producto"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         </div>
@@ -226,9 +226,6 @@
 
         modal.style.display = 'none';
 
-        window.onclick = function(event) {
-            if (event.target == modal) modalClose();
-        }
     }
 
 
@@ -240,8 +237,5 @@
 
         modal.style.display = 'none';
 
-        window.onclick = function(event) {
-            if (event.target == modal) modalCancel();
-        }
     }
 </script>
