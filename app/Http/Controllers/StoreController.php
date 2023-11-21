@@ -63,12 +63,36 @@ class StoreController extends Controller
 
         $productoReciente = Producto::with(['tallas'])->latest('created_at')->where('categoria', $categoria)->where('estado', 'activo')->first();
 
+        $productoRecienteS = Producto::with(['tallas'])->latest('created_at')->whereHas('tallas', function ($query) {
+            $query->where('talla', "S");
+        })->where('estado', 'activo')->when($categoria, function ($query, $categoria) {
+        return $query->where('categoria', $categoria);
+        })->first();
+
+        $productoRecienteM = Producto::with(['tallas'])->latest('created_at')->whereHas('tallas', function ($query) {
+            $query->where('talla', "M");
+        })->where('estado', 'activo')->when($categoria, function ($query, $categoria) {
+        return $query->where('categoria', $categoria);
+        })->first();
+
+        $productoRecienteL = Producto::with(['tallas'])->latest('created_at')->whereHas('tallas', function ($query) {
+            $query->where('talla', "L");
+        })->where('estado', 'activo')->when($categoria, function ($query, $categoria) {
+        return $query->where('categoria', $categoria);
+        })->first();
+
+        $productoRecienteXL = Producto::with(['tallas'])->latest('created_at')->whereHas('tallas', function ($query) {
+            $query->where('talla', "XL");
+        })->where('estado', 'activo')->when($categoria, function ($query, $categoria) {
+        return $query->where('categoria', $categoria);
+        })->first();
+
         if (!$request->categoria) {
             $productos_categoria = Producto::with(['tallas'])->where('estado', 'activo')->paginate(12);
             $productoReciente = Producto::with(['tallas'])->latest('created_at')->where('estado', 'activo')->first();
         }
 
-        return view('pages/store/catalogo', compact('productos_categoria', 'productoReciente', 'productos_talla_s', 'productos_talla_m', 'productos_talla_l', 'productos_talla_xl'));
+        return view('pages/store/catalogo', compact('productos_categoria', 'productoReciente', 'productos_talla_s', 'productos_talla_m', 'productos_talla_l', 'productos_talla_xl', 'productoRecienteXL', 'productoRecienteL', 'productoRecienteM', 'productoRecienteS'));
     }
 
     public function pedidos_hechos()

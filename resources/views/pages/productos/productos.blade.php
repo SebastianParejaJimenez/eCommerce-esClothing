@@ -8,17 +8,14 @@
             <x-dashboard.spinner-loading />
 
             @if (!$productos->count())
-                <!-- This example requires Tailwind CSS v2.0+ -->
                 <div class="text-center mt-12  py-20 rounded-md dark:bg-slate-500">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="mx-auto h-12 w-12 text-gray-400 dark:text-gray-200" style="fill: rgb(34, 34, 34);transform: ;msFilter:;">
                         <path d="M22 8a.76.76 0 0 0 0-.21v-.08a.77.77 0 0 0-.07-.16.35.35 0 0 0-.05-.08l-.1-.13-.08-.06-.12-.09-9-5a1 1 0 0 0-1 0l-9 5-.09.07-.11.08a.41.41 0 0 0-.07.11.39.39 0 0 0-.08.1.59.59 0 0 0-.06.14.3.3 0 0 0 0 .1A.76.76 0 0 0 2 8v8a1 1 0 0 0 .52.87l9 5a.75.75 0 0 0 .13.06h.1a1.06 1.06 0 0 0 .5 0h.1l.14-.06 9-5A1 1 0 0 0 22 16V8zm-10 3.87L5.06 8l2.76-1.52 6.83 3.9zm0-7.72L18.94 8 16.7 9.25 9.87 5.34zM4 9.7l7 3.92v5.68l-7-3.89zm9 9.6v-5.68l3-1.68V15l2-1v-3.18l2-1.11v5.7z"></path>
                     </svg>
-                    <h3 class="mt-2 text-sm font-medium text-gray-900 dark:text-white">No Productos</h3>
+                    <h3 class="mt-2 text-sm font-medium text-gray-900 dark:text-white">No existen productos</h3>
                     <p class="mt-1 text-sm text-gray-500  dark:text-white">Inicia creando tus productos.</p>
                 </div>
-            @endif
-
-            @if ($productos->count())
+            @else
                 <div id="content-table" class="overflow-x-auto sm:rounded-lg">
 
                     <table id="listado" class="mt-3 w-full bg-gray-50 text-sm text-left text-gray-500 dark:text-gray-400 ">
@@ -232,6 +229,7 @@
             function habilitarProducto(event) {
                 event.preventDefault();
 
+
                 Swal.fire({
                     title: 'Estas Seguro de Habilitar el Producto?',
                     text: 'Podras inhabilitarlo nuevamente en dado caso que sea necesario".',
@@ -249,7 +247,6 @@
                 })
             }
         </script>
-
 
         @if(session('update')== "ok")
         <script>

@@ -4,7 +4,7 @@
         <x-dashboard.spinner-loading />
 
         <!-- Welcome banner -->
-        <x-dashboard.welcome-banner />
+        <x-dashboard.welcome-banner :totalVentasSemana="$total_ventas_semana" :ordenesSemana="$ordenes_semana" :cantidadProductos="$cantidad_productos" />
 
         <!-- Cards -->
         <div id="content-main" class="grid grid-cols-12 gap-6">

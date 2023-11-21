@@ -31,11 +31,9 @@
                                 </div>
                                 <div>
                                     @if ($producto->estado == 'Activo')
-                                        <span
-                                            class="text-green-400  py-1 px-3 font-semibold rounded-full text-sm">Disponible</span>
+                                        <span class="text-green-400 py-1 px-3 font-semibold rounded-full text-sm">Disponible</span>
                                     @else
-                                        <span
-                                            class="text-red-400  py-1 px-3 font-semibold rounded-full text-sm">Agotado</span>
+                                        <span class="text-red-400 py-1 px-3 font-semibold rounded-full text-sm">Agotado</span>
                                     @endif
                                 </div>
                             </div>
@@ -43,7 +41,7 @@
                                 @csrf
                                 <input name="producto_id" type="hidden" value="{{ $producto->id }}">
 
-                                @if ($producto->categoria != "Accesorios")
+                                @if ($producto->categoria != "Accesorios" && $producto->estado == 'Activo')
                                 <div class="mb-4">
                                     <span class="font-bold text-gray-700">Seleccionar Talla:</span>
                                     <div class="flex items-center my-3">

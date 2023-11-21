@@ -11,7 +11,12 @@
     @section('content')
         <x-productos.carrito-header />
 
-        <div class="bg-white">
+        <div class="bg-white" x-data="{
+            openTab: 1,
+            activeClass:'border-b-3 border-b-blue-400 cursor-pointer pl-2 text-blue-700 min-w-0 flex-1 hover:text-gray-500 hover:border-b-gray-400',
+            inactiveClass:'cursor-pointer pl-1 hover:text-blue-600 min-w-0 flex-1 text-gray-500',
+            underlineActive: 'border-indigo-500 text-indigo-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm',
+            underlineInactive: 'bg-transparent absolute inset-x-0 bottom-0 h-0.5'}">
             <div x-data="{ open: false }">
                 <div class="fixed inset-0 flex z-40 lg:hidden" role="dialog" aria-modal="true" x-show="open"
                     @click.outside="open = false" x-transition:enter="transition-opacity ease-linear duration-300"
@@ -19,7 +24,7 @@
                     x-transition:leave="transition-opacity ease-linear duration-300" x-transition:leave-start="opacity-100"
                     x-transition:leave-end="opacity-0" x-cloak class="py-1" role="none">
 
-                    <div class="fixed inset-0 bg-black bg-opacity-25" aria-hidden="true"></div>
+                    <div class="fixed inset-0 bg-black bg-opacity-25" @click="open = false" aria-hidden="true"></div>
 
                     <div
                         class="ml-auto relative max-w-xs w-full h-full bg-white shadow-xl py-4 pb-12 flex flex-col overflow-y-auto">
@@ -36,11 +41,66 @@
                             </button>
                         </div>
 
+                        <div  x-data="{ openSizes: true }" class="border-b border-gray-200 py-6 px-4">
+                            <h3 class="-my-3 flow-root">
+                                <!-- Expand/collapse section button -->
+                                <button  @click="openSizes = ! openSizes" type="button"
+                                    class="py-3 bg-white w-full flex items-center justify-between text-sm text-gray-400 hover:text-gray-500"
+                                    aria-controls="filter-section-2" aria-expanded="false">
+                                    <span class="font-medium text-gray-900"> Tallas </span>
+                                    <span class="ml-6 flex items-center">
+                                        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                            <path fill-rule="evenodd"
+                                                d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+
+                                        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                            <path fill-rule="evenodd"
+                                                d="M5 10a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                    </span>
+                                </button>
+                            </h3>
+
+                            <div x-show="openSizes"
+                            x-transition:enter="transition ease-out duration-200 "
+                            x-transition:enter-start="opacity-0 " x-transition:enter-end="opacity-100"
+                            x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
+                            x-transition:leave-end="opacity-0" x-cloak class="pt-6" id="filter-section-2">
+                            <div class="space-y-6 text-sm font-medium text-gray-900  pb-6  ">
+                                <div class="flex items-center">
+                                  <label  @click="openTab = 1" :class="openTab === 1 ? activeClass :inactiveClass" class="cursor-pointer pl-1 hover:text-blue-600 min-w-0 flex-1 text-gray-500"> Todas </label>
+                                </div>
+
+                                <div class="flex items-center">
+                                  <label  @click="openTab = 2" :class="openTab === 2 ? activeClass :inactiveClass" class="cursor-pointer pl-1 hover:text-blue-600 min-w-0 flex-1 text-gray-500"> S </label>
+                                </div>
+
+                                <div class="flex items-center">
+                                  <label @click="openTab = 3" :class="openTab ===3 ? activeClass :inactiveClass"  class="cursor-pointer pl-1 hover:text-blue-600 min-w-0 flex-1 text-gray-500"> M </label>
+                                </div>
+
+                                <div class="flex items-center">
+                                  <label @click="openTab = 4" :class="openTab === 4 ? activeClass :inactiveClass" class="cursor-pointer pl-1 hover:text-blue-600 min-w-0 flex-1 text-gray-500"> L </label>
+                                </div>
+
+                                <div class="flex items-center">
+                                  <label @click="openTab = 5" :class="openTab === 5 ? activeClass :inactiveClass"  class="cursor-pointer pl-1 hover:text-blue-600 min-w-0 flex-1 text-gray-500"> XL </label>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+
                         <div class="mt-4 border-t border-gray-200">
                             <h3 class="sr-only">Categorias</h3>
                             <ul role="list" class="font-medium text-gray-900 px-2 py-3">
                                 <li>
-                                    <a href="#" class="block px-2 py-3"> Todos los Productos </a>
+                                    <a href="{{ route('catalogo') }}" class="block px-2 py-3 @if (!Request::segment(2)) {{ 'text-blue-600 ' }} @endif"> Todos los Productos </a>
+                                    </a>
                                 </li>
                                 <li>
                                     <a href="{{ route('catalogo_categoria', ['categoria' => 'Accesorios']) }}"
@@ -86,27 +146,11 @@
                     </div>
                 </div>
 
-                <main x-data="{
-                    openTab: 1,
-                    activeClass:'border-b-3 border-b-blue-400 cursor-pointer pl-2 text-blue-700 min-w-0 flex-1 hover:text-gray-500 hover:border-b-gray-400',
-                    inactiveClass:'cursor-pointer pl-1 hover:text-blue-600 min-w-0 flex-1 text-gray-500',
-                    underlineActive: 'border-indigo-500 text-indigo-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm',
-                    underlineInactive: 'bg-transparent absolute inset-x-0 bottom-0 h-0.5'}" class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
+                <main  class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="relative flex items-baseline justify-between pt-16 pb-6 border-b border-gray-200">
-                        <p class="text-3xl font-extrabold tracking-tight text-gray-700">Nuestros Productos</p>
+                        <p class="text-2xl font-bold tracking-tight text-gray-700">Nuestros Productos</p>
 
                         <div class="flex items-center">
-
-
-                            <button type="button" class="p-2 -m-2 ml-5 sm:ml-7 text-gray-400 hover:text-gray-500">
-                                <span class="sr-only">View grid</span>
-                                <!-- Heroicon name: solid/view-grid -->
-                                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 20 20" fill="currentColor">
-                                    <path
-                                        d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
-                                </svg>
-                            </button>
 
                             <button @click="open = true" type="button"
                                 class="p-2 -m-2 ml-4 sm:ml-6 text-gray-400 hover:text-gray-500 lg:hidden">
@@ -130,6 +174,7 @@
                             <form class="hidden lg:block">
 
                                 <!-- Filters talla web -->
+                                @if (Request::segment(2) != 'Accesorios')
                                 <div  x-data="{ openSizes: true }" class="border-b border-gray-200 py-6">
                                     <h3 class="-my-3 flow-root">
                                         <!-- Expand/collapse section button -->
@@ -194,7 +239,7 @@
                                       </div>
                                     </div>
                                 </div>
-
+                                @endif
 
                                 <div  x-data="{ openCategory: true }" class="border-b border-gray-200 py-6">
                                     <h3 class="-my-3 flow-root">
@@ -287,22 +332,22 @@
                                 </div>
 
                                 <div x-show="openTab === 2" class="w-full rounded-lg h-96 lg:h-full">
-                                    <x-tienda.producto-reciente :productoReciente='$productoReciente' :selectedSize= />
+                                    <x-tienda.producto-reciente :productoReciente='$productoRecienteS' :selectedSize= />
                                     <x-tienda.productos-por-categoria :productos='$productos_talla_s' />
                                 </div>
 
                                 <div x-show="openTab === 3" class="w-full rounded-lg h-96 lg:h-full">
-                                    <x-tienda.producto-reciente :productoReciente='$productoReciente' :selectedSize= />
+                                    <x-tienda.producto-reciente :productoReciente='$productoRecienteM' :selectedSize= />
                                     <x-tienda.productos-por-categoria :productos='$productos_talla_m' />
                                 </div>
 
                                 <div x-show="openTab === 4" class="w-full rounded-lg h-96 lg:h-full">
-                                    <x-tienda.producto-reciente :productoReciente='$productoReciente' :selectedSize= />
+                                    <x-tienda.producto-reciente :productoReciente='$productoRecienteL' :selectedSize= />
                                     <x-tienda.productos-por-categoria :productos='$productos_talla_l' />
                                 </div>
 
                                 <div x-show="openTab === 5" class="w-full rounded-lg h-96 lg:h-full">
-                                    <x-tienda.producto-reciente :productoReciente='$productoReciente' :selectedSize= />
+                                    <x-tienda.producto-reciente :productoReciente='$productoRecienteXL' :selectedSize= />
                                     <x-tienda.productos-por-categoria :productos='$productos_talla_xl' />
                                 </div>
                             </div>

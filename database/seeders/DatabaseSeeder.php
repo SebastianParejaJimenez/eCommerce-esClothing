@@ -40,10 +40,10 @@ class DatabaseSeeder extends Seeder
             'created_at' => now(),
         ]);
         DB::table('users')->insert([
-            'name'  => 'Administrador 3',
-            'email'     => 'admin3@gmail.com',
+            'name'  => 'Sebastian',
+            'email'     => 'sebastianpareja2010@hotmail.com',
             'password'  => bcrypt('12345678'),
-            'rol_id' => '1',
+            'rol_id' => '2',
             'created_at' => now(),
         ]);
 

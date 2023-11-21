@@ -1,7 +1,7 @@
     <!-- component -->
 
     <div class="my-4 mx-4 flex flex-col col-span-full sm:col-span-3 xl:col-span-4 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
-        <div class="py-3 px-5 bg-gray-50 dark:bg-slate-800">Productos Vendidos</div>
+        <div class="py-3 px-5 bg-gray-50 dark:bg-slate-800">Productos vendidos en el mes Actual</div>
         <div class="w-full">
             <canvas class="p-10" id="canvas"></canvas>
         </div>

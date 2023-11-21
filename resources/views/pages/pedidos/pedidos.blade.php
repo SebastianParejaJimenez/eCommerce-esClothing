@@ -5,10 +5,9 @@
             <x-dashboard.spinner-loading />
 
             @if (!$ordenes->count())
-                <div class="text-center mt-12  py-20 rounded-md dark:bg-slate-500">
+                <div class="text-center py-20 rounded-md ">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                        class="mx-auto h-12 w-12 text-gray-400 dark:text-gray-200" viewBox="0 0 24 24"
-                        style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;">
+                        class="mx-auto h-12 w-12 text-gray-400 dark:text-gray-200" viewBox="0 0 24 24">
                         <path
                             d="M13.707 3.293A.996.996 0 0 0 13 3H4a1 1 0 0 0-1 1v9c0 .266.105.52.293.707l8 8a.997.997 0 0 0 1.414 0l9-9a.999.999 0 0 0 0-1.414l-8-8zM12 19.586l-7-7V5h7.586l7 7L12 19.586z">
                         </path>
@@ -17,10 +16,7 @@
                     <h3 class="mt-2 text-sm font-medium text-gray-900 dark:text-white">No Existen Pedidos</h3>
                     <p class="mt-1 text-sm text-gray-500  dark:text-white">Aun no existen pedidos realizados.</p>
                 </div>
-            @endif
-
-
-            @if ($ordenes->count())
+            @else
                 <div class="px-4 py-3 sm:px-6">
                     <h3 class="text-lg leading-6 font-medium ">Pedidos</h3>
                     <p class="mt-1 text-sm text-gray-500">A continuación podras ver aquellos pedidos hechos por los

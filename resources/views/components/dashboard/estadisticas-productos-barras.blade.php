@@ -1,6 +1,6 @@
 <!-- component -->
 <div class=" mx-4 my-4 flex flex-col col-span-full sm:col-span-12 xl:col-span-8 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
-    <div class="py-3 px-5 bg-gray-50 dark:bg-slate-800">Cantidad de Productos Vendidos Por Mes</div>
+    <div class="py-3 px-5 bg-gray-50 dark:bg-slate-800">Cantidad de ventas en los productos</div>
     <div class="w-full h-full">
         <canvas class="p-10" id="canvas2"></canvas>
     </div>
