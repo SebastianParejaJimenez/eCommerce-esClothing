@@ -164,7 +164,9 @@ class ProductosController extends Controller
     {
         $producto = Producto::with(['tallas'])->findOrFail($id);
 
-        return view('pages.productos.show', compact('producto'));
+        $productosAll = Producto::with(['tallas'])->get();
+
+        return view('pages.productos.show', compact('producto', 'productosAll'));
     }
 
     public function sumar(Request $request, $id)
@@ -256,8 +258,6 @@ class ProductosController extends Controller
             $producto->tallas()->sync([]);
             $producto->save();
         }
-
-
         return redirect()->route('productos')->with('update', 'ok');
     }
 }

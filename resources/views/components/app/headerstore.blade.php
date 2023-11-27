@@ -44,15 +44,19 @@
                             </svg>
                         </button>
                     </div>
-                    <ul class="hidden font-medium lg:flex">
+                    <ul class="hidden text-center font-medium lg:flex">
                         @if (Auth::user() && Auth::user()->rol_id == 1)
                             <li class="mr-12"><a href="{{route('dashboard')}}"
                                     class="text-gray-700 hover:text-indigo-500 dark:text-gray-400">Dashboard</a>
                             </li>
                         @endif
+
+                        @if (Auth::user())
                         <li class="mr-12"><a href="{{route('pedidos_hechos')}}"
                                 class="text-gray-700 hover:text-indigo-500 dark:text-gray-400">Historial de Pedidos</a>
                         </li>
+                        @endif
+
                         <li class="mr-12"><a href="{{route('catalogo')}}"
                                 class="text-gray-700 hover:text-indigo-500 dark:text-gray-400">Catalogo</a>
                         </li>
