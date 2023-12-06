@@ -93,7 +93,7 @@
                 <p class="flex items-center  text-gray-500">
                     ¿Deseas Cambiar los Datos de Envio?
                 </p>
-                <a onclick="openModal()"
+                <a  @click="userInfo = true"
                     class=" cursor-pointer uppercase text-xs flex flex-row items-center justify-center font-semibold">
                     <div class="mr-2">
                         <svg xmlns="http://www.w3.org/2000/svg" height="20px"

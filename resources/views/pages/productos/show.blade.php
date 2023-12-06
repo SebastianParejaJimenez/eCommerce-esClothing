@@ -58,14 +58,14 @@
                                 <input type="text" name="talla" id="Unico" value="Unico" class="peer hidden" />
                             @endif
 
-                            @if (Auth::user() && $producto->estado == 'Activo')
+                            @if ( $producto->estado == 'Activo')
                                 <div class="inline-block align-bottom mt-4">
                                     <button type="submite"
                                         class="tracking-wide mt-2 text-white capitalize transition-colors duration-200 transform bg-green-500 rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600 px-6 py-2 font-semibold"><i
                                             class="mdi mdi-cart -ml-2 mr-2"></i> Añadir al Carrito </button>
                                 </div>
                             @else
-                                <div class="hover:red-yellow-500 w-full my-4  select-none rounded-l-lg border-l-4 border-red-400 bg-red-100 p-4 font-medium">El producto actualmente se encuenta Agotado!</div>
+                                <div class="hover:red-yellow-500 w-full my-4 mt-6 select-none rounded-l-lg border-l-4 border-red-400 bg-red-100 p-4 font-medium">El producto actualmente se encuenta Agotado!</div>
                             @endif
 
                         </form>

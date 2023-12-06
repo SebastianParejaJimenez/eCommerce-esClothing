@@ -47,6 +47,7 @@ Route::controller(StoreController::class)->group(function () {
 });
 
 
+
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     //Rutas para el Carrito
@@ -90,7 +91,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('/productos/{id}/editar', [ProductosController::class, 'edit'])->name('productos.edit');
         Route::post('/productos/{id}', [ProductosController::class, 'update'])->name('productos.update');
         Route::post('/productos/{id}', [ProductosController::class, 'destroy'])->name('productos.destroy');
-        Route::get('/productos/{id}/{slug}', [ProductosController::class, 'show'])->name('productos.show');
 
 
         Route::put('/productos/{id}/sumar', [ProductosController::class, 'sumar'])->name('productos.sumar');
@@ -111,4 +111,11 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/usuarios/search', [UsuariosController::class, 'search'])->name('usuarios.search');
     Route::put('/usuarios/{id}', [UsuariosController::class, 'update'])->name('user.update');
     Route::get('/usuarios', [UsuariosController::class, 'index'])->name('usuarios');
+
+
+    //Rutas para la configuracion Usuario
+    Route::put('/users/update/{id}', [UsuariosController::class, 'updateUserCarrito'])->name('usuarios.update');
+
 });
+//Producto Ver en Catalogo
+Route::get('/productos/{id}/{slug}', [ProductosController::class, 'show'])->name('productos.show');

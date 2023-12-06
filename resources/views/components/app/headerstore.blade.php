@@ -126,10 +126,13 @@
                     <li class="pb-3">
                         <a href="{{route('catalogo')}}" class="text-sm text-gray-700 hover:text-blue-400 dark:text-gray-400">Catalogo</a>
                     </li>
+                    @auth
                     <li class="pb-3">
                         <a href="{{route('pedidos_hechos')}}"
                             class="text-sm text-gray-700 hover:text-blue-400 dark:text-gray-400">Historial de Pedidos</a>
                     </li>
+                    @endauth
+
                     @if (!Auth::user())
                     <a href="{{ route('login') }}"
                         class="text-sm text-gray-700 hover:text-blue-400 dark:text-gray-400">Inicia

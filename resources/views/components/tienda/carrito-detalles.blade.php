@@ -1,3 +1,6 @@
+@php
+    use App\Models\Producto;
+@endphp
 
 @if (Cart::content()->count())
 <div class="bg-white">
@@ -23,7 +26,7 @@
                                             <h3 class="text-sm">
                                                 <a href="#"
                                                     class="font-medium text-gray-700 hover:text-gray-800">
-                                                    {{ $item->name }} </a>
+                                                    {{$item->id}}---{{ $item->name }} </a>
                                             </h3>
                                         </div>
                                         <div class="mt-1 flex text-sm">
@@ -70,15 +73,28 @@
                                 </div>
 
                                 <p class="mt-4 flex text-sm text-gray-700 space-x-2">
-                                    <!-- Heroicon name: solid/check -->
-                                    <svg class="flex-shrink-0 h-5 w-5 text-green-500"
+                                    @php
+                                        $product = Producto::where('id', $item->id)->first();
+                                        if ($product->estado == "Activo") {
+                                            echo  '<svg class="flex-shrink-0 h-5 w-5 text-green-500"
                                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                                         fill="currentColor" aria-hidden="true">
-                                        <path fill-rule="evenodd"
-                                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                            clip-rule="evenodd" />
-                                    </svg>
-                                    <span>In stock</span>
+                                            <path fill-rule="evenodd"
+                                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                                clip-rule="evenodd" />
+                                        </svg>';
+                                        }else {
+                                            echo '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="flex-shrink-0 h-5 w-5 text-red-500">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                          </svg>';
+                                        }
+                                    @endphp
+                                    <span>
+                                        @php
+                                        $product = Producto::where('id', $item->id)->first();
+                                        echo $product->estado;
+                                        @endphp
+                                    </span>
                                 </p>
                             </div>
                         </li>
@@ -137,7 +153,7 @@
 
                                 <x-tienda.datos-envio />
                             @else
-                                <button onclick="openModal()"
+                                <button @click="userInfo = true"
                                     class="bg-white w-full mt-3 hover:bg-gray-100 text-gray-800 font-medium py-2 px-3 border border-gray-400 rounded shadow">
                                     Completa tu Informacion de Usuario
                                 </button>

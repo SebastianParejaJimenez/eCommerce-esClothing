@@ -26,7 +26,7 @@
         </div>
         <ul>
             <li>
-                <a class=" font-medium text-sm text-black hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center py-3 px-3"
+                <a class=" font-medium text-sm text-black dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center py-3 px-3"
                     href="{{ route('profile.show') }}" @click="open = false" @focus="open = true"
                     @focusout="open = false">
                     <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
@@ -43,7 +43,7 @@
                 <form method="POST" action="{{ route('cierre_sesion') }}" x-data>
                     @csrf
 
-                    <button class=" font-medium text-sm text-black hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center  px-3"
+                    <button class=" font-medium text-sm text-black dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center  px-3"
                         @click.prevent="$root.submit();" @focus="open = true" @focusout="open = false">
                         <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"

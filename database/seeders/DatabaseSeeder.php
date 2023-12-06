@@ -39,6 +39,8 @@ class DatabaseSeeder extends Seeder
             'rol_id' => '1',
             'created_at' => now(),
         ]);
+
+        
         DB::table('users')->insert([
             'name'  => 'Sebastian',
             'email'     => 'sebastianpareja2010@hotmail.com',

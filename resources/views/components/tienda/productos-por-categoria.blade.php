@@ -1,7 +1,7 @@
 <div class="mt-8 grid grid-cols-1 gap-y-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">
 
     @foreach ($productos as $producto)
-        <form action="{{ route('agregaritem') }}" method="POST" id="">
+        <form action="{{ route('agregaritem') }}" method="POST">
             @csrf
             <input name="producto_id" type="hidden" value="{{ $producto->id }}">
             <div class="relative">

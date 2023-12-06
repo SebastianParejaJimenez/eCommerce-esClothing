@@ -24,10 +24,7 @@ class PedidosController extends Controller
         $pedido = Orden::findOrFail($id)
         ->with('productos', 'user')->where('id', $id)->get();
 
-
         return view('pages/pedidos/detalles', compact('pedido'));
-
-
     }
 
     public function updateEstado($id, $estado){

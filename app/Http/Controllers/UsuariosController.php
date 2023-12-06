@@ -50,8 +50,33 @@ class UsuariosController extends Controller
         $usuario->save();
 
         return redirect()->route('usuarios');
-
     }
+
+
+    public function updateUserCarrito(Request $request, $id){
+        $usuario = User::withTrashed()->findOrFail($id);
+        $request->validate([
+            'name' => 'required',
+            'ciudad' => 'required',
+            'pais' => 'required',
+            'direccion' => 'required',
+            'codigo_postal' => 'required',
+            'numero_telefono' => 'required',
+        ]);
+
+        $usuario->name = $request->input('name');
+        $usuario->ciudad = $request->input('ciudad');
+        $usuario->pais = $request->input('pais');
+        $usuario->direccion = $request->input('direccion');
+        $usuario->codigo_postal = $request->input('codigo_postal');
+        $usuario->numero_telefono = $request->input('numero_telefono');
+
+
+        $usuario->save();
+
+        return redirect()->back()->with('editado', true);
+    }
+
 
     public function inactivos(Request $request){
 

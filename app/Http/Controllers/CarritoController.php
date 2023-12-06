@@ -11,6 +11,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Illuminate\Support\Facades\Auth;
 use App\Events\OrdenEvent;
 use App\Notifications\OrdenNotification;
+use Exception;
 
 class CarritoController extends Controller
 {
@@ -31,12 +32,14 @@ class CarritoController extends Controller
                 'urlfoto' => $producto->imagen,
                 'categoria' => $producto->categoria,
                 'talla' => $request->talla,
+                'estado' => $request->estado,
             ]
         ]);
         return redirect()->back()->with("agregaritem", "Producto agg");
     }
     public function vercarrito(Request $request)
     {
+
         return view('pages/store/carrito');
     }
 
@@ -71,7 +74,6 @@ class CarritoController extends Controller
     {
 
         $orden = new Orden();
-
         $orden->subtotal = str_replace(',', '', Cart::subtotal());
         $orden->total = str_replace(',', '', Cart::total());
 
@@ -110,51 +112,60 @@ class CarritoController extends Controller
         event(new OrdenEvent($orden));
 
     }
+
     public function session()
     {
-
         $productItems = [];
+        $productosActivos = [];
         $user         = auth()->user();
         $curl = new \Stripe\HttpClient\CurlClient([CURLOPT_SSLVERSION => CURL_SSLVERSION_TLSv1]);
         \Stripe\ApiRequestor::setHttpClient($curl);
         \Stripe\Stripe::setVerifySslCerts(false);
         \Stripe\Stripe::setApiKey(config('stripe.sk'));
 
-        foreach (Cart::content() as $item) {
-            $product_name =  $item->name;
-            $total = $item->price;
-            $quantity = $item->qty;
-            $two = "00";
-            $unit_amount = "$total$two";
-            $productItems[] = [
-                'price_data' => [
-                    'product_data' => [
-                        'name' => $product_name,
-                        'metadata' => [
-                            'talla_elegida' => $item->talla,
-                            'imagen' => $item->urlfoto
-                        ],
-                    ],
-                    'currency' => 'COP',
-                    'unit_amount' => $unit_amount,
-                ],
-                'quantity' => $quantity
-
-            ];
+        foreach(Cart::content() as $cartContent){
+            $product = Producto::where('id', $cartContent->id)->first();
+            if($product->estado == "Activo"){
+                $productosActivos[] = $cartContent;
+            }
         }
+        try{
+            foreach ($productosActivos as $item) {
+                $product_name =  $item->name;
+                $total = $item->price;
+                $quantity = $item->qty;
+                $two = "00";
+                $unit_amount = "$total$two";
+                $productItems[] = [
+                    'price_data' => [
+                        'product_data' => [
+                            'name' => $product_name,
+                            'metadata' => [
+                                'talla_elegida' => $item->talla,
+                                'imagen' => $item->urlfoto
+                            ],
+                        ],
+                        'currency' => 'COP',
+                        'unit_amount' => $unit_amount,
+                    ],
+                    'quantity' => $quantity
+                ];
+            }
 
-        $checkoutSession = \Stripe\Checkout\Session::create([
-            'line_items' => [$productItems],
-            'mode' => 'payment',
-            'allow_promotion_codes' => false,
-            'metadata' => [
-                'user_id' => $user->id
-            ],
-            'customer_email' => $user->email,
-            'success_url' => route('success') . "?session_id={CHECKOUT_SESSION_ID}",
-            'cancel_url' => route('cancel'),
-        ]);
-
+            $checkoutSession = \Stripe\Checkout\Session::create([
+                'line_items' => $productItems,
+                'mode' => 'payment',
+                'allow_promotion_codes' => false,
+                'metadata' => [
+                    'user_id' => $user->id
+                ],
+                'customer_email' => $user->email,
+                'success_url' => route('success') . "?session_id={CHECKOUT_SESSION_ID}",
+                'cancel_url' => route('cancel'),
+            ]);
+        }catch(Exception $e){
+            return redirect()->back()->with("noProductos", "error");
+        }
 
         return redirect()->away($checkoutSession->url);
     }
