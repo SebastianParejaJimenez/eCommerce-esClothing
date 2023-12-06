@@ -26,7 +26,7 @@
                                             <h3 class="text-sm">
                                                 <a href="#"
                                                     class="font-medium text-gray-700 hover:text-gray-800">
-                                                    {{$item->id}}---{{ $item->name }} </a>
+                                                    {{ $item->name }} </a>
                                             </h3>
                                         </div>
                                         <div class="mt-1 flex text-sm">
@@ -93,8 +93,27 @@
                                         @php
                                         $product = Producto::where('id', $item->id)->first();
                                         echo $product->estado;
+
+                                        if ($product->estado == "Inactivo") {
+                                            echo '
+                                    <div class="rounded-md bg-red-50 p-4 mt-2">
+                                        <div class="flex">
+                                        <div class="flex-shrink-0">
+                                            <!-- Heroicon name: solid/x-circle -->
+                                            <svg class="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                                            </svg>
+                                        </div>
+                                        <div class="ml-3">
+                                            <h3 class="text-sm font-medium text-red-800">Este producto no esta Disponible, al hacer la compra no se incluira.</h3>
+                                        </div>
+                                        </div>
+                                    </div>';
+                                        }
                                         @endphp
-                                    </span>
+
+
+                                </span>
                                 </p>
                             </div>
                         </li>
@@ -102,7 +121,7 @@
                 </ul>
             </section>
 
-            <!-- Order summary -->
+                <!-- Orden Suma -->
                 <section aria-labelledby="summary-heading"
                     class="mt-16 bg-gray-50 rounded-lg px-4 py-6 sm:p-6 lg:p-8 lg:mt-0 lg:col-span-5">
                     <h2 id="summary-heading" class="text-lg font-medium text-gray-900">Resumen Compra</h2>

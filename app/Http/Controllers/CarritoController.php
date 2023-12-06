@@ -39,6 +39,12 @@ class CarritoController extends Controller
     }
     public function vercarrito(Request $request)
     {
+        foreach(Cart::content() as $cartContent){
+            $product = Producto::find( $cartContent->id);
+            if($product->estado == "Inactivo"){
+                Cart::remove($cartContent->rowId);
+            }
+        }
 
         return view('pages/store/carrito');
     }
@@ -73,6 +79,7 @@ class CarritoController extends Controller
     public function guardarCarrito($session_id)
     {
 
+
         $orden = new Orden();
         $orden->subtotal = str_replace(',', '', Cart::subtotal());
         $orden->total = str_replace(',', '', Cart::total());
@@ -84,6 +91,7 @@ class CarritoController extends Controller
         $orden->direccion_envio = auth()->user()->direccion;
 
         $orden->save();
+
 
         foreach (Cart::content() as $item) {
             $orden_productos = new OrdenProducto();
@@ -116,21 +124,16 @@ class CarritoController extends Controller
     public function session()
     {
         $productItems = [];
-        $productosActivos = [];
-        $user         = auth()->user();
+        $user = auth()->user();
         $curl = new \Stripe\HttpClient\CurlClient([CURLOPT_SSLVERSION => CURL_SSLVERSION_TLSv1]);
         \Stripe\ApiRequestor::setHttpClient($curl);
         \Stripe\Stripe::setVerifySslCerts(false);
         \Stripe\Stripe::setApiKey(config('stripe.sk'));
 
-        foreach(Cart::content() as $cartContent){
-            $product = Producto::where('id', $cartContent->id)->first();
-            if($product->estado == "Activo"){
-                $productosActivos[] = $cartContent;
-            }
-        }
+
+        //Intentar mandar productos al stripe, sino sucede es porque no existen productos o ninguno esta disponible
         try{
-            foreach ($productosActivos as $item) {
+            foreach (Cart::content() as $item) {
                 $product_name =  $item->name;
                 $total = $item->price;
                 $quantity = $item->qty;

@@ -353,10 +353,16 @@
                                                         <div class="flex-1 ml-6 text-sm">
                                                             <div
                                                                 class="font-medium text-gray-900 sm:flex sm:justify-between">
-                                                                <h5>{{ $producto->nombre }}</h5>
-                                                                <p class="mt-2 sm:mt-0">
-                                                                    ${{ number_format($producto->pivot->precio, 0, ',', '.') }}
-                                                                </p>
+                                                                <span>
+                                                                    <h5>{{ $producto->nombre }}</h5>
+                                                                    <h2 class="text-gray-400">(x{{$producto->pivot->cantidad}})</h2>
+                                                                </span>
+                                                                <span>
+                                                                    <p class="mt-2 sm:mt-0"> Valor Unitario: ${{ number_format($producto->pivot->precio, 0, ',', '.') }}</p>
+                                                                    <p class="mt-2 sm:mt-0">Total: ${{ number_format($producto->pivot->precio * $producto->pivot->cantidad, 0, ',', '.') }}</p>
+
+                                                                </span>
+
                                                             </div>
                                                             <p class="hidden text-gray-500 sm:block sm:mt-2">Talla:
                                                                 {{ $producto->pivot->talla }}.</p>

@@ -128,8 +128,7 @@
                                                     </a>
                                                 </div>
                                             @else
-                                                <form method="POST" id="deshabilitar"
-                                                    action="{{ route('productos.destroy', ['id' => $producto->id]) }}">
+                                                <form method="POST" id="deshabilitar" action="{{ route('productos.destroy', ['id' => $producto->id]) }}">
                                                     @method('DELETE')
                                                     @csrf
                                                     <button type="submit"
@@ -228,8 +227,6 @@
 
             function habilitarProducto(event) {
                 event.preventDefault();
-
-
                 Swal.fire({
                     title: 'Estas Seguro de Habilitar el Producto?',
                     text: 'Podras inhabilitarlo nuevamente en dado caso que sea necesario".',
