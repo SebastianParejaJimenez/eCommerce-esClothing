@@ -53,12 +53,12 @@
                                 <tr
                                     class="bg-gray-50 border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                     <td class="w-32 p-4">
-                                        <img src="{{ url('productos_subidos') }}/{{ $producto->imagen }}" alt="Image">
+                                        <img src="{{ url('productos_subidos') }}/{{ $producto->imagen }}" alt="{{ $producto->nombre }}">
                                     </td>
                                     <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white producto_nombre">
                                         {{ $producto->nombre }}
                                     </td>
-                                    <td class="px-6 py-4">
+                                    <td class="px-6 py-4 font-bold">
                                         {{ $producto->cantidad }}
                                     </td>
                                     <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white producto_categoria">
@@ -281,6 +281,26 @@
             Toast.fire({
                 icon: "success",
                 title: "¡Producto Creado con Éxito!"
+            });
+        </script>
+        @endif
+
+        @if(session('error')== "cantidad")
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+            Toast.fire({
+                icon: "error",
+                title: "¡El Producto debe tener una cantidad igual o superior a 1!"
             });
         </script>
         @endif

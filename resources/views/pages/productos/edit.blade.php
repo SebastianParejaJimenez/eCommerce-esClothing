@@ -14,7 +14,7 @@
 
                     <div class="  grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
                         <div class="text-gray-600 dark:text-white">
-                            <p class="font-medium text-lg">Registro de Producto</p>
+                            <p class="font-medium text-lg">Editar Producto</p>
                             <p>Por favor llene todos los campos con la informacion requerida.</p>
                         </div>
 
@@ -38,7 +38,7 @@
 
                                 </div>
 
-                                <div class="md:col-span-3 dark:text-white mb-3">
+                                <div class="md:col-span-2 dark:text-white mb-3">
                                     <label for="cantidad">Cantidad</label>
                                     <input type="number" id="cantidad" name="cantidad" value="{{$producto->cantidad}}"
                                         placeholder="Ingrese las Cantidades que tenga del Producto"
@@ -58,6 +58,15 @@
                                         {!! $producto->categoria != "Accesorio" ? '<option value="Accesorios">Accesorios</option>' : '' !!}
                                         {!! $producto->categoria != "Vestidos" ? '<option value="Vestidos">Vestidos</option>' : '' !!}
                                         {!! $producto->categoria != "Conjuntos" ? '<option value="Conjuntos">Conjuntos</option>' : '' !!}
+                                    </select>
+                                </div>
+                                <div class="md:col-span-1 dark:text-white mb-3">
+                                    <label for="categoria"class="block text-sm font-medium text-gray-900 dark:text-white">Estado</label>
+                                    <select type="text" id="categoria" name="estado"  placeholder="Ingrese el Estado que tendra este Producto"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        <option value="{{$producto->estado}}" selected>{{$producto->estado}}</option>
+                                        {!! $producto->estado != "Activo" ? '<option value="Activo">Activo</option>' : '' !!}
+                                        {!! $producto->estado != "Inactivo" ? '<option value="Inactivo">Inactivo</option>' : '' !!}
                                     </select>
 
 

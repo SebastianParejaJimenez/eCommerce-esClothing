@@ -64,7 +64,7 @@
 
                             @if ($buscarPedido == true)
                                 <div id="resultado-pedido" x-data="{ open: false }" class="relative bg-white border-t border-b border-gray-300 shadow-sm sm:rounded-lg sm:border">
-                                    <h3 class="sr-only">Order placed on <time datetime="2021-07-06">Jul 6, 2021</time></h3>
+                                    <h3 class="sr-only">Order hecha el: <time datetime="2021-07-06">{{ \Carbon\Carbon::parse($pedido->created_at)->diffForHumans() }}</time></h3>
 
                                     <div
                                         class="flex items-center p-4 border-b border-gray-200 sm:p-6 sm:grid sm:grid-cols-4 sm:gap-x-6">
@@ -82,7 +82,7 @@
                                                 </dd>
                                             </div>
                                             <div>
-                                                <dt class="font-medium text-gray-900">Total amount</dt>
+                                                <dt class="font-medium text-gray-900">Total (Más IVA)</dt>
                                                 <dd class="mt-1 font-medium text-gray-900">
                                                     ${{ number_format($pedido->total, 0, ',', '.') }}</dd>
                                             </div>
@@ -167,29 +167,36 @@
                                     x-transition:enter-start="opacity-0 " x-transition:enter-end="opacity-100"
                                     x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
                                     x-transition:leave-end="opacity-0" x-cloak role="list" class="divide-y divide-gray-200">
-                                        <li class="p-4 sm:p-6">
-                                            @foreach ($pedido->productos as $producto)
-                                                <div class="flex items-center sm:items-start py-3">
-                                                    <div
-                                                        class="flex-shrink-0 w-20 h-20 bg-gray-200 rounded-lg overflow-hidden sm:w-22 sm:h-22 ">
-                                                        <img src="{{ url('productos_subidos') }}/{{ $producto->imagen }}"
-                                                            alt="{{ $producto->nombre }}."
-                                                            class="w-full h-full object-center object-cover">
-                                                    </div>
-
-                                                    <div class="flex-1 ml-6 text-sm">
-                                                        <div class="font-medium text-gray-900 sm:flex sm:justify-between">
-                                                            <h5>{{ $producto->nombre }}</h5>
-                                                            <p class="mt-2 sm:mt-0">
-                                                                ${{ number_format($producto->pivot->precio, 0, ',', '.') }}
-                                                            </p>
-                                                        </div>
-                                                        <p class="hidden text-gray-500 sm:block sm:mt-2">Talla:
-                                                            {{ $producto->pivot->talla }}.</p>
-                                                    </div>
+                                    <li class="p-4 sm:p-6">
+                                        @foreach ($pedido->productos as $producto)
+                                            <div class="flex items-center sm:items-start py-3">
+                                                <div
+                                                    class="flex-shrink-0 w-20 h-20 bg-gray-200 rounded-lg overflow-hidden sm:w-22 sm:h-22 ">
+                                                    <img src="{{ url('productos_subidos') }}/{{ $producto->imagen }}"
+                                                        alt="{{ $producto->nombre }}."
+                                                        class="w-full h-full object-center object-cover">
                                                 </div>
-                                            @endforeach
-                                        </li>
+
+                                                <div class="flex-1 ml-6 text-sm">
+                                                    <div
+                                                        class="font-medium text-gray-900 sm:flex sm:justify-between">
+                                                        <span>
+                                                            <h5>{{ $producto->nombre }}</h5>
+                                                            <h2 class="text-gray-400">(x{{$producto->pivot->cantidad}})</h2>
+                                                        </span>
+                                                        <span>
+                                                            <p class="mt-2 sm:mt-0"> Valor Unitario: ${{ number_format($producto->pivot->precio, 0, ',', '.') }}</p>
+                                                            <p class="mt-2 sm:mt-0">Total: ${{ number_format($producto->pivot->precio * $producto->pivot->cantidad, 0, ',', '.') }}</p>
+
+                                                        </span>
+
+                                                    </div>
+                                                    <p class="hidden text-gray-500 sm:block sm:mt-2">Talla:
+                                                        {{ $producto->pivot->talla }}.</p>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </li>
                                         <!-- More products... -->
                                     </ul>
 
@@ -247,7 +254,7 @@
                                                     </dd>
                                                 </div>
                                                 <div>
-                                                    <dt class="font-medium text-gray-900">Total </dt>
+                                                    <dt class="font-medium text-gray-900">Total (Más IVA) </dt>
                                                     <dd class="mt-1 font-medium text-gray-900">
                                                         ${{ number_format($pedido->total, 0, ',', '.') }}</dd>
                                                 </div>

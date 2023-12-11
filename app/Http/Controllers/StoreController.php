@@ -100,7 +100,7 @@ class StoreController extends Controller
         $user_id = Auth::user()->id;
         $buscarPedido = false;
 
-        $pedidos = Orden::with('productos', 'user')->where('user_id', $user_id)->orderByDesc('created_at')->paginate(2);
+        $pedidos = Orden::with('productos', 'user')->where('user_id', $user_id)->orderByDesc('created_at')->paginate(8);
 
 
         return view('pages/store/pedidos', compact('pedidos', 'buscarPedido'));

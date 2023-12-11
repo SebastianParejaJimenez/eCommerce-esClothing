@@ -24,6 +24,15 @@ class ProductosController extends Controller
     {
 
         $productos = Producto::with(['tallas'])->orderBy('created_at', 'desc')->get();
+
+        foreach($productos as $producto){
+            $product = Producto::find($producto->id);
+            if($product->cantidad <= 0 && $product->estado != "Inactivo"){
+                $product->estado = "Inactivo";
+                $product->save();
+            }
+        }
+
         $tallas = Talla::get();
         $rol = Auth::user()->rol_id;
         if ($rol == 1) {
@@ -36,10 +45,13 @@ class ProductosController extends Controller
     public function activar($id)
     {
         $producto = Producto::findOrFail($id);
-        $producto->estado = "Activo";
-        $producto->save();
+        if($producto->cantidad > 0){
+            $producto->estado = "Activo";
+            $producto->save();
+            return redirect()->back()->with('update', 'ok');
+        }
+        return redirect()->back()->with('error', 'cantidad');
 
-        return redirect()->back()->with('update', 'ok');
     }
 
     public function activarAll()
@@ -191,7 +203,6 @@ class ProductosController extends Controller
 
     public function destroy($id)
     {
-
         $producto = Producto::findOrFail($id);
         $producto->estado = "Inactivo";
         $producto->save();
@@ -221,7 +232,8 @@ class ProductosController extends Controller
         $request->validate([
             'nombre' => 'required',
             'precio' => 'required|numeric|min:1',
-            'cantidad' => 'required|numeric|min:1',
+            'cantidad' => 'required|numeric|min:0',
+            'estado' => 'required',
             'categoria' => 'required',
             'imagen' => 'image|mimes:jpg,png,gif|max:10000',
             'tallas' => 'required_unless:categoria,Accesorios',
@@ -233,12 +245,11 @@ class ProductosController extends Controller
         $producto->precio = $request->input('precio');
         $producto->cantidad = $request->input('cantidad');
         $producto->categoria = $request->input('categoria');
+        $producto->estado = $request->input('estado');
         if ($request->hasFile('imagen')) {
-
             if ($imagenAnterior) {
                 Storage::delete('productos_subidos/' . $imagenAnterior);
             }
-
             $request->validate([
                 'imagen' => 'image|mimes:jpg,png,gif',
             ]);

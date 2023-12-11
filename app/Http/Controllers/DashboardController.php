@@ -69,7 +69,6 @@ class DashboardController extends Controller
         }
 
         $data['data'] = json_encode($data);
-
         $rol = Auth::user()->rol_id;
         if ($rol == 1) {
                 return view('pages/dashboard/dashboard', $data, compact('total_ventas', 'productosConVentas', 'ordenes_recientes', 'total_ventas_semana', 'ordenes_semana', 'cantidad_productos'));

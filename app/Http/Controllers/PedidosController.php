@@ -13,7 +13,7 @@ class PedidosController extends Controller
 {
     //
     public function index(Request $request){
-        $ordenes = Orden::with('productos', 'user')->paginate(10);
+        $ordenes = Orden::with('productos', 'user')->orderBy('id', 'asc')->get();
 
         return view('pages/pedidos/pedidos', compact( 'ordenes'));
 

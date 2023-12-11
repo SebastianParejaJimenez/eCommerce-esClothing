@@ -35,25 +35,33 @@ class CarritoController extends Controller
                 'estado' => $request->estado,
             ]
         ]);
+
+        $this->carritoProductosDisponibles();
+
         return redirect()->back()->with("agregaritem", "Producto agg");
     }
-    public function vercarrito(Request $request)
-    {
+
+    public function carritoProductosDisponibles(){
         foreach(Cart::content() as $cartContent){
             $product = Producto::find( $cartContent->id);
-            if($product->estado == "Inactivo"){
+            if($product->estado == "Inactivo" || $product->cantidad <= 0 || $product->cantidad < $cartContent->qty){
                 Cart::remove($cartContent->rowId);
             }
         }
-
+    }
+    public function vercarrito(Request $request)
+    {
+        $this->carritoProductosDisponibles();
         return view('pages/store/carrito');
     }
 
     public function incrementarCantidad(Request $request, $id)
     {
-
         $item = Cart::content()->where("rowId", $request->id)->first();
-        Cart::update($request->id, ["qty" => $item->qty + 1]);
+        $product = Producto::find( $item->id);
+        if($product->cantidad > $item->qty){
+            Cart::update($request->id, ["qty" => $item->qty + 1]);
+        }
         return redirect()->back()->with("incrementarCantidad", "Producto updated");
     }
     public function decrementarCantidad(Request $request, $id)
@@ -78,8 +86,6 @@ class CarritoController extends Controller
 
     public function guardarCarrito($session_id)
     {
-
-
         $orden = new Orden();
         $orden->subtotal = str_replace(',', '', Cart::subtotal());
         $orden->total = str_replace(',', '', Cart::total());
@@ -104,6 +110,11 @@ class CarritoController extends Controller
             $orden_productos->save();
         }
 
+        foreach(Cart::content() as $producto){
+            $product = Producto::find( $producto->id);
+            $product->cantidad -= $producto->qty;
+            $product->save();
+        }
         self::ordenMakeNotification($orden);
 
     }
@@ -123,6 +134,7 @@ class CarritoController extends Controller
 
     public function session()
     {
+
         $productItems = [];
         $user = auth()->user();
         $curl = new \Stripe\HttpClient\CurlClient([CURLOPT_SSLVERSION => CURL_SSLVERSION_TLSv1]);
@@ -130,10 +142,14 @@ class CarritoController extends Controller
         \Stripe\Stripe::setVerifySslCerts(false);
         \Stripe\Stripe::setApiKey(config('stripe.sk'));
 
+        $this->carritoProductosDisponibles();
 
         //Intentar mandar productos al stripe, sino sucede es porque no existen productos o ninguno esta disponible
         try{
+
             foreach (Cart::content() as $item) {
+                $product = Producto::find( $item->id);
+                if($product->cantidad > $item->qty){
                 $product_name =  $item->name;
                 $total = $item->price;
                 $quantity = $item->qty;
@@ -153,6 +169,7 @@ class CarritoController extends Controller
                     ],
                     'quantity' => $quantity
                 ];
+                }
             }
 
             $checkoutSession = \Stripe\Checkout\Session::create([

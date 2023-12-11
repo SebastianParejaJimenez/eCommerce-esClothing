@@ -188,7 +188,6 @@
 
                     </tbody>
                 </table>
-                {{ $ordenes->links() }}
             @endif
         </div>
     </section>
