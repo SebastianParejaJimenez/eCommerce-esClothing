@@ -17,11 +17,17 @@ class CarritoController extends Controller
 {
     public function agregaritem(Request $request)
     {
-
         $producto = Producto::find($request->producto_id);
         if (!$request->talla) {
             return redirect()->back()->with('error', 'talla');
         }
+        $producto_carrito = Cart::content()->where("id", $producto->id)->all();
+        $cantidad_productos_carrito = 0;
+        foreach ($producto_carrito as $producto_carrito) {
+            $cantidad_productos_carrito += $producto_carrito->qty;
+        }
+
+        if($producto->cantidad > $cantidad_productos_carrito){
         Cart::add([
             'id' => $producto->id,
             'name' => $producto->nombre,
@@ -35,10 +41,12 @@ class CarritoController extends Controller
                 'estado' => $request->estado,
             ]
         ]);
-
         $this->carritoProductosDisponibles();
-
         return redirect()->back()->with("agregaritem", "Producto agg");
+        }else{
+            return redirect()->back()->with("error_agregar_item", "error-cantidad");
+        }
+
     }
 
     public function carritoProductosDisponibles(){
@@ -61,8 +69,10 @@ class CarritoController extends Controller
         $product = Producto::find( $item->id);
         if($product->cantidad > $item->qty){
             Cart::update($request->id, ["qty" => $item->qty + 1]);
+            return redirect()->back()->with("incrementado", "Producto updated");
+
         }
-        return redirect()->back()->with("incrementarCantidad", "Producto updated");
+        return redirect()->back()->with("no_incrementado", "Producto updated");
     }
     public function decrementarCantidad(Request $request, $id)
     {

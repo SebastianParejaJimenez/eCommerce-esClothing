@@ -36,6 +36,16 @@
                                 @endif
                             </div>
                         </div>
+
+                        @if ($producto->cantidad > 0)
+                        <div class="mt-3">
+                            <label class="text-gray-700 text-sm" for="count">Cantidad:</label>
+                            <div class="flex items-center mt-1">
+                                    <span class=" bg-green-50 py-1 px-3 font-semibold rounded-full text-sm">{{$producto->cantidad}}</span>
+                            </div>
+                        </div>
+                        @endif
+
                         <form action="{{ route('agregaritem') }}" method="POST" class=" items-center mt-6">
                             @csrf
                             <input name="producto_id" type="hidden" value="{{ $producto->id }}">
@@ -72,6 +82,7 @@
                     </div>
                 </div>
 
+                {{-- Slider - Mas Productos --}}
                 <div class="mt-16 splide">
                     <h3 class="text-gray-600 text-2xl font-medium mb-6 ">Más Productos</h3>
                     <div class="splide__track">
@@ -129,4 +140,24 @@
             })
         </script>
     @endif
+
+    @if (session('error_agregar_item'))
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+            }
+        });
+        Toast.fire({
+            icon: "error",
+            title: "No existen en stock mas cantidades de este producto."
+        });
+    </script>
+@endif
 @endsection
