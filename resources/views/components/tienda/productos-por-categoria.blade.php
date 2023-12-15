@@ -4,7 +4,7 @@
         <form action="{{ route('agregaritem') }}" method="POST">
             @csrf
             <input name="producto_id" type="hidden" value="{{ $producto->id }}">
-            <div class="relative">
+            <a href="{{ route('productos.show', ['id' => $producto->id, 'slug' => $producto->slug]) }}" class="relative">
                 <div class="relative w-full h-72 rounded-lg overflow-hidden">
                     <img src="{{ url('productos_subidos') }}/{{ $producto->imagen }}"
                         alt="{{$producto->nombre}}."
@@ -12,7 +12,7 @@
                 </div>
                 <div class="relative mt-4">
                     <h3 class="text-sm font-medium text-gray-900">{{$producto->nombre}}</h3>
-                    <p class="mt-1 text-sm text-gray-500">{{$producto->categoria}}</p>
+                    <p class="mt-1 text-sm text-gray-500">Cantidad: {{$producto->cantidad}}</p>
                 </div>
                 @if ($producto->categoria != "Accesorios")
                     <div class="relative mt-4">
@@ -38,7 +38,7 @@
                         class="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-black opacity-50"></div>
                     <p class="relative text-lg font-semibold text-white">${{ number_format($producto->precio, 0, ',', '.') }}</p>
                 </div>
-            </div>
+            </a>
             <div class="mt-6 items">
                 <button type="submit" class=" flex gap-2  bg-green-400 text-white text-sm font-medium hover:bg-green-500 focus:outline-none focus:bg-green-500 border border-transparent rounded-md py-1.5 px-6 items-center justify-center "><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                     fill="currentColor" class="w-5 h-5">

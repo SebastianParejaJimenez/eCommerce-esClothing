@@ -99,24 +99,27 @@
                                                 <a href="{{route('edit', [ 'id'=> $usuario->id ])}}" type="submit" class="text-blue-500 transition-colors duration-200 dark:hover:text-indigo-500 dark:text-gray-300 hover:text-indigo-500 focus:outline-none">
                                                     Editar
                                                 </a>
-                                        @if($usuario->estado == 'Inactivo')
-                                        <div class="flex items-center gap-x-6">
-                                            <input type="hidden" value="">
-                                            <a href="{{ route('users.restore', $usuario->id) }}" type="submit" class="text-green-500 transition-colors duration-200 dark:hover:text-green-500 dark:text-gray-300 hover:text-green-500 focus:outline-none">
-                                                ACTIVAR
-                                            </a>
-                                        </div>
-                                        @else
+                                            @if($usuario->id != Auth::user()->id)
 
-                                        <form method="POST" action="{{ route('usuarios.destroy', ['id' => $usuario->id]) }}">
-                                            @method('DELETE')
-                                            @csrf
-                                                <button type="submit" class="text-red-500 transition-colors duration-200 hover:text-indigo-500 focus:outline-none dark:hover:text-red-500 dark:text-red-300">
-                                                    Desactivar
-                                                </button>
-                                        </form>
-                                        @endif
-                                            </div>
+                                                @if($usuario->estado == 'Inactivo')
+                                                <div class="flex items-center gap-x-6">
+                                                    <input type="hidden" value="">
+                                                    <a href="{{ route('users.restore', $usuario->id) }}" type="submit" class="text-green-500 transition-colors duration-200 dark:hover:text-green-500 dark:text-gray-300 hover:text-green-500 focus:outline-none">
+                                                        ACTIVAR
+                                                    </a>
+                                                </div>
+                                                @else
+
+                                                <form method="POST" action="{{ route('usuarios.destroy', ['id' => $usuario->id]) }}">
+                                                    @method('DELETE')
+                                                    @csrf
+                                                        <button type="submit" class="text-red-500 transition-colors duration-200 hover:text-indigo-500 focus:outline-none dark:hover:text-red-500 dark:text-red-300">
+                                                            Desactivar
+                                                        </button>
+                                                </form>
+                                                @endif
+                                                </div>
+                                            @endif
                                         </td>
                                     </tr>
                                     @endforeach

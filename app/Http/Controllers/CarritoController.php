@@ -49,9 +49,10 @@ class CarritoController extends Controller
 
     }
 
-    public function carritoProductosDisponibles(){
+    public function carritoProductosDisponibles()
+    {
         foreach(Cart::content() as $cartContent){
-            $product = Producto::find( $cartContent->id);
+            $product = Producto::find($cartContent->id);
             if($product->estado == "Inactivo" || $product->cantidad <= 0 || $product->cantidad < $cartContent->qty){
                 Cart::remove($cartContent->rowId);
             }
@@ -66,8 +67,15 @@ class CarritoController extends Controller
     public function incrementarCantidad(Request $request, $id)
     {
         $item = Cart::content()->where("rowId", $request->id)->first();
-        $product = Producto::find( $item->id);
-        if($product->cantidad > $item->qty){
+        $product = Producto::find($item->id);
+
+        $producto_carrito = Cart::content()->where("id", $product->id)->all();
+        $cantidad_productos_carrito = 0;
+        foreach ($producto_carrito as $producto_carrito) {
+            $cantidad_productos_carrito += $producto_carrito->qty;
+        }
+
+        if($product->cantidad > $cantidad_productos_carrito){
             Cart::update($request->id, ["qty" => $item->qty + 1]);
             return redirect()->back()->with("incrementado", "Producto updated");
 
@@ -121,8 +129,13 @@ class CarritoController extends Controller
         }
 
         foreach(Cart::content() as $producto){
-            $product = Producto::find( $producto->id);
+            $product = Producto::find($producto->id);
             $product->cantidad -= $producto->qty;
+
+            if($producto->cantidad <= 0 && $producto->estado != "Inactivo"){
+                $producto->estado = "Inactivo";
+            }
+
             $product->save();
         }
         self::ordenMakeNotification($orden);
@@ -152,36 +165,35 @@ class CarritoController extends Controller
         \Stripe\Stripe::setVerifySslCerts(false);
         \Stripe\Stripe::setApiKey(config('stripe.sk'));
 
-        $this->carritoProductosDisponibles();
+        /* $this->carritoProductosDisponibles(); */
 
         //Intentar mandar productos al stripe, sino sucede es porque no existen productos o ninguno esta disponible
         try{
-
             foreach (Cart::content() as $item) {
-                $product = Producto::find( $item->id);
-                if($product->cantidad > $item->qty){
-                $product_name =  $item->name;
-                $total = $item->price;
-                $quantity = $item->qty;
-                $two = "00";
-                $unit_amount = "$total$two";
-                $productItems[] = [
-                    'price_data' => [
-                        'product_data' => [
-                            'name' => $product_name,
-                            'metadata' => [
-                                'talla_elegida' => $item->talla,
-                                'imagen' => $item->urlfoto
+                $product = Producto::find($item->id);
+                if($product->cantidad = $item->qty){
+                    $product_name =  $item->name;
+                    $total = $item->price;
+                    $quantity = $item->qty;
+                    $two = "00";
+                    $unit_amount = "$total$two";
+                    $productItems[] = [
+                        'price_data' => [
+                            'product_data' => [
+                                'name' => $product_name,
+                                'metadata' => [
+                                    'talla_elegida' => $item->options->talla,
+                                    'imagen' => $item->options->urlfoto,
+                                ],
                             ],
+                            'currency' => 'COP',
+                            'unit_amount' => $unit_amount,
                         ],
-                        'currency' => 'COP',
-                        'unit_amount' => $unit_amount,
-                    ],
-                    'quantity' => $quantity
-                ];
+                        'quantity' => $quantity
+                    ];
                 }
             }
-
+        //Try conexion entre stripe y la aplicacion
             $checkoutSession = \Stripe\Checkout\Session::create([
                 'line_items' => $productItems,
                 'mode' => 'payment',
@@ -193,10 +205,15 @@ class CarritoController extends Controller
                 'success_url' => route('success') . "?session_id={CHECKOUT_SESSION_ID}",
                 'cancel_url' => route('cancel'),
             ]);
-        }catch(Exception $e){
+
+        //Catch para los line items del carrito
+        }
+        catch (\Stripe\Exception\ApiConnectionException $th) {
+            return redirect()->back()->with("apiError", "error");
+        }
+        catch(\Stripe\Exception\InvalidRequestException $e){
             return redirect()->back()->with("noProductos", "error");
         }
-
         return redirect()->away($checkoutSession->url);
     }
     public function success(Request $request)

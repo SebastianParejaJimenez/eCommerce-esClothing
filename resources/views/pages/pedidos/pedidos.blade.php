@@ -144,8 +144,7 @@
 
                                 <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
                                     <div class="flex items-center gap-x-2">
-                                        <img class="object-cover w-8 h-8 rounded-full"
-                                            src="{{ $orden->user->profile_photo_url }}" alt="">
+
                                         <div>
                                             <h2 class="text-sm font-medium text-gray-800 dark:text-white ">
                                                 {{ $orden->user->name }}
@@ -160,7 +159,6 @@
                                         <p class="underline underline-offset-8 uppercase "> {{ $producto->nombre }}</p>
                                         <br>
                                     @endforeach
-
                                 </td>
                                 <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
                                     ${{ number_format($orden->total, 0, ',', '.') }}
