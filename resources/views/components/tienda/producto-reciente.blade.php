@@ -9,12 +9,11 @@
         <h3 class="text-gray-700 uppercase text-lg">{{ $productoReciente->nombre }}</h3>
         <span
             class="text-green-500 mt-3">${{ number_format($productoReciente->precio, 0, ',', '.') }}</span>
+            <div class="mt-2">
+                <label class="text-gray-600 text-sm" for="count">Cantidad: {{$productoReciente->cantidad}}</label>
+            </div>
         <hr class="my-3">
-        {{--                                             <div class="mt-2">
-            <label class="text-gray-700 text-sm" for="count">Count:</label>
 
-
-        </div> --}}
 
         <form class="" action="{{ route('agregaritem') }}"
             method="POST" id="form-talla">

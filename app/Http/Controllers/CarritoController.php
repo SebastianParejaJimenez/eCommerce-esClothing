@@ -104,6 +104,7 @@ class CarritoController extends Controller
 
     public function guardarCarrito($session_id)
     {
+        
         $orden = new Orden();
         $orden->subtotal = str_replace(',', '', Cart::subtotal());
         $orden->total = str_replace(',', '', Cart::total());
@@ -157,7 +158,6 @@ class CarritoController extends Controller
 
     public function session()
     {
-
         $productItems = [];
         $user = auth()->user();
         $curl = new \Stripe\HttpClient\CurlClient([CURLOPT_SSLVERSION => CURL_SSLVERSION_TLSv1]);
@@ -242,7 +242,6 @@ class CarritoController extends Controller
             }
         } catch (\Throwable $th) {
             throw new NotFoundHttpException();
-            dd('error en try');
         }
         return redirect()->route('carrito_detalles')->with('success', 'success');
     }
