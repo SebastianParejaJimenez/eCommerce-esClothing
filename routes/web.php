@@ -115,6 +115,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     //Rutas para la configuracion Usuario
     Route::put('/users/update/{id}', [UsuariosController::class, 'updateUserCarrito'])->name('usuarios.update');
+    Route::get('/users/newsletter/add', [UsuariosController::class, 'addUserNewsLetter'])->name('usuarios.newsletter');
+    Route::get('/users/newsletter/delete', [UsuariosController::class, 'deleteUserNewsLetter'])->name('usuarios.newsletter.anular');
 
 });
 //Producto Ver en Catalogo

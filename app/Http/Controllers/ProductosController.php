@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Support\Facades\DB;
 
 class ProductosController extends Controller
@@ -156,8 +157,11 @@ class ProductosController extends Controller
         $producto->save();
         $producto->tallas()->attach($tallasSeleccionada);
 
-        /*self::ordenNewProductNotification($producto); */
-
+        try {
+            self::ordenNewProductNotification($producto);
+        } catch (Exception $e) {
+            dd($e);
+        }
 
         return redirect()->route('productos')->with('succes', 'ok');
     }

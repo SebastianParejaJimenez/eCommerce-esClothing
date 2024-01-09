@@ -104,7 +104,7 @@ class CarritoController extends Controller
 
     public function guardarCarrito($session_id)
     {
-        
+
         $orden = new Orden();
         $orden->subtotal = str_replace(',', '', Cart::subtotal());
         $orden->total = str_replace(',', '', Cart::total());
@@ -145,7 +145,6 @@ class CarritoController extends Controller
 
     static function ordenMakeNotification($orden)
     {
-
         //Ejemplo para conocer si las notificaciones llegan a bd o no
         /*         User::where('rol_id', 1)
         ->each(function(User $user) use ($orden){
@@ -171,7 +170,7 @@ class CarritoController extends Controller
         try{
             foreach (Cart::content() as $item) {
                 $product = Producto::find($item->id);
-                if($product->cantidad = $item->qty){
+                if($product->cantidad > $item->qty){
                     $product_name =  $item->name;
                     $total = $item->price;
                     $quantity = $item->qty;
@@ -193,6 +192,7 @@ class CarritoController extends Controller
                     ];
                 }
             }
+
         //Try conexion entre stripe y la aplicacion
             $checkoutSession = \Stripe\Checkout\Session::create([
                 'line_items' => $productItems,
@@ -205,9 +205,11 @@ class CarritoController extends Controller
                 'success_url' => route('success') . "?session_id={CHECKOUT_SESSION_ID}",
                 'cancel_url' => route('cancel'),
             ]);
-
         //Catch para los line items del carrito
         }
+/*         catch(Exception $e){
+            dd($e);
+        } */
         catch (\Stripe\Exception\ApiConnectionException $th) {
             return redirect()->back()->with("apiError", "error");
         }

@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('ordenes', function (Blueprint $table) {
-            $table->id()->startingFrom(100);
+            $table->id();
             $table->decimal('subtotal', 10, 2);
             $table->decimal('total', 10, 2);
             $table->unsignedBigInteger('user_id');
@@ -26,6 +26,9 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
+
+        \DB::statement('ALTER TABLE ordenes AUTO_INCREMENT = 100');
+
     }
 
     /**

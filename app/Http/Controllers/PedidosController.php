@@ -32,8 +32,13 @@ class PedidosController extends Controller
         $orden->estado = $estado;
         $orden->save();
 
-/*         self::ordenStatusMakeNotification($orden);
- */
+        try {
+            self::ordenStatusMakeNotification($orden);
+        } catch (Exception $e) {
+            return redirect()->back()->with("error", "error");
+
+        }
+
         return response()->json(['success' => true]);
     }
 

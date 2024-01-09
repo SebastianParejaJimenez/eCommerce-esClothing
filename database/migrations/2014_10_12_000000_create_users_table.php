@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('rol_id')->nullable()->default(2);
             $table->foreign('rol_id')->references('id')->on('rols');
             $table->string('name');
+            $table->boolean('newsletter')->default(false);
             $table->string('estado')->default('Activo');
             $table->string('deleted_by')->nullable();
             $table->string('email')->unique();

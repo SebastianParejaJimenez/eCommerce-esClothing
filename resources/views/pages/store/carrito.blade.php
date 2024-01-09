@@ -52,9 +52,14 @@
                                     <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">Ha ocurrido un
                                         Error</h3>
                                     <div class="mt-2">
-                                        <p class="text-sm text-gray-500">Actualmente, el carrito todos sus productos están inactivos o esta excediendo una cantidad mayor de la disponible. Le recomendamos que vuelva a intentarlo más tarde, cuando los productos deseados vuelvan a estar activos en nuestro inventario. Lamentamos las molestias y agradecemos su comprensión.</p>
+                                        <p class="text-sm text-gray-500">Actualmente, Esta sucediendo un error con la conexion de stripe y los productos del carrito    . Le recomendamos que vuelva a intentarlo más tarde, cuando los productos deseados vuelvan a estar activos en nuestro inventario. Lamentamos las molestias y agradecemos su comprensión.</p>
                                     </div>
+
                                 </div>
+
+                            </div>
+                            <div class="mt-4 border-t-2 ">
+                                <p class="text-sm text-gray-500">Si sigue presentando el mismo error, Por favor elimine su carrito y vuelva a añadir los productos. <a href="{{route('eliminarcarrito')}}" class="text-blue-500 underline">Eliminar Carrito</a>.</p>
                             </div>
                         </div>
                     </div>

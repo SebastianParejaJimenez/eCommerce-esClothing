@@ -95,6 +95,7 @@
             <x-jet-input id="ciudad" type="text" class="mt-1 block w-full" wire:model.defer="state.direccion" />
             <x-jet-input-error for="ciudad" class="mt-2" />
         </div>
+
     </x-slot>
 
     <x-slot name="actions">

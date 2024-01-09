@@ -2,6 +2,8 @@
 <html>
 
 <head>
+    <title>{{ config('app.name', 'esClothing') }}</title>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -58,6 +60,25 @@
                 title: "No puedes agregar mas cantidades del producto."
             });
         </script>
+    @endif
+    @if(session('newsletterAdd') == true)
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+            }
+        });
+        Toast.fire({
+            icon: "success",
+            title: "Editado con Éxito"
+        });
+    </script>
     @endif
 
     @yield('scripts')

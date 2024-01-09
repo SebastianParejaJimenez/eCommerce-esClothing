@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 use App\Models\EmailSubscriptions;
+use App\Models\User;
 use App\Notifications\NewProductsNotification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
@@ -31,7 +32,7 @@ class NewProductsListener
     {
 
 
-        $users = EmailSubscriptions::get();
+        $users = User::where('newsletter', true)->get();
         foreach ($users as $user) {
             Notification::send($user, new NewProductsNotification($event->producto));
         }

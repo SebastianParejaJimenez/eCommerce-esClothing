@@ -327,27 +327,27 @@
                             <!-- Product grid -->
                             <div class="lg:col-span-3">
                                 <div x-show="openTab === 1" class="w-full rounded-lg h-96 lg:h-full">
-                                    <x-tienda.producto-reciente :productoReciente='$productoReciente' :selectedSize= />
+                                    <x-tienda.producto-reciente :productoReciente='$productoReciente'  />
                                     <x-tienda.productos-por-categoria :productos='$productos_categoria' />
                                 </div>
 
                                 <div x-show="openTab === 2" class="w-full rounded-lg h-96 lg:h-full">
-                                    <x-tienda.producto-reciente :productoReciente='$productoRecienteS' :selectedSize= />
+                                    <x-tienda.producto-reciente :productoReciente='$productoRecienteS'  />
                                     <x-tienda.productos-por-categoria :productos='$productos_talla_s' />
                                 </div>
 
                                 <div x-show="openTab === 3" class="w-full rounded-lg h-96 lg:h-full">
-                                    <x-tienda.producto-reciente :productoReciente='$productoRecienteM' :selectedSize= />
+                                    <x-tienda.producto-reciente :productoReciente='$productoRecienteM'  />
                                     <x-tienda.productos-por-categoria :productos='$productos_talla_m' />
                                 </div>
 
                                 <div x-show="openTab === 4" class="w-full rounded-lg h-96 lg:h-full">
-                                    <x-tienda.producto-reciente :productoReciente='$productoRecienteL' :selectedSize= />
+                                    <x-tienda.producto-reciente :productoReciente='$productoRecienteL'  />
                                     <x-tienda.productos-por-categoria :productos='$productos_talla_l' />
                                 </div>
 
                                 <div x-show="openTab === 5" class="w-full rounded-lg h-96 lg:h-full">
-                                    <x-tienda.producto-reciente :productoReciente='$productoRecienteXL' :selectedSize= />
+                                    <x-tienda.producto-reciente :productoReciente='$productoRecienteXL'  />
                                     <x-tienda.productos-por-categoria :productos='$productos_talla_xl' />
                                 </div>
                             </div>
@@ -359,6 +359,7 @@
                 </main>
             </div>
         </div>
+        <x-footers.footer-store />
 
     </div>
 
@@ -396,6 +397,25 @@
             title: "No existen en stock mas cantidades de este producto."
         });
     </script>
+@endif
+@if(session('newsletterAdd') == true)
+<script>
+    const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+        }
+    });
+    Toast.fire({
+        icon: "success",
+        title: "Editado con Éxito"
+    });
+</script>
 @endif
 
 

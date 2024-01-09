@@ -117,4 +117,20 @@ class UsuariosController extends Controller
         return redirect()->back();
 
     }
+    public function addUserNewsLetter(){
+        $user = User::withTrashed()->findOrFail(auth()->user()->id);
+        $user->newsletter = true;
+        $user->save();
+
+        return redirect()->back()->with('newsletterAdd', true);
+    }
+
+    public function deleteUserNewsLetter(){
+        $user = User::withTrashed()->findOrFail(auth()->user()->id);
+        $user->newsletter = false;
+        $user->save();
+
+        return redirect()->back()->with('newsletterAdd', true);
+    }
+
 }
