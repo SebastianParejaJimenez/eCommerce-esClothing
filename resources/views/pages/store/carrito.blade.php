@@ -59,7 +59,7 @@
 
                             </div>
                             <div class="mt-4 border-t-2 ">
-                                <p class="text-sm text-gray-500">Si sigue presentando el mismo error, Por favor elimine su carrito y vuelva a añadir los productos. <a href="{{route('eliminarcarrito')}}" class="text-blue-500 underline">Eliminar Carrito</a>.</p>
+                                <p class="text-sm text-gray-500 mt-2">Si sigue presentando el mismo error, Por favor elimine su carrito y vuelva a añadir los productos. <a href="{{route('eliminarcarrito')}}" class="text-blue-500 underline">Eliminar Carrito</a>.</p>
                             </div>
                         </div>
                     </div>

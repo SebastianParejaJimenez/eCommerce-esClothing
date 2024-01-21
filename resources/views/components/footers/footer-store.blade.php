@@ -110,6 +110,8 @@
                 </div>
             </div>
 
+            @if (auth()->user())
+
             {{-- Anuncio usuarios del newsletter --}}
             <div class="fixed bottom-0 inset-x-0 pb-2 sm:pb-5" @keydown.escape.window="open = false" x-show="newsletter"
                 x-transition:enter="transition ease-out duration-200 transform"
@@ -158,6 +160,7 @@
                 </div>
             </div>
 
+            @endif
 
             <p class="mt-8 text-center text-base text-gray-400">&copy; 2020 esClothing, Inc. All rights reserved.</p>
         </div>
